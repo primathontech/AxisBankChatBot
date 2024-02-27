@@ -26,6 +26,49 @@
     .button {
         background-color: rgba(151, 20, 77, 1);
         padding: 8.5px 12px 8.5px 10px;
-        border-radius: 5px
+        border-radius: 5px;
+        cursor: pointer;
     }
+}
+
+.user {
+    background-color: rgba(242, 244, 245, 1);
+    color: rgba(48, 52, 55, 1);
+    padding: 16px;
+    border-radius: 8px;
+    border-bottom-right-radius: 0px;
+    margin-left: auto;
+    margin-right: 24px;
+    margin-bottom: 24px;
+    max-width: 70%;
+    width: 100%;
+}
+
+.bot {
+    background-color: rgba(255, 234, 243, 1);
+    color: rgba(48, 52, 55, 1);
+    padding: 16px;
+    border-radius: 8px;
+    border-top-left-radius: 0px;
+}
+
+.messageContainer {
+    display: flex;
+    margin-left: 24px;
+    margin-bottom: 24px;
+    gap: 8px;
+    max-width: 70%;
+    width: 100%;
+}
+
+.date {
+    text-align: center;
+    margin-bottom: 8px;
+    color: rgba(114, 119, 122, 1);
+    font-size: 12px;
+}
+
+.chat {
+    overflow-y: scroll;
+    max-height: 80vh;
 }
