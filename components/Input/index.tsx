@@ -8,7 +8,7 @@ import BotIcon from "../../public/images/svgs/purple-icon.svg";
 import styles from "./styles.module.scss"
 
 const Input = () => {
-    const [messages, setMessages] = useState<string[]>([]);
+    const [messages, setMessages] = useState<string[{}]>([{ text: "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?", sender: "bot" }]);
     const [inputValue, setInputValue] = useState('');
     const daysOfWeek = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
     const date = new Date()
@@ -19,7 +19,6 @@ const Input = () => {
 
     const handleSendMessage = () => {
         if (inputValue.trim() === '') return;
-
         const newMessage = {
             text: inputValue,
             sender: 'user',
@@ -34,7 +33,7 @@ const Input = () => {
                 sender: 'bot',
             };
             setMessages([...messages, botResponse]);
-        }, 1000);
+        }, 2000);
     };
 
     return (
@@ -44,18 +43,23 @@ const Input = () => {
                     {messages.length > 0 && `${daysOfWeek[date.getDay()]} ${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`}
                 </p>
                 <div>
+
                     {messages.map((message: any, index: any) => (
                         <div>
-                            {<div key={index} className={styles.user}>
-                                {message.text}
-                            </div>}
+                            {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?" &&
+                                <div key={index} className={styles.user}>
+                                    {message.text}
+                                </div>}
                             {message.sender === "bot" &&
                                 <div className={styles.messageContainer}>
-                                    <BotIcon />
-                                    <div key={index} className={styles.bot}>
-                                        {message.text}
+                                    <div className={styles.botIcon}>
+                                        <BotIcon />
                                     </div>
+                                    {<div key={index} className={styles.bot}>
+                                        {message.text}
+                                    </div>}
                                 </div>}
+
                         </div>
                     ))}
                 </div>

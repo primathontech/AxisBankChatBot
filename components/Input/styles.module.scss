@@ -28,6 +28,10 @@
         padding: 8.5px 12px 8.5px 10px;
         border-radius: 5px;
         cursor: pointer;
+
+        &:hover {
+            background-color: rgba(255, 165, 204, 1);
+        }
     }
 }
 
@@ -42,6 +46,7 @@
     margin-bottom: 24px;
     max-width: 70%;
     width: 100%;
+    overflow-wrap: break-word;
 }
 
 .bot {
@@ -50,6 +55,7 @@
     padding: 16px;
     border-radius: 8px;
     border-top-left-radius: 0px;
+    overflow-wrap: anywhere;
 }
 
 .messageContainer {
@@ -57,8 +63,7 @@
     margin-left: 24px;
     margin-bottom: 24px;
     gap: 8px;
-    max-width: 70%;
-    width: 100%;
+    margin-right: 24px;
 }
 
 .date {
@@ -71,4 +76,9 @@
 .chat {
     overflow-y: scroll;
     max-height: 80vh;
+}
+
+.botIcon {
+    width: 32px !important;
+    height: 32px !important;
 }
