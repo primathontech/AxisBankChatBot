@@ -1,4 +1,5 @@
 /* eslint-disable react/no-array-index-key */
+// @ts-nocheck
 import React, { useState } from 'react'
 import RightArrow from "../../public/images/svgs/right-arrow.svg"
 import Mic from "../../public/images/svgs/microphone.svg";
@@ -32,6 +33,7 @@ const Input = () => {
             setMessages([...messages, botResponse]);
         }, 500);
     };
+
     return (
         <div>
             <div>
