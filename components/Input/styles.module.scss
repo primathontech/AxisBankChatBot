@@ -1,0 +1,31 @@
+.inputContainer {
+    display: flex;
+    gap: 16px;
+    justify-content: space-between;
+    padding-left: 24px;
+    padding-right: 24px;
+    padding-bottom: 44px;
+
+    .inputMicContainer {
+        border: 1px solid rgba(151, 156, 158, 1);
+        border-radius: 10px;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 24px;
+        gap: 16px;
+
+        .input {
+            outline: none;
+            border: none;
+            width: 100%;
+        }
+    }
+
+    .button {
+        background-color: rgba(151, 20, 77, 1);
+        padding: 8.5px 12px 8.5px 10px;
+        border-radius: 5px
+    }
+}

@@ -1,3 +1,5 @@
-const Home = () => <h1>Happy Coding...</h1>;
-  
+import HomePage from "../container/HomePage";
+
+const Home = () => <HomePage />;
+
 export default Home;
