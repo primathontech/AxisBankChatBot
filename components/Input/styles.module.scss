@@ -13,7 +13,7 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 10px 24px;
+        padding: 9px 16px;
         gap: 16px;
 
         .input {
@@ -47,6 +47,8 @@
     max-width: 70%;
     width: 100%;
     overflow-wrap: break-word;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
 }
 
 .bot {
@@ -56,6 +58,9 @@
     border-radius: 8px;
     border-top-left-radius: 0px;
     overflow-wrap: anywhere;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 
 .messageContainer {
@@ -71,14 +76,27 @@
     margin-bottom: 8px;
     color: rgba(114, 119, 122, 1);
     font-size: 12px;
+    font-family: "DM Sans", sans-serif;
+    font-weight: 500;
 }
 
 .chat {
     overflow-y: scroll;
     max-height: 80vh;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
+
 }
 
 .botIcon {
     width: 32px !important;
     height: 32px !important;
+}
+
+.displayNone {
+    display: none;
 }

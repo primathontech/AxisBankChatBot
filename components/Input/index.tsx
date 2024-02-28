@@ -17,22 +17,33 @@ const Input = () => {
         setInputValue(event.target.value);
     };
 
+    const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            handleSendMessage();
+        }
+    };
+
     const handleSendMessage = () => {
         if (inputValue.trim() === '') return;
-        const newMessage = {
-            text: inputValue,
-            sender: 'user',
-        };
 
-        setMessages([...messages, newMessage]);
+        setMessages((prevMessages) => {
+            const newMessage = {
+                text: inputValue,
+                sender: 'user',
+            };
+            return [...prevMessages, newMessage];
+        });
+
         setInputValue('');
 
         setTimeout(() => {
-            const botResponse = {
-                text: `I received: ${inputValue}`,
-                sender: 'bot',
-            };
-            setMessages([...messages, botResponse]);
+            setMessages((prevMessages) => {
+                const botResponse = {
+                    text: `I received: ${inputValue}`,
+                    sender: 'bot',
+                };
+                return [...prevMessages, botResponse];
+            });
         }, 2000);
     };
 
@@ -47,7 +58,7 @@ const Input = () => {
                     {messages.map((message: any, index: any) => (
                         <div>
                             {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?" &&
-                                <div key={index} className={styles.user}>
+                                <div key={index} className={message.sender === "user"? styles.user:styles.displayNone}>
                                     {message.text}
                                 </div>}
                             {message.sender === "bot" &&
@@ -72,6 +83,7 @@ const Input = () => {
                         value={inputValue}
                         onChange={handleInputChange}
                         className={styles.input}
+                        onKeyPress={handleKeyPress}
                     />
                     <Mic width={24} height={24} style={{ cursor: "pointer" }} />
                 </div>
