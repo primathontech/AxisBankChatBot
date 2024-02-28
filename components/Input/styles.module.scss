@@ -7,8 +7,8 @@
     padding-bottom: 44px;
 
     .inputMicContainer {
-        border: 1px solid rgba(151, 156, 158, 1);
-        border-radius: 10px;
+        border: 1.5px solid rgba(151, 156, 158, 1);
+        border-radius: 2px;
         width: 100%;
         display: flex;
         justify-content: space-between;
@@ -24,14 +24,9 @@
     }
 
     .button {
-        background-color: rgba(151, 20, 77, 1);
-        padding: 8.5px 12px 8.5px 10px;
-        border-radius: 5px;
+        background-color: black;
+        padding: 8.5px 10px 8.5px 8px;
         cursor: pointer;
-
-        &:hover {
-            background-color: rgba(255, 165, 204, 1);
-        }
     }
 }
 
@@ -39,8 +34,7 @@
     background-color: rgba(242, 244, 245, 1);
     color: rgba(48, 52, 55, 1);
     padding: 16px;
-    border-radius: 8px;
-    border-bottom-right-radius: 0px;
+    border-radius: 2px;
     margin-left: auto;
     margin-right: 24px;
     margin-bottom: 24px;
@@ -52,11 +46,10 @@
 }
 
 .bot {
-    background-color: rgba(255, 234, 243, 1);
     color: rgba(48, 52, 55, 1);
+    border:1px solid rgba(212, 212, 212, 1);
     padding: 16px;
-    border-radius: 8px;
-    border-top-left-radius: 0px;
+    border-radius: 2px;
     overflow-wrap: anywhere;
     font-family: "Lato", sans-serif;
     font-weight: 400;

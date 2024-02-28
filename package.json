@@ -20,6 +20,7 @@
         "next": "^13.4.19",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
+        "react-typing-animation": "^1.6.2",
         "sharp": "^0.32.6"
     },
     "devDependencies": {
@@ -30,6 +31,8 @@
         "@typescript-eslint/eslint-plugin": "^6.8.0",
         "@typescript-eslint/parser": "^6.8.0",
         "babel-plugin-module-resolver": "^4.1.0",
+        "babel-plugin-transform-runtime": "^6.23.0",
+        "babel-runtime": "^6.26.0",
         "dotenv": "^10.0.0",
         "env-cmd": "^10.1.0",
         "eslint": "^7.19.0",

@@ -1,18 +1,32 @@
 /* eslint-disable */
 // @ts-nocheck
-import React, { useState } from 'react'
-import RightArrow from "../../public/images/svgs/right-arrow.svg"
+import React, { useState, useRef } from 'react';
+import Typinganimation from '@components/TypingAnimation';
+import RightArrow from "../../public/images/svgs/right-arrow.svg";
 import Mic from "../../public/images/svgs/microphone.svg";
 import BotIcon from "../../public/images/svgs/purple-icon.svg";
-
-import styles from "./styles.module.scss"
-import Typinganimation from '@components/TypingAnimation';
+import Typing from "react-typing-animation";
+import styles from "./styles.module.scss";
 
 const Input = () => {
-    const [messages, setMessages] = useState<string[{}]>([{ text: "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?", sender: "bot" }]);
+    const [messages, setMessages] = useState([{ text: "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?", sender: "bot" }]);
     const [inputValue, setInputValue] = useState('');
-    const daysOfWeek = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
-    const date = new Date()
+    const [isListening, setIsListening] = useState(false);
+    // const daysOfWeek = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
+    // const date = new Date();
+    const recognition = useRef(null);
+
+
+    if (typeof window !== 'undefined' && !recognition.current) {
+        recognition.current = new window.webkitSpeechRecognition();
+        recognition.current.continuous = false;
+        recognition.current.lang = 'en-US';
+
+        recognition.current.onresult = (event: any) => {
+            const { transcript } = event.results[0][0];
+            setInputValue(transcript);
+        };
+    }
 
     const handleInputChange = (event: any) => {
         setInputValue(event.target.value);
@@ -37,7 +51,7 @@ const Input = () => {
 
         setInputValue('');
 
-        setMessages((prevMessages) => {
+        setMessages((prevMessages: any) => {
             const botTypingMessage = {
                 component: <Typinganimation />,
                 sender: 'bot',
@@ -51,23 +65,32 @@ const Input = () => {
                     text: `I received: ${inputValue}`,
                     sender: 'bot',
                 };
-                return [...prevMessages.slice(0, -1), botResponse]; // Replace the last message (typing indication) with the actual bot response
+                return [...prevMessages.slice(0, -1), botResponse];
             });
         }, 5000);
+    };
+
+    const toggleSpeechRecognition = () => {
+        if (isListening) {
+            recognition.current.stop();
+        } else {
+            recognition.current.start();
+        }
+        setIsListening(!isListening);
     };
 
     return (
         <div>
             <div className={styles.chat}>
-                <p className={styles.date}>
-                    {messages.length > 0 && `${daysOfWeek[date.getDay()]} ${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`}
-                </p>
+                {/* <p className={styles.date}>
+                    {messages.length > 0 && `${daysOfWeek[date.getDay()]} 
+                    ${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`}
+                </p> */}
                 <div>
-
                     {messages.map((message: any, index: any) => (
-                        <div>
+                        <div key={index}>
                             {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?" &&
-                                <div key={index} className={message.sender === "user" ? styles.user : styles.displayNone}>
+                                <div className={message.sender === "user" ? styles.user : styles.displayNone}>
                                     {message.text}
                                 </div>}
                             {message.sender === "bot" &&
@@ -75,11 +98,10 @@ const Input = () => {
                                     <div className={styles.botIcon}>
                                         <BotIcon />
                                     </div>
-                                    {<div key={index} className={message.component ? styles.typing : styles.bot}>
-                                        {message.component ? message.component : message.text}
-                                    </div>}
+                                    <div className={message.component ? styles.typing : styles.bot}>
+                                        {message.component ? message.component : <Typing wrapper="span"  speed={40}>{message.text}</Typing>}
+                                    </div>
                                 </div>}
-
                         </div>
                     ))}
                 </div>
@@ -88,20 +110,20 @@ const Input = () => {
                 <div className={styles.inputMicContainer}>
                     <input
                         type="text"
-                        placeholder="How may i help you"
+                        placeholder="How may I help you"
                         value={inputValue}
                         onChange={handleInputChange}
                         className={styles.input}
                         onKeyPress={handleKeyPress}
                     />
-                    <Mic width={24} height={24} style={{ cursor: "pointer" }} />
+                    <Mic width={24} height={24} style={{ cursor: "pointer" }} onClick={toggleSpeechRecognition} />
                 </div>
                 <button type="button" onClick={handleSendMessage} className={styles.button}>
                     <RightArrow width={24} height={24} />
                 </button>
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Input
+export default Input;
