@@ -6,6 +6,7 @@ import Mic from "../../public/images/svgs/microphone.svg";
 import BotIcon from "../../public/images/svgs/purple-icon.svg";
 
 import styles from "./styles.module.scss"
+import Typinganimation from '@components/TypingAnimation';
 
 const Input = () => {
     const [messages, setMessages] = useState<string[{}]>([{ text: "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?", sender: "bot" }]);
@@ -36,15 +37,23 @@ const Input = () => {
 
         setInputValue('');
 
+        setMessages((prevMessages) => {
+            const botTypingMessage = {
+                component: <Typinganimation />,
+                sender: 'bot',
+            };
+            return [...prevMessages, botTypingMessage];
+        });
+
         setTimeout(() => {
             setMessages((prevMessages) => {
                 const botResponse = {
                     text: `I received: ${inputValue}`,
                     sender: 'bot',
                 };
-                return [...prevMessages, botResponse];
+                return [...prevMessages.slice(0, -1), botResponse]; // Replace the last message (typing indication) with the actual bot response
             });
-        }, 2000);
+        }, 5000);
     };
 
     return (
@@ -58,7 +67,7 @@ const Input = () => {
                     {messages.map((message: any, index: any) => (
                         <div>
                             {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?" &&
-                                <div key={index} className={message.sender === "user"? styles.user:styles.displayNone}>
+                                <div key={index} className={message.sender === "user" ? styles.user : styles.displayNone}>
                                     {message.text}
                                 </div>}
                             {message.sender === "bot" &&
@@ -66,8 +75,8 @@ const Input = () => {
                                     <div className={styles.botIcon}>
                                         <BotIcon />
                                     </div>
-                                    {<div key={index} className={styles.bot}>
-                                        {message.text}
+                                    {<div key={index} className={message.component ? styles.typing : styles.bot}>
+                                        {message.component ? message.component : message.text}
                                     </div>}
                                 </div>}
 
