@@ -1,0 +1,124 @@
+.allLineGraphs {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    .lineGraphContainer {
+        display: flex;
+        justify-content: space-between;
+        gap: 30px;
+
+        .heading {
+            font-size: 12px;
+            font-family: "Lato", sans-serif;
+            font-weight: 400;
+            font-style: normal;
+            color: rgba(122, 122, 122, 1)
+        }
+
+        .valueContainer {
+            display: flex;
+            gap: 4px;
+
+            .value {
+                color: rgba(71, 71, 71, 1);
+                font-size: 16px;
+                font-family: "Lato", sans-serif;
+                font-weight: 700;
+                font-style: normal;
+            }
+
+            .image {
+                vertical-align: middle;
+            }
+
+            .percentageIncrease {
+                font-size: 10px;
+                font-weight: 500;
+                color: rgba(22, 163, 74, 1);
+                font-family: "Inter", sans-serif;
+
+            }
+
+        }
+
+    }
+
+
+}
+
+.doughnutGraphContainer {
+    display: flex;
+    gap: 30px;
+    justify-content: space-between;
+    margin-top: 12px;
+
+    .heading {
+        color: rgba(75, 85, 99, 1);
+        font-size: 10px;
+        padding-top: 4px;
+        display: flex;
+        font-family: "Inter", sans-serif;
+        font-weight: 500;
+
+        &::before {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 8px;
+            margin-top: 3px;
+            background-color: #0074cc;
+            border-radius: 50%;
+            margin-right: 4px;
+        }
+    }
+
+    .percentage {
+        font-size: 18px;
+        color: rgba(75, 85, 99, 1);
+        font-family: "Inter", sans-serif;
+        font-weight: 500;
+    }
+
+    .detailsContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+    }
+}
+
+.button {
+    border: 1px solid rgba(228, 228, 228, 1);
+    border-radius: 24px;
+    width: 100%;
+    padding: 8px 0px;
+    color: rgba(75, 85, 99, 1);
+    font-size: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin: 18px 0px;
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+
+}
+
+.headingWrapper {
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(210, 213, 218, 1);
+
+    .heading {
+        display: flex;
+        justify-content: space-between;
+        font-family: "Inter", sans-serif;
+        font-size: 10px;
+        font-weight: 500;
+    }
+
+    .amount {
+        font-size: 24px;
+        font-family: "Inter", sans-serif;
+        font-weight: 400;
+    }
+}

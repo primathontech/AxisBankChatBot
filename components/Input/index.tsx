@@ -7,6 +7,7 @@ import Mic from "../../public/images/svgs/microphone.svg";
 import BotIcon from "../../public/images/svgs/purple-icon.svg";
 import Typing from "react-typing-animation";
 import styles from "./styles.module.scss";
+import GraphCom from '@components/GraphCom';
 
 const Input = () => {
     const [messages, setMessages] = useState([{ text: "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?", sender: "bot" }]);
@@ -98,8 +99,17 @@ const Input = () => {
                                     <div className={styles.botIcon}>
                                         <BotIcon />
                                     </div>
-                                    <div className={message.component ? styles.typing : styles.bot}>
-                                        {message.component ? message.component : <Typing wrapper="span"  speed={40}>{message.text}</Typing>}
+                                    <div>
+                                        <div className={message.component ? styles.typing : styles.bot}>
+                                            {message.component ? message.component : <>
+                                                <Typing wrapper="span" speed={40}>
+                                                    {message.text}
+                                                </Typing>
+                                            </>}
+                                        </div>
+                                        <div div className={message.component ? styles.typing : styles.bot} style={{ marginTop: "5px" }}>
+                                            <GraphCom />
+                                        </div>
                                     </div>
                                 </div>}
                         </div>

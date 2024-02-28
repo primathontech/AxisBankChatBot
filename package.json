@@ -17,8 +17,10 @@
         "prepare": "husky install"
     },
     "dependencies": {
+        "chart.js": "^4.4.1",
         "next": "^13.4.19",
         "react": "^18.2.0",
+        "react-chartjs-2": "^5.2.0",
         "react-dom": "^18.2.0",
         "react-typing-animation": "^1.6.2",
         "sharp": "^0.32.6"
