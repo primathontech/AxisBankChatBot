@@ -42,6 +42,24 @@ export const createGraphValues = (
         }
     }
 
+    if (graphType === GraphType.LineGrid) {
+        options = {
+            ...options,
+            scales: {
+                x: {
+                    display: false,
+                },
+                y: {
+                    beginAtZero: false,
+                    grid: {
+                        display: false,
+                    },
+                },
+            }
+        }
+    }
+
+
     return {
         type: graphType,
         options,

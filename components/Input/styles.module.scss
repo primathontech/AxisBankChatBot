@@ -2,9 +2,7 @@
     display: flex;
     gap: 16px;
     justify-content: space-between;
-    padding-left: 24px;
-    padding-right: 24px;
-    padding-bottom: 44px;
+    padding: 34px 24px 44px;
 
     .inputMicContainer {
         border: 1.5px solid rgba(151, 156, 158, 1);
@@ -24,7 +22,7 @@
     }
 
     .button {
-        background-color: black;
+        background-color: #6B254B;
         padding: 8.5px 10px 8.5px 8px;
         cursor: pointer;
     }
@@ -47,7 +45,7 @@
 
 .bot {
     color: rgba(48, 52, 55, 1);
-    border:1px solid rgba(212, 212, 212, 1);
+    border: 1px solid rgba(212, 212, 212, 1);
     padding: 16px;
     border-radius: 2px;
     overflow-wrap: anywhere;
@@ -62,15 +60,6 @@
     margin-bottom: 24px;
     gap: 8px;
     margin-right: 24px;
-}
-
-.date {
-    text-align: center;
-    margin-bottom: 8px;
-    color: rgba(114, 119, 122, 1);
-    font-size: 12px;
-    font-family: "DM Sans", sans-serif;
-    font-weight: 500;
 }
 
 .chat {
@@ -94,7 +83,47 @@
     display: none;
 }
 
-.typing{
+.typing {
     padding-left: 20px;
     align-self: center;
+}
+
+.botReply {
+    display: flex;
+    flex-direction: column;
+}
+
+.suggestionsContainer {
+    margin-left: 64px;
+    margin-right: 24px;
+    margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.suggestion {
+    border: 1px solid #DDDDDD;
+    border-radius: 35px;
+    padding: 4.5px 18px;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "DM Sans";
+
+    &:hover{
+        background-color: #6B254B;
+        color: white
+    }
+
+}
+
+.clickedSuggestions{
+    cursor: not-allowed;
+    border: 1px solid #DDDDDD;
+    border-radius: 35px;
+    padding: 4.5px 18px;
+    font-size: 14px;
+    font-weight: 400;
+    font-family: "DM Sans";
+    opacity: 0.5;
 }

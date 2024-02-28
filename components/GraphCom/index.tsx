@@ -4,16 +4,25 @@ import Graph, { GraphType } from '@components/Graph'
 import { createGraphValues } from '@utils/chartJsCommonFunctions';
 import RightArrow from "../../public/images/svgs/right-up-arrow.svg";
 import DownArrow from "../../public/images/svgs/down-arrow.svg";
-import styles from "./styles.module.scss"
+import InfoIcon from "../../public/images/svgs/info.svg";
+import styles from "./styles.module.scss";
 
 const GraphCom = () => {
     const [buttonClick, setButtonClick] = useState(false)
     const ScholarshipAmountWiseGraphValues = createGraphValues(GraphType.Line, {
         data: [482, 765, 134, 589, 257, 701, 318, 923],
         labels: ["abc", "efg", "rgtn", "brje", "db", "dvs", "bfjl", "abc"],
-        borderColor: "#a23000",
+        borderColor: "#a23",
         pointStyle: false,
         borderWidth: 1,
+        cubicInterpolationMode: 'monotone',
+    });
+    const ScholarshipAmountWiseGraphValues1 = createGraphValues(GraphType.LineGrid, {
+        data: [3820000, 5340000, 4890000, 5890000, 6890000, 7180000, 7930000],
+        labels: ["2022", "2023", "2024", "2025", "2026", "2027", "2028"],
+        borderColor: "#978FED",
+        pointStyle: false,
+        borderWidth: 2,
         cubicInterpolationMode: 'monotone',
     });
 
@@ -28,6 +37,8 @@ const GraphCom = () => {
             <div className={styles.headingWrapper}>
                 <div className={styles.heading}>
                     <p>Estimated Capital</p>
+
+                    <InfoIcon />
                 </div>
                 <p className={styles.amount}>₹ 50 Lakhs</p>
             </div>
@@ -122,6 +133,16 @@ const GraphCom = () => {
                     </div>
                 </div>
             </div>}
+
+            <div style={{ width: "230px", background: "linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(228,228,255,0.48783263305322133) 44%)", marginTop: "16px", borderTop: "1px solid #E4E4FF",paddingLeft: "24px" }}>
+                <p style={{ marginBottom: "14px", fontSize: "10px", fontFamily: "Inter", fontWeight: 500, marginTop: "8px" }}>Growth Graph</p>
+                <Graph
+                    graphData={ScholarshipAmountWiseGraphValues1.graphData}
+                    graphType={ScholarshipAmountWiseGraphValues1.type}
+                    graphOptions={ScholarshipAmountWiseGraphValues1.options}
+                />
+            </div>
+
         </div>
     )
 }

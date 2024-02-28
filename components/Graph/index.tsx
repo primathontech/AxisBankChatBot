@@ -30,6 +30,7 @@ ChartJS.register(
 export enum GraphType {
     Line = 'line',
     Doughnut = 'doughnut',
+    LineGrid = 'lineGrid',
     // Add more graph types here
 }
 
@@ -42,6 +43,7 @@ type GraphComponentType = {
 export const graphComponentsType: GraphComponentType = {
     [GraphType.Line]: Line,
     [GraphType.Doughnut]: Doughnut,
+    [GraphType.LineGrid]: Line,
 };
 
 type GraphProps = {

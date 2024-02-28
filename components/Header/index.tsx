@@ -12,7 +12,7 @@ const Header = () => (
                 <div className={styles.heading}>
                     <HeaderIcon width={42} height={42} />
                     <div>
-                        <p className={styles.mainHeading}>AXIS Bot</p>
+                        <p className={styles.mainHeading}>AXIS Securities</p>
                         <p className={styles.subHeading}>
                             <span className={styles.bullet}>&#8226;</span>
                             Always Active

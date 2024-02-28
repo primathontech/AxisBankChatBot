@@ -13,8 +13,8 @@ const Input = () => {
     const [messages, setMessages] = useState([{ text: "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?", sender: "bot" }]);
     const [inputValue, setInputValue] = useState('');
     const [isListening, setIsListening] = useState(false);
-    // const daysOfWeek = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
-    // const date = new Date();
+    const [graphCom, setgraphCom] = useState(false);
+    const [suggestionClick, setSuggestionClick] = useState(false)
     const recognition = useRef(null);
 
 
@@ -60,6 +60,9 @@ const Input = () => {
             return [...prevMessages, botTypingMessage];
         });
 
+        setgraphCom(false);
+
+
         setTimeout(() => {
             setMessages((prevMessages) => {
                 const botResponse = {
@@ -68,6 +71,46 @@ const Input = () => {
                 };
                 return [...prevMessages.slice(0, -1), botResponse];
             });
+            setgraphCom(true);
+        }, 5000);
+    };
+
+    const handleSuggestion = (event) => {
+        if(suggestionClick){
+            return
+        }
+        const value = event.target.textContent;
+        setSuggestionClick(true)
+        setMessages((prevMessages) => {
+            const newMessage = {
+                text: inputValue,
+                sender: 'user',
+            };
+            return [...prevMessages, newMessage];
+        });
+
+        setInputValue('');
+
+        setMessages((prevMessages: any) => {
+            const botTypingMessage = {
+                component: <Typinganimation />,
+                sender: 'bot',
+            };
+            return [...prevMessages, botTypingMessage];
+        });
+
+        setgraphCom(false);
+
+
+        setTimeout(() => {
+            setMessages((prevMessages) => {
+                const botResponse = {
+                    text: `I received: ${value}`,
+                    sender: 'bot',
+                };
+                return [...prevMessages.slice(0, -1), botResponse];
+            });
+            setgraphCom(true);
         }, 5000);
     };
 
@@ -81,37 +124,45 @@ const Input = () => {
     };
 
     return (
-        <div>
+        <div style={{ paddingTop: "10px" }}>
             <div className={styles.chat}>
-                {/* <p className={styles.date}>
-                    {messages.length > 0 && `${daysOfWeek[date.getDay()]} 
-                    ${date.toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', hour12: true })}`}
-                </p> */}
                 <div>
                     {messages.map((message: any, index: any) => (
                         <div key={index}>
                             {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?" &&
-                                <div className={message.sender === "user" ? styles.user : styles.displayNone}>
+                                <div className={message.sender === "user" && message.text ? styles.user : styles.displayNone}>
                                     {message.text}
                                 </div>}
                             {message.sender === "bot" &&
-                                <div className={styles.messageContainer}>
-                                    <div className={styles.botIcon}>
-                                        <BotIcon />
-                                    </div>
-                                    <div>
-                                        <div className={message.component ? styles.typing : styles.bot}>
-                                            {message.component ? message.component : <>
-                                                <Typing wrapper="span" speed={40}>
-                                                    {message.text}
-                                                </Typing>
-                                            </>}
+                                <div className={styles.botReply}>
+                                    <div className={styles.messageContainer}>
+                                        <div className={styles.botIcon}>
+                                            <BotIcon />
                                         </div>
-                                        <div div className={message.component ? styles.typing : styles.bot} style={{ marginTop: "5px" }}>
-                                            <GraphCom />
+                                        <div style={{ alignSelf: "center" }}>
+                                            <div className={message.component ? styles.typing : styles.bot}>
+                                                {message.component ? message.component : <>
+                                                    <Typing wrapper="span" speed={40} onFinishedTyping={() => setgraphCom(true)}>
+                                                        {message.text}
+                                                    </Typing>
+                                                </>}
+                                            </div>
+                                            {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?" && graphCom &&
+                                                <div div className={message.component ? styles.typing : styles.bot} style={{ marginTop: "5px" }}>
+                                                    <GraphCom />
+                                                </div>}
                                         </div>
                                     </div>
+                                    {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?" &&
+                                        <div className={styles.suggestionsContainer}>
+                                            <p className={suggestionClick ? styles.clickedSuggestions : styles.suggestion} onClick={(e) => handleSuggestion(e)}>ABC</p>
+                                            <p className={suggestionClick ? styles.clickedSuggestions : styles.suggestion} onClick={(e) => handleSuggestion(e)}>EFG</p>
+                                            <p className={suggestionClick ? styles.clickedSuggestions : styles.suggestion} onClick={(e) => handleSuggestion(e)}>XYZ</p>
+                                        </div>
+                                    }
                                 </div>}
+
+
                         </div>
                     ))}
                 </div>
