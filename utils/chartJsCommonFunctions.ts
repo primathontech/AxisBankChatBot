@@ -2,6 +2,7 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-unneeded-ternary */
 import { GraphType } from '@components/Graph';
+import { convertToIndianNumberFormatAbs } from './convertToIndianNumberrAbb';
 
 export const createGraphValues = (
     graphType: GraphType,
@@ -50,6 +51,11 @@ export const createGraphValues = (
                     beginAtZero: false,
                     grid: {
                         display: false,
+                    },
+                    ticks: {
+                        callback (value:any) {
+                            return convertToIndianNumberFormatAbs(value);
+                        },
                     },
                 },
             }

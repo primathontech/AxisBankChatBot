@@ -99,10 +99,11 @@ const Input = () => {
             return
         }
         let value = event.target.textContent;
+        console.log(value, "abc")
         setSuggestionClick(true)
         setMessages((prevMessages) => {
             const newMessage = {
-                text: inputValue,
+                text: decodeURIComponent(value),
                 sender: 'user',
             };
             return [...prevMessages, newMessage];
@@ -135,6 +136,7 @@ const Input = () => {
         if (apiResponse.data === null) {
             setError(true)
         }
+        setSuggestionClick(false)
     };
 
     const toggleSpeechRecognition = () => {
@@ -170,10 +172,9 @@ const Input = () => {
                                                     </Typing>
                                                 </>}
                                             </div>
-                                            {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?"
-                                                && apiData.data?.chart?.chartType !== "SmallTalk"
-                                                && graphCom &&
-                                                (index === messages.length - 1) &&
+                                            {(apiData.data?.chart?.chartType === "pie"
+                                                || (apiData.data?.chart?.chartType === "line" && apiData.data?.chart?.chartData !== null)) &&
+                                                (index === messages.length - 1) && graphCom &&
                                                 <div className={message.component ? styles.typing : styles.bot} style={{ marginTop: "5px" }}>
                                                     <GraphCom type={apiData.data?.chart?.chartType}
                                                         data={apiData.data?.chart?.chartData}
@@ -182,9 +183,8 @@ const Input = () => {
                                                 </div>}
                                         </div>
                                     </div>
-                                    {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?"
-                                        && apiData.data?.suggestions.length > 0
-                                        &&
+                                    {apiData.data?.suggestions.length > 0
+                                        && graphCom && (index === messages.length - 1) &&
                                         <div className={styles.suggestionsContainer}>
                                             {apiData.data?.suggestions.map((item) =>
                                                 <p className={suggestionClick ?
@@ -201,41 +201,44 @@ const Input = () => {
             <div className={styles.inputContainer}>
                 {error && <p className={styles.error}>There is some Error. Try Again!
                     <span onClick={() => window.location.reload()} style={{ cursor: "pointer" }}>↺</span></p>}
-                {!error && <><div className={styles.inputMicContainer} onClick={() => setTypingText(false)}>
-                    {typingText && <TypeAnimation
-                        sequence={[
-                            "I have 10L, what should I do with it",
-                            4000,
-                            "I want to make wealth",
-                            1000,
-                            "can I buy a Mercedes",
-                            2000,
-                            "should I save for emergency fund?",
-                            4000,
-                            "I want to travel the world , how much would I need",
-                            5000,
-                            "I have my child’s post graduation in 5 years and he wants to study in US",
-                            6000,
-                        ]}
-                        wrapper="span"
-                        speed={20}
-                        repeat={Infinity}
-                    />}
-                    {!typingText && <input
-                        type="text"
-                        placeholder="How may I help you"
-                        value={inputValue}
-                        onChange={handleInputChange}
-                        className={styles.input}
-                        onKeyPress={handleKeyPress}
-                        ref={inputRef}
-                    />}
-                    <Mic width={24} height={24} style={{ cursor: "pointer" }} onClick={toggleSpeechRecognition} />
-                </div>
-                    <button type="button" onClick={handleSendMessage} className={styles.button}>
-                        <RightArrow width={24} height={24} />
-                    </button>
-                </>}
+                {!error &&
+                    <>
+                        <div className={styles.inputMicContainer} onClick={() => setTypingText(false)}>
+                            {typingText && <TypeAnimation
+                                sequence={[
+                                    "I have 10L, what should I do with it",
+                                    3000,
+                                    "I want to make wealth",
+                                    1000,
+                                    "can I buy a Mercedes",
+                                    2000,
+                                    "should I save for emergency fund?",
+                                    4000,
+                                    "I want to travel the world , how much would I need",
+                                    5000,
+                                    "I have my child’s post graduation in 5 years and he wants to study in US",
+                                    8000,
+                                ]}
+                                wrapper="span"
+                                speed={20}
+                                repeat={Infinity}
+                                style={{color:"#757575"}}
+                            />}
+                            {!typingText && <input
+                                type="text"
+                                placeholder="How may I help you"
+                                value={inputValue}
+                                onChange={handleInputChange}
+                                className={styles.input}
+                                onKeyPress={handleKeyPress}
+                                ref={inputRef}
+                            />}
+                            <Mic width={24} height={24} style={{ cursor: "pointer" }} onClick={toggleSpeechRecognition} />
+                        </div>
+                        <button type="button" onClick={handleSendMessage} className={styles.button}>
+                            <RightArrow width={24} height={24} />
+                        </button>
+                    </>}
             </div>
         </div>
     );

@@ -30,6 +30,7 @@ const GraphCom = (props: DataType) => {
     let dougnut;
     let lineChart;
     let dataoOfDougnut;
+    let dataofLineChart;
     if (type === "pie") {
         dataoOfDougnut = data?.map((item: any) => item.count);
         const labels = data?.map((item: any) => item.label);
@@ -41,7 +42,7 @@ const GraphCom = (props: DataType) => {
             backgroundColor: colors,
         });
     } else {
-        const dataofLineChart = data?.map((item: any) => item.count);
+        dataofLineChart = data?.map((item: any) => Math.round(item.count));
         const labels = data?.map((item: any) => item.label);
 
         lineChart = createGraphValues(GraphType.LineGrid, {
@@ -55,8 +56,11 @@ const GraphCom = (props: DataType) => {
     }
 
     let sum = 0;
-    dataoOfDougnut.map((value: number) => (sum += value));
-
+    if (type === "pie") {
+        dataoOfDougnut?.map((value: number) => (sum += value));
+    } else {
+        dataofLineChart?.map((value: number) => (sum += value));
+    }
 
     return (
         <div>
