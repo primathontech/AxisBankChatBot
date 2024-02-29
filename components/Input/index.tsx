@@ -1,6 +1,6 @@
 /* eslint-disable */
 // @ts-nocheck
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import cx from "classnames";
 import Typinganimation from '@components/TypingAnimation';
 import Typing from "react-typing-animation";
@@ -22,7 +22,15 @@ const Input = () => {
     const [apiData, setData] = useState({});
     const [suggestionClick, setSuggestionClick] = useState(false)
     const [typingText, setTypingText] = useState(true);
+    const [error, setError] = useState(false);
     const recognition = useRef(null);
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        if (!typingText && inputRef.current) {
+            inputRef.current.focus();
+        }
+    }, [typingText]);
 
 
     if (typeof window !== 'undefined' && !recognition.current) {
@@ -71,15 +79,19 @@ const Input = () => {
 
         const value = inputValue.includes(" ") ? encodeURIComponent(inputValue) : inputValue;
         const apiResponse = await httpPost(`http://52.66.196.112:8001/api/v1/agent/execute?query=${value}&profile=1${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
-        setData(apiResponse);
-        setMessages((prevMessages) => {
-            const botResponse = {
-                text: apiResponse.data.response,
-                sender: 'bot',
-            };
-            return [...prevMessages.slice(0, -1), botResponse];
-        });
-
+        if (apiResponse.data !== null) {
+            setData(apiResponse);
+            setMessages((prevMessages) => {
+                const botResponse = {
+                    text: apiResponse.data.response,
+                    sender: 'bot',
+                };
+                return [...prevMessages.slice(0, -1), botResponse];
+            });
+        }
+        if (apiResponse.data === null) {
+            setError(true)
+        }
     };
 
     const handleSuggestion = async (event) => {
@@ -109,15 +121,20 @@ const Input = () => {
         setgraphCom(false);
         value = value.includes(" ") ? encodeURIComponent(value) : value;
         const apiResponse = await httpPost(`http://52.66.196.112:8001/api/v1/agent/execute?query=${value}&profile=1${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
-        setData(apiResponse);
+        if (apiResponse.data !== null) {
+            setData(apiResponse);
 
-        setMessages((prevMessages) => {
-            const botResponse = {
-                text: apiResponse.data.response,
-                sender: 'bot',
-            };
-            return [...prevMessages.slice(0, -1), botResponse];
-        });
+            setMessages((prevMessages) => {
+                const botResponse = {
+                    text: apiResponse.data.response,
+                    sender: 'bot',
+                };
+                return [...prevMessages.slice(0, -1), botResponse];
+            });
+        }
+        if (apiResponse.data === null) {
+            setError(true)
+        }
     };
 
     const toggleSpeechRecognition = () => {
@@ -182,17 +199,23 @@ const Input = () => {
                 </div>
             </div>
             <div className={styles.inputContainer}>
-                <div className={styles.inputMicContainer} onClick={() => setTypingText(false)}>
+                {error && <p className={styles.error}>There is some Error. Try Again!
+                    <span onClick={() => window.location.reload()} style={{ cursor: "pointer" }}>↺</span></p>}
+                {!error && <><div className={styles.inputMicContainer} onClick={() => setTypingText(false)}>
                     {typingText && <TypeAnimation
                         sequence={[
-                            "What do you want to invest in?",
-                            2000,
-                            "Best Income Funds",
+                            "I have 10L, what should I do with it",
+                            4000,
+                            "I want to make wealth",
                             1000,
-                            "Investing In Innovation",
+                            "can I buy a Mercedes",
                             2000,
-                            "Low cost emerging market funds",
-                            1000,
+                            "should I save for emergency fund?",
+                            4000,
+                            "I want to travel the world , how much would I need",
+                            5000,
+                            "I have my child’s post graduation in 5 years and he wants to study in US",
+                            6000,
                         ]}
                         wrapper="span"
                         speed={20}
@@ -205,12 +228,14 @@ const Input = () => {
                         onChange={handleInputChange}
                         className={styles.input}
                         onKeyPress={handleKeyPress}
+                        ref={inputRef}
                     />}
                     <Mic width={24} height={24} style={{ cursor: "pointer" }} onClick={toggleSpeechRecognition} />
                 </div>
-                <button type="button" onClick={handleSendMessage} className={styles.button}>
-                    <RightArrow width={24} height={24} />
-                </button>
+                    <button type="button" onClick={handleSendMessage} className={styles.button}>
+                        <RightArrow width={24} height={24} />
+                    </button>
+                </>}
             </div>
         </div>
     );

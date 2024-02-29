@@ -6,6 +6,7 @@ import { createGraphValues } from '@utils/chartJsCommonFunctions';
 // import RightArrow from "../../public/images/svgs/right-up-arrow.svg";
 // import DownArrow from "../../public/images/svgs/down-arrow.svg";
 // import InfoIcon from "../../public/images/svgs/info.svg";
+import { convertToIndianNumberFormat } from '@utils/convertToIndianNumber';
 import styles from "./styles.module.scss";
 
 type DataType = {
@@ -30,9 +31,9 @@ const GraphCom = (props: DataType) => {
     let lineChart;
     let dataoOfDougnut;
     if (type === "pie") {
-        dataoOfDougnut = data.map((item: any) => item.count);
-        const labels = data.map((item: any) => item.label);
-        const colors = data.map((item: any) => `#${item.color}`)
+        dataoOfDougnut = data?.map((item: any) => item.count);
+        const labels = data?.map((item: any) => item.label);
+        const colors = data?.map((item: any) => `#${item.color}`)
 
         dougnut = createGraphValues(GraphType.Doughnut, {
             data: dataoOfDougnut,
@@ -41,7 +42,7 @@ const GraphCom = (props: DataType) => {
         });
     } else {
         const dataofLineChart = data?.map((item: any) => item.count);
-        const labels = data.map((item: any) => item.label);
+        const labels = data?.map((item: any) => item.label);
 
         lineChart = createGraphValues(GraphType.LineGrid, {
             data: dataofLineChart,
@@ -63,12 +64,13 @@ const GraphCom = (props: DataType) => {
                 <div className={styles.heading}>
                     <p>{title}</p>
                 </div>
-                <p className={styles.amount}>{dataType !== "percentage" && `₹ ${sum}`}</p>
+                <p className={styles.amount}>{dataType !== "percentage" && `₹ ${convertToIndianNumberFormat(sum)}`}</p>
             </div>}
             {type === "pie" && < div className={styles.doughnutGraphContainer}>
                 <div className={styles.detailsContainer}>
                     {data.map((item: any) => <div>
-                        <p className={styles.percentage}>{Math.round(item.count)}{dataType === "percentage" ? "%" : ""}</p>
+                        <p className={styles.percentage}>{dataType === "percentage" ? `${Math.round(item.count)} %`
+                            : `₹ ${Math.round(item.count).toLocaleString('en-IN')}`}</p>
                         <p className={styles.heading} style={{ color: `#${item.color}` }}><span style={{ color: "#4B5563" }}>{item.label}</span></p>
                     </div>)}
                 </div>
