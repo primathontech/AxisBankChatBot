@@ -165,7 +165,7 @@ const Input = () => {
                                         <div style={{ alignSelf: "center" }}>
                                             <div className={message.component ? styles.typing : styles.bot}>
                                                 {message.component ? message.component : <>
-                                                    <Typing wrapper="span" speed={90} onFinishedTyping={() => setgraphCom(true)}>
+                                                    <Typing wrapper="span" speed={30} onFinishedTyping={() => setgraphCom(true)}>
                                                         {message.text}
                                                     </Typing>
                                                 </>}
