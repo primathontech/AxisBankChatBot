@@ -13,7 +13,6 @@ import BotIcon from "../../public/images/svgs/purple-icon.svg";
 
 import styles from "./styles.module.scss";
 
-
 const Input = () => {
     const [messages, setMessages] = useState([{ text: "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?", sender: "bot" }]);
     const [inputValue, setInputValue] = useState('');
@@ -99,7 +98,6 @@ const Input = () => {
             return
         }
         let value = event.target.textContent;
-        console.log(value, "abc")
         setSuggestionClick(true)
         setMessages((prevMessages) => {
             const newMessage = {
@@ -200,10 +198,10 @@ const Input = () => {
             </div>
             <div className={styles.inputContainer}>
                 {error && <p className={styles.error}>There is some Error. Try Again!
-                    <span onClick={() => window.location.reload()} style={{ cursor: "pointer" }}>↺</span></p>}
+                    <span onClick={() => window.location.reload()} style={{ cursor: "pointer" }} aria-hidden>↺</span></p>}
                 {!error &&
                     <>
-                        <div className={styles.inputMicContainer} onClick={() => setTypingText(false)}>
+                        <div className={styles.inputMicContainer} onClick={() => setTypingText(false)} aria-hidden>
                             {typingText && <TypeAnimation
                                 sequence={[
                                     "I have 10L, what should I do with it",
@@ -222,7 +220,7 @@ const Input = () => {
                                 wrapper="span"
                                 speed={20}
                                 repeat={Infinity}
-                                style={{color:"#757575"}}
+                                style={{ color: "#757575" }}
                             />}
                             {!typingText && <input
                                 type="text"
