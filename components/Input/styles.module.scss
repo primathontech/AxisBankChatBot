@@ -14,6 +14,10 @@
         padding: 9px 16px;
         gap: 16px;
 
+        &:hover{
+            cursor: text;
+        }
+
         .input {
             outline: none;
             border: none;

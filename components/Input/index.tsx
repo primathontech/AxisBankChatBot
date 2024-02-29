@@ -3,12 +3,13 @@
 import React, { useState, useRef } from 'react';
 import cx from "classnames";
 import Typinganimation from '@components/TypingAnimation';
-import RightArrow from "../../public/images/svgs/right-arrow.svg";
-import Mic from "../../public/images/svgs/microphone.svg";
-import BotIcon from "../../public/images/svgs/purple-icon.svg";
 import Typing from "react-typing-animation";
 import GraphCom from '@components/GraphCom';
 import { httpPost } from '@utils/httpClient';
+import { TypeAnimation } from 'react-type-animation';
+import RightArrow from "../../public/images/svgs/right-arrow.svg";
+import Mic from "../../public/images/svgs/microphone.svg";
+import BotIcon from "../../public/images/svgs/purple-icon.svg";
 
 import styles from "./styles.module.scss";
 
@@ -20,6 +21,7 @@ const Input = () => {
     const [graphCom, setgraphCom] = useState(false);
     const [apiData, setData] = useState({});
     const [suggestionClick, setSuggestionClick] = useState(false)
+    const [typingText, setTypingText] = useState(true);
     const recognition = useRef(null);
 
 
@@ -155,8 +157,11 @@ const Input = () => {
                                                 && apiData.data?.chart?.chartType !== "SmallTalk"
                                                 && graphCom &&
                                                 (index === messages.length - 1) &&
-                                                <div div className={message.component ? styles.typing : styles.bot} style={{ marginTop: "5px" }}>
-                                                    <GraphCom type={apiData.data?.chart?.chartType} data={apiData.data?.chart?.chartData} dataType={apiData.data?.chart?.dataType} title={apiData.data?.chart?.title} />
+                                                <div className={message.component ? styles.typing : styles.bot} style={{ marginTop: "5px" }}>
+                                                    <GraphCom type={apiData.data?.chart?.chartType}
+                                                        data={apiData.data?.chart?.chartData}
+                                                        dataType={apiData.data?.chart?.dataType}
+                                                        title={apiData.data?.chart?.title} />
                                                 </div>}
                                         </div>
                                     </div>
@@ -167,7 +172,8 @@ const Input = () => {
                                             {apiData.data?.suggestions.map((item) =>
                                                 <p className={suggestionClick ?
                                                     cx(styles.clickedSuggestions,
-                                                        styles.suggestion) : styles.suggestion} onClick={(e) => handleSuggestion(e)}>{item}</p>)}
+                                                        styles.suggestion) : styles.suggestion}
+                                                    onClick={(e) => handleSuggestion(e)} aria-hidden>{item}</p>)}
                                         </div>
                                     }
                                 </div>}
@@ -176,15 +182,30 @@ const Input = () => {
                 </div>
             </div>
             <div className={styles.inputContainer}>
-                <div className={styles.inputMicContainer}>
-                    <input
+                <div className={styles.inputMicContainer} onClick={() => setTypingText(false)}>
+                    {typingText && <TypeAnimation
+                        sequence={[
+                            "What do you want to invest in?",
+                            2000,
+                            "Best Income Funds",
+                            1000,
+                            "Investing In Innovation",
+                            2000,
+                            "Low cost emerging market funds",
+                            1000,
+                        ]}
+                        wrapper="span"
+                        speed={20}
+                        repeat={Infinity}
+                    />}
+                    {!typingText && <input
                         type="text"
                         placeholder="How may I help you"
                         value={inputValue}
                         onChange={handleInputChange}
                         className={styles.input}
                         onKeyPress={handleKeyPress}
-                    />
+                    />}
                     <Mic width={24} height={24} style={{ cursor: "pointer" }} onClick={toggleSpeechRecognition} />
                 </div>
                 <button type="button" onClick={handleSendMessage} className={styles.button}>
