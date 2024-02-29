@@ -1,19 +1,24 @@
 /* eslint-disable */
 // @ts-nocheck
 import React, { useState, useRef } from 'react';
+import cx from "classnames";
 import Typinganimation from '@components/TypingAnimation';
 import RightArrow from "../../public/images/svgs/right-arrow.svg";
 import Mic from "../../public/images/svgs/microphone.svg";
 import BotIcon from "../../public/images/svgs/purple-icon.svg";
 import Typing from "react-typing-animation";
-import styles from "./styles.module.scss";
 import GraphCom from '@components/GraphCom';
+import { httpPost } from '@utils/httpClient';
+
+import styles from "./styles.module.scss";
+
 
 const Input = () => {
     const [messages, setMessages] = useState([{ text: "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?", sender: "bot" }]);
     const [inputValue, setInputValue] = useState('');
     const [isListening, setIsListening] = useState(false);
     const [graphCom, setgraphCom] = useState(false);
+    const [apiData, setData] = useState({});
     const [suggestionClick, setSuggestionClick] = useState(false)
     const recognition = useRef(null);
 
@@ -39,7 +44,7 @@ const Input = () => {
         }
     };
 
-    const handleSendMessage = () => {
+    const handleSendMessage = async () => {
         if (inputValue.trim() === '') return;
 
         setMessages((prevMessages) => {
@@ -62,24 +67,24 @@ const Input = () => {
 
         setgraphCom(false);
 
+        const value = inputValue.includes(" ") ? encodeURIComponent(inputValue) : inputValue;
+        const apiResponse = await httpPost(`http://52.66.196.112:8001/api/v1/agent/execute?query=${value}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
+        setData(apiResponse);
+        setMessages((prevMessages) => {
+            const botResponse = {
+                text: apiResponse.data.response,
+                sender: 'bot',
+            };
+            return [...prevMessages.slice(0, -1), botResponse];
+        });
 
-        setTimeout(() => {
-            setMessages((prevMessages) => {
-                const botResponse = {
-                    text: `I received: ${inputValue}`,
-                    sender: 'bot',
-                };
-                return [...prevMessages.slice(0, -1), botResponse];
-            });
-            setgraphCom(true);
-        }, 5000);
     };
 
-    const handleSuggestion = (event) => {
-        if(suggestionClick){
+    const handleSuggestion = async (event) => {
+        if (suggestionClick) {
             return
         }
-        const value = event.target.textContent;
+        let value = event.target.textContent;
         setSuggestionClick(true)
         setMessages((prevMessages) => {
             const newMessage = {
@@ -100,18 +105,17 @@ const Input = () => {
         });
 
         setgraphCom(false);
+        value = value.includes(" ") ? encodeURIComponent(value) : value;
+        const apiResponse = await httpPost(`http://52.66.196.112:8001/api/v1/agent/execute?query=${value}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
+        setData(apiResponse);
 
-
-        setTimeout(() => {
-            setMessages((prevMessages) => {
-                const botResponse = {
-                    text: `I received: ${value}`,
-                    sender: 'bot',
-                };
-                return [...prevMessages.slice(0, -1), botResponse];
-            });
-            setgraphCom(true);
-        }, 5000);
+        setMessages((prevMessages) => {
+            const botResponse = {
+                text: apiResponse.data.response,
+                sender: 'bot',
+            };
+            return [...prevMessages.slice(0, -1), botResponse];
+        });
     };
 
     const toggleSpeechRecognition = () => {
@@ -147,22 +151,21 @@ const Input = () => {
                                                     </Typing>
                                                 </>}
                                             </div>
-                                            {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?" && graphCom &&
+                                            {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?" && apiData.data?.chart?.chartType !== "SmallTalk" && graphCom &&
                                                 <div div className={message.component ? styles.typing : styles.bot} style={{ marginTop: "5px" }}>
-                                                    <GraphCom />
+                                                    <GraphCom type={apiData.data?.chart?.chartType} data={apiData.data?.chart?.chartData} />
                                                 </div>}
                                         </div>
                                     </div>
-                                    {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?" &&
+                                    {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?" && apiData.data?.suggestions.length > 0 &&
                                         <div className={styles.suggestionsContainer}>
-                                            <p className={suggestionClick ? styles.clickedSuggestions : styles.suggestion} onClick={(e) => handleSuggestion(e)}>ABC</p>
-                                            <p className={suggestionClick ? styles.clickedSuggestions : styles.suggestion} onClick={(e) => handleSuggestion(e)}>EFG</p>
-                                            <p className={suggestionClick ? styles.clickedSuggestions : styles.suggestion} onClick={(e) => handleSuggestion(e)}>XYZ</p>
+                                            {apiData.data?.suggestions.map((item) =>
+                                                <p className={suggestionClick ?
+                                                    cx(styles.clickedSuggestions,
+                                                        styles.suggestion) : styles.suggestion} onClick={(e) => handleSuggestion(e)}>{item}</p>)}
                                         </div>
                                     }
                                 </div>}
-
-
                         </div>
                     ))}
                 </div>

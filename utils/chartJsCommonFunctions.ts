@@ -30,10 +30,7 @@ export const createGraphValues = (
             ...options,
             scales: {
                 x: {
-
                     display: false,
-
-
                 },
                 y: {
                     display: false,
