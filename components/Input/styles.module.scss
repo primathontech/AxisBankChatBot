@@ -104,7 +104,7 @@
 
 .suggestion {
     border: 1px solid #DDDDDD;
-    border-radius: 35px;
+    border-radius: 15px;
     padding: 8.5px 18px;
     font-size: 14px;
     font-weight: 400;
@@ -120,11 +120,5 @@
 
 .clickedSuggestions{
     cursor: not-allowed;
-    border: 1px solid #DDDDDD;
-    border-radius: 35px;
-    padding: 4.5px 18px;
-    font-size: 14px;
-    font-weight: 400;
-    font-family: "DM Sans";
     opacity: 0.5;
 }

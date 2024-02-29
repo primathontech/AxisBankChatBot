@@ -68,7 +68,7 @@ const Input = () => {
         setgraphCom(false);
 
         const value = inputValue.includes(" ") ? encodeURIComponent(inputValue) : inputValue;
-        const apiResponse = await httpPost(`http://52.66.196.112:8001/api/v1/agent/execute?query=${value}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
+        const apiResponse = await httpPost(`http://52.66.196.112:8001/api/v1/agent/execute?query=${value}&profile=1${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
         setData(apiResponse);
         setMessages((prevMessages) => {
             const botResponse = {
@@ -106,7 +106,7 @@ const Input = () => {
 
         setgraphCom(false);
         value = value.includes(" ") ? encodeURIComponent(value) : value;
-        const apiResponse = await httpPost(`http://52.66.196.112:8001/api/v1/agent/execute?query=${value}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
+        const apiResponse = await httpPost(`http://52.66.196.112:8001/api/v1/agent/execute?query=${value}&profile=1${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
         setData(apiResponse);
 
         setMessages((prevMessages) => {
@@ -151,13 +151,18 @@ const Input = () => {
                                                     </Typing>
                                                 </>}
                                             </div>
-                                            {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?" && apiData.data?.chart?.chartType !== "SmallTalk" && graphCom &&
+                                            {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?"
+                                                && apiData.data?.chart?.chartType !== "SmallTalk"
+                                                && graphCom &&
+                                                (index === messages.length - 1) &&
                                                 <div div className={message.component ? styles.typing : styles.bot} style={{ marginTop: "5px" }}>
-                                                    <GraphCom type={apiData.data?.chart?.chartType} data={apiData.data?.chart?.chartData} />
+                                                    <GraphCom type={apiData.data?.chart?.chartType} data={apiData.data?.chart?.chartData} dataType={apiData.data?.chart?.dataType} title={apiData.data?.chart?.title} />
                                                 </div>}
                                         </div>
                                     </div>
-                                    {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?" && apiData.data?.suggestions.length > 0 &&
+                                    {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?"
+                                        && apiData.data?.suggestions.length > 0
+                                        &&
                                         <div className={styles.suggestionsContainer}>
                                             {apiData.data?.suggestions.map((item) =>
                                                 <p className={suggestionClick ?
