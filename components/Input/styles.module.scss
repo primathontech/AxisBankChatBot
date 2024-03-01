@@ -73,7 +73,8 @@
 
 .chat {
     overflow-y: scroll;
-    max-height: 80vh;
+    max-height: 100vh;
+    height: 100%;
     scrollbar-width: none;
     -ms-overflow-style: none;
     padding-bottom: 74px;
