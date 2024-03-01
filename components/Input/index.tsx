@@ -22,6 +22,7 @@ const Input = () => {
     const [suggestionClick, setSuggestionClick] = useState(false)
     const [typingText, setTypingText] = useState(true);
     const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
     const recognition = useRef(null);
     const inputRef = useRef(null);
 
@@ -89,6 +90,7 @@ const Input = () => {
             });
         }
         if (apiResponse.data === null || apiResponse.Data === null) {
+            setErrorMessage(apiResponse.message || apiResponse.Message);
             setError(true)
         }
     };
@@ -132,7 +134,9 @@ const Input = () => {
             });
         }
         if (apiResponse.data === null || apiResponse.Data === null) {
-            setError(true)
+            setErrorMessage(apiResponse.message || apiResponse.Message);
+            setError(true);
+
         }
         setSuggestionClick(false)
     };
@@ -197,7 +201,7 @@ const Input = () => {
                 </div>
             </div>
             <div className={styles.inputContainer}>
-                {error && <p className={styles.error}>There is some Error. Try Again!
+                {error && <p className={styles.error}>{errorMessage}
                     <span onClick={() => window.location.reload()} style={{ cursor: "pointer" }} aria-hidden>↺</span></p>}
                 {!error &&
                     <>
