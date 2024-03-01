@@ -3,6 +3,10 @@
     gap: 16px;
     justify-content: space-between;
     padding: 16px 24px 24px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: white;
 
     .inputMicContainer {
         border: 1.5px solid rgba(151, 156, 158, 1);
@@ -72,6 +76,7 @@
     max-height: 80vh;
     scrollbar-width: none;
     -ms-overflow-style: none;
+    padding-bottom: 74px;
 
     &::-webkit-scrollbar {
         display: none;
