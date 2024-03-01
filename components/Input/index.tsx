@@ -152,7 +152,8 @@ const Input = () => {
 
     return (
         <div style={{ paddingTop: "10px" }}>
-            <div className={styles.chat}>
+            <div className={message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?" ?
+                styles.chat : cx(styles.chat, styles.firstMessage)}>
                 <div>
                     {messages.map((message: any, index: any) => (
                         <div key={index}>
