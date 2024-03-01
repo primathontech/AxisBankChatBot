@@ -77,7 +77,7 @@ const Input = () => {
         setgraphCom(false);
 
         const value = inputValue.includes(" ") ? encodeURIComponent(inputValue) : inputValue;
-        const apiResponse = await httpPost(`http://52.66.196.112:8001/api/v1/agent/execute?query=${value}&profile=1${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
+        const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=1${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
         if (apiResponse.data !== null || apiResponse.Data !== null) {
             setData(apiResponse);
             setMessages((prevMessages) => {
@@ -119,7 +119,7 @@ const Input = () => {
 
         setgraphCom(false);
         value = value.includes(" ") ? encodeURIComponent(value) : value;
-        const apiResponse = await httpPost(`http://52.66.196.112:8001/api/v1/agent/execute?query=${value}&profile=1${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
+        const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=1${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
         if (apiResponse.data !== null || apiResponse.Data !== null) {
             setData(apiResponse);
 
