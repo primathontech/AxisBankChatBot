@@ -12,8 +12,11 @@ import Mic from "../../public/images/svgs/microphone.svg";
 import BotIcon from "../../public/images/svgs/purple-icon.svg";
 
 import styles from "./styles.module.scss";
+import { useRouter } from 'next/router';
 
 const Input = () => {
+    const router =useRouter();
+    let profileValue=router.query.id;
     const [messages, setMessages] = useState([{ text: "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?", sender: "bot" }]);
     const [inputValue, setInputValue] = useState('');
     const [isListening, setIsListening] = useState(false);
@@ -78,7 +81,7 @@ const Input = () => {
         setgraphCom(false);
 
         const value = inputValue.includes(" ") ? encodeURIComponent(inputValue) : inputValue;
-        const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=1${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
+        const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=${profileValue}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
         if (apiResponse.data !== null || apiResponse.Data !== null) {
             setData(apiResponse);
             setMessages((prevMessages) => {
@@ -121,7 +124,7 @@ const Input = () => {
 
         setgraphCom(false);
         value = value.includes(" ") ? encodeURIComponent(value) : value;
-        const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=1${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
+        const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=${profileValue}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
         if (apiResponse.data !== null || apiResponse.Data !== null) {
             setData(apiResponse);
 
