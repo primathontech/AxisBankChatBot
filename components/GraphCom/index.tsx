@@ -58,13 +58,11 @@ const GraphCom = (props: DataType) => {
     let sum = 0;
     if (type === "pie") {
         dataoOfDougnut?.map((value: number) => (sum += value));
-    } else {
-        dataofLineChart?.map((value: number) => (sum += value));
     }
 
     return (
-        <div>
-            {title && <div className={styles.headingWrapper}>
+        <div className={type==="line"?styles.container:""}>
+            {title && type !== "line" && <div className={styles.headingWrapper}>
                 <div className={styles.heading}>
                     <p>{title}</p>
                 </div>
@@ -86,7 +84,23 @@ const GraphCom = (props: DataType) => {
                     />
                 </div>
             </div>}
-            {/* {type === "line" && <button type='button' className={styles.button} onClick={() => 
+            {type === "line" && <div className={styles.lineGraph}
+            >
+                <p className={styles.lineText}>Growth Graph</p>
+                <Graph
+                    graphData={lineChart.graphData}
+                    graphType={lineChart.type}
+                    graphOptions={lineChart.options}
+                />
+            </div>}
+
+        </div >
+    )
+}
+
+export default GraphCom;
+
+/* {type === "line" && <button type='button' className={styles.button} onClick={() => 
             setButtonClick(!buttonClick)}>
                 <span>
                     View current capital Status
@@ -160,19 +174,4 @@ const GraphCom = (props: DataType) => {
                         </div>
                     </div>
                 </div>
-            } */}
-
-            {type === "line" && <div style={{ width: "230px", background: "linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(228,228,255,0.48783263305322133) 44%)", marginTop: "16px", borderTop: "1px solid #E4E4FF", paddingLeft: "24px" }}>
-                <p style={{ marginBottom: "14px", fontSize: "10px", fontFamily: "Inter", fontWeight: 500, marginTop: "8px" }}>Growth Graph</p>
-                <Graph
-                    graphData={lineChart.graphData}
-                    graphType={lineChart.type}
-                    graphOptions={lineChart.options}
-                />
-            </div>}
-
-        </div >
-    )
-}
-
-export default GraphCom;
+            } */
