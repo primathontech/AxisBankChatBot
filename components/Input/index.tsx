@@ -104,7 +104,7 @@ const Input = () => {
                         chartData: apiResponse.data.chart.chartData,
                         dataType: apiResponse.data.chart.dataType,
                         title: apiResponse.data.chart.title,
-                        input: apiResponse.data.input
+                        input: apiResponse.data.inputs
                     };
                     return [...prevMessages.slice(0, -1), botResponse];
                 });
@@ -158,7 +158,7 @@ const Input = () => {
                         chartData: apiResponse.data.chart.chartData,
                         dataType: apiResponse.data.chart.dataType,
                         title: apiResponse.data.chart.title,
-                        input: apiResponse.data.input
+                        input: apiResponse.data.inputs
                     };
                     return [...prevMessages.slice(0, -1), botResponse];
                 });
@@ -186,7 +186,7 @@ const Input = () => {
     };
 
     return (
-        <div style={{ paddingTop: "10px", position: "fixed", bottom: 20, width:"100%" }}>
+        <div style={{ paddingTop: "10px", position: "fixed", bottom: 20, width: "100%" }}>
             <div className={styles.chat}>
                 <div>
                     {messages.map((message: any, index: any) => (
@@ -226,7 +226,7 @@ const Input = () => {
                                                     </Typing>
                                                 </>}
                                             </div>
-                                            {(message.chartType === "pie"
+                                            {((message.chartType === "pie" && message.chartData !== null)
                                                 || (message.chartType === "line" && message.chartData !== null)) && message.graph &&
                                                 <div className={message.component ? styles.typing : styles.bot} style={{ marginTop: "5px" }}>
                                                     <GraphCom type={message.chartType}
