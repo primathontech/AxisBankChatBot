@@ -129,15 +129,20 @@
 
 }
 
-.clickedSuggestions {
-    cursor: not-allowed;
-    opacity: 0.5;
-}
-
 .error {
     color: red;
     width: 100%;
     text-align: center;
     font-size: 18px;
     font-family: "Lato";
+}
+
+.inputsDataContainer {
+    flex-direction: row !important;
+}
+
+.inputs{
+    border-radius: 100px !important;
+    width: 96px;
+    text-align: center;
 }

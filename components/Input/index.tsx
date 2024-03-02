@@ -26,7 +26,8 @@ const Input = () => {
             chartData: "",
             dataType: "",
             title: "",
-            graph: false
+            graph: false,
+            input: "",
         }]);
     const [inputValue, setInputValue] = useState('');
     const [isListening, setIsListening] = useState(false);
@@ -103,6 +104,7 @@ const Input = () => {
                         chartData: apiResponse.data.chart.chartData,
                         dataType: apiResponse.data.chart.dataType,
                         title: apiResponse.data.chart.title,
+                        input: apiResponse.data.input
                     };
                     return [...prevMessages.slice(0, -1), botResponse];
                 });
@@ -148,7 +150,6 @@ const Input = () => {
             const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=${profileValue}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
             if (apiResponse.data !== null || apiResponse.Data !== null) {
                 setData(apiResponse);
-
                 setMessages((prevMessages) => {
                     const botResponse = {
                         text: apiResponse.data.response,
@@ -157,6 +158,7 @@ const Input = () => {
                         chartData: apiResponse.data.chart.chartData,
                         dataType: apiResponse.data.chart.dataType,
                         title: apiResponse.data.chart.title,
+                        input: apiResponse.data.input
                     };
                     return [...prevMessages.slice(0, -1), botResponse];
                 });
@@ -184,7 +186,7 @@ const Input = () => {
     };
 
     return (
-        <div style={{ paddingTop: "10px", position: "fixed", bottom: 20 }}>
+        <div style={{ paddingTop: "10px", position: "fixed", bottom: 20, width:"100%" }}>
             <div className={styles.chat}>
                 <div>
                     {messages.map((message: any, index: any) => (
@@ -196,7 +198,7 @@ const Input = () => {
                             {message.sender === "bot" &&
                                 <div className={styles.botReply}>
                                     <div className={styles.messageContainer}>
-                                        <div className={message.component?styles.displayNone:styles.botIcon}>
+                                        <div className={message.component ? styles.displayNone : styles.botIcon}>
                                             <BotIcon />
                                         </div>
                                         <div style={{ alignSelf: "center" }}>
@@ -238,9 +240,15 @@ const Input = () => {
                                         && graphCom && (index === messages.length - 1) &&
                                         <div className={styles.suggestionsContainer}>
                                             {apiData.data?.suggestions.map((item) =>
-                                                <p className={suggestionClick ?
-                                                    cx(styles.clickedSuggestions,
-                                                        styles.suggestion) : styles.suggestion}
+                                                <p className={styles.suggestion}
+                                                    onClick={(e) => handleSuggestion(e)} aria-hidden><Typing wrapper="span" speed={30}>{item}</Typing></p>)}
+                                        </div>
+                                    }
+                                    {message.input?.length > 0
+                                        && graphCom && (index === messages.length - 1) &&
+                                        <div className={cx(styles.suggestionsContainer, styles.inputsDataContainer)}>
+                                            {message.input.map((item) =>
+                                                <p className={cx(styles.suggestion, styles.inputs)}
                                                     onClick={(e) => handleSuggestion(e)} aria-hidden><Typing wrapper="span" speed={30}>{item}</Typing></p>)}
                                         </div>
                                     }
