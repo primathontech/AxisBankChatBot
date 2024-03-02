@@ -7,17 +7,27 @@ import Typing from "react-typing-animation";
 import GraphCom from '@components/GraphCom';
 import { httpPost } from '@utils/httpClient';
 import { TypeAnimation } from 'react-type-animation';
+import { useRouter } from 'next/router';
 import RightArrow from "../../public/images/svgs/right-arrow.svg";
 import Mic from "../../public/images/svgs/microphone.svg";
+import MicOn from "../../public/images/svgs/micOn.svg";
 import BotIcon from "../../public/images/svgs/purple-icon.svg";
 
 import styles from "./styles.module.scss";
-import { useRouter } from 'next/router';
 
 const Input = () => {
-    const router =useRouter();
-    let profileValue=router.query.id;
-    const [messages, setMessages] = useState([{ text: "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?", sender: "bot" }]);
+    const router = useRouter();
+    const profileValue = router.query.id;
+    const [messages, setMessages] = useState([
+        {
+            text: "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?",
+            sender: "bot",
+            chartType: "",
+            chartData: "",
+            dataType: "",
+            title: "",
+            graph: false
+        }]);
     const [inputValue, setInputValue] = useState('');
     const [isListening, setIsListening] = useState(false);
     const [graphCom, setgraphCom] = useState(false);
@@ -81,19 +91,29 @@ const Input = () => {
         setgraphCom(false);
 
         const value = inputValue.includes(" ") ? encodeURIComponent(inputValue) : inputValue;
-        const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=${profileValue}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
-        if (apiResponse.data !== null || apiResponse.Data !== null) {
-            setData(apiResponse);
-            setMessages((prevMessages) => {
-                const botResponse = {
-                    text: apiResponse.data.response,
-                    sender: 'bot',
-                };
-                return [...prevMessages.slice(0, -1), botResponse];
-            });
+        try {
+            const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=${profileValue}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
+            if (apiResponse.data !== null || apiResponse.Data !== null) {
+                setData(apiResponse);
+                setMessages((prevMessages) => {
+                    const botResponse = {
+                        text: apiResponse.data.response,
+                        sender: 'bot',
+                        chartType: apiResponse.data.chart.chartType,
+                        chartData: apiResponse.data.chart.chartData,
+                        dataType: apiResponse.data.chart.dataType,
+                        title: apiResponse.data.chart.title,
+                    };
+                    return [...prevMessages.slice(0, -1), botResponse];
+                });
+            }
+            if (apiResponse.data === null || apiResponse.Data === null) {
+                setErrorMessage(apiResponse.message || apiResponse.Message);
+                setError(true)
+            }
         }
-        if (apiResponse.data === null || apiResponse.Data === null) {
-            setErrorMessage(apiResponse.message || apiResponse.Message);
+        catch (e) {
+            setErrorMessage(e.message || e.Message);
             setError(true)
         }
     };
@@ -124,24 +144,34 @@ const Input = () => {
 
         setgraphCom(false);
         value = value.includes(" ") ? encodeURIComponent(value) : value;
-        const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=${profileValue}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
-        if (apiResponse.data !== null || apiResponse.Data !== null) {
-            setData(apiResponse);
+        try {
+            const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=${profileValue}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
+            if (apiResponse.data !== null || apiResponse.Data !== null) {
+                setData(apiResponse);
 
-            setMessages((prevMessages) => {
-                const botResponse = {
-                    text: apiResponse.data.response,
-                    sender: 'bot',
-                };
-                return [...prevMessages.slice(0, -1), botResponse];
-            });
-        }
-        if (apiResponse.data === null || apiResponse.Data === null) {
-            setErrorMessage(apiResponse.message || apiResponse.Message);
+                setMessages((prevMessages) => {
+                    const botResponse = {
+                        text: apiResponse.data.response,
+                        sender: 'bot',
+                        chartType: apiResponse.data.chart.chartType,
+                        chartData: apiResponse.data.chart.chartData,
+                        dataType: apiResponse.data.chart.dataType,
+                        title: apiResponse.data.chart.title,
+                    };
+                    return [...prevMessages.slice(0, -1), botResponse];
+                });
+            }
+            if (apiResponse.data === null || apiResponse.Data === null) {
+                setErrorMessage(apiResponse.message || apiResponse.Message);
+                setError(true);
+
+            }
+            setSuggestionClick(false)
+        } catch (e) {
+            setErrorMessage(e.message || e.Message);
             setError(true);
 
         }
-        setSuggestionClick(false)
     };
 
     const toggleSpeechRecognition = () => {
@@ -172,19 +202,35 @@ const Input = () => {
                                         <div style={{ alignSelf: "center" }}>
                                             <div className={message.component ? styles.typing : styles.bot}>
                                                 {message.component ? message.component : <>
-                                                    <Typing wrapper="span" speed={30} onFinishedTyping={() => setgraphCom(true)}>
+                                                    <Typing wrapper="span" speed={30} onFinishedTyping={() => {
+                                                        setgraphCom(true); setMessages((prevMessages) => {
+                                                            const updatedMessages = [...prevMessages];
+                                                            const lastMessageIndex = updatedMessages.length - 1;
+
+                                                            if (lastMessageIndex >= 0 && updatedMessages[lastMessageIndex].sender === 'bot') {
+                                                                // Modify the graph value in the last bot message
+                                                                updatedMessages[lastMessageIndex] = {
+                                                                    ...updatedMessages[lastMessageIndex],
+                                                                    graph: true, // or any other value you want to set
+                                                                };
+                                                            }
+
+                                                            return updatedMessages;
+                                                        });
+
+
+                                                    }}>
                                                         {message.text}
                                                     </Typing>
                                                 </>}
                                             </div>
-                                            {(apiData.data?.chart?.chartType === "pie"
-                                                || (apiData.data?.chart?.chartType === "line" && apiData.data?.chart?.chartData !== null)) &&
-                                                (index === messages.length - 1) && graphCom &&
+                                            {(message.chartType === "pie"
+                                                || (message.chartType === "line" && message.chartData !== null)) && message.graph &&
                                                 <div className={message.component ? styles.typing : styles.bot} style={{ marginTop: "5px" }}>
-                                                    <GraphCom type={apiData.data?.chart?.chartType}
-                                                        data={apiData.data?.chart?.chartData}
-                                                        dataType={apiData.data?.chart?.dataType}
-                                                        title={apiData.data?.chart?.title} />
+                                                    <GraphCom type={message.chartType}
+                                                        data={message.chartData}
+                                                        dataType={message.dataType}
+                                                        title={message.title} />
                                                 </div>}
                                         </div>
                                     </div>
@@ -238,7 +284,8 @@ const Input = () => {
                                 onKeyPress={handleKeyPress}
                                 ref={inputRef}
                             />}
-                            <Mic width={24} height={24} style={{ cursor: "pointer" }} onClick={toggleSpeechRecognition} />
+                            {!isListening && <Mic width={24} height={24} style={{ cursor: "pointer" }} onClick={toggleSpeechRecognition} />}
+                            {isListening && <MicOn width={24} height={24} style={{ cursor: "pointer" }} onClick={toggleSpeechRecognition} />}
                         </div>
                         <button type="button" onClick={handleSendMessage} className={styles.button}>
                             <RightArrow width={24} height={24} />
