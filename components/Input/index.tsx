@@ -241,7 +241,7 @@ const Input = () => {
                                                 <p className={suggestionClick ?
                                                     cx(styles.clickedSuggestions,
                                                         styles.suggestion) : styles.suggestion}
-                                                    onClick={(e) => handleSuggestion(e)} aria-hidden>{item}</p>)}
+                                                    onClick={(e) => handleSuggestion(e)} aria-hidden><Typing wrapper="span" speed={30}>{item}</Typing></p>)}
                                         </div>
                                     }
                                 </div>}
