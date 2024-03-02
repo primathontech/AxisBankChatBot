@@ -1,4 +1,4 @@
-/* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable */
 import React from 'react'
 import dynamic from 'next/dynamic';
 
