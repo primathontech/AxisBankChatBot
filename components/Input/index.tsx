@@ -196,7 +196,7 @@ const Input = () => {
                             {message.sender === "bot" &&
                                 <div className={styles.botReply}>
                                     <div className={styles.messageContainer}>
-                                        <div className={styles.botIcon}>
+                                        <div className={message.component?styles.displayNone:styles.botIcon}>
                                             <BotIcon />
                                         </div>
                                         <div style={{ alignSelf: "center" }}>
