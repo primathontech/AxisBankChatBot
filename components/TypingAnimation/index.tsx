@@ -1,24 +1,17 @@
-/* eslint-disable */
 import React from 'react'
-import dynamic from 'next/dynamic';
-
-const ReactPlayer = dynamic(() => import('react-player'), {
-    ssr: false,
-});
+import styles from "./styles.module.scss";
 
 const Typinganimation = () => (
     <div>
-        <ReactPlayer
-            url='videos/typing.mp4'
-            width="300px"
-            height="100px"
-            loop
-            playing
-            muted
-        />
+        <div className={styles.container}>
+            <div className={styles.col_3}>
+                <div className={styles.snippet} data-title="dot-pulse">
+                    <div className={styles.stage}>
+                        <div className={styles.dot_pulse} />
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 )
-
-
-
 export default Typinganimation
