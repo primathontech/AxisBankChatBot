@@ -184,7 +184,7 @@ const Input = () => {
     };
 
     return (
-        <div style={{ paddingTop: "10px" }}>
+        <div style={{ paddingTop: "10px", position: "fixed", bottom: 20 }}>
             <div className={styles.chat}>
                 <div>
                     {messages.map((message: any, index: any) => (
