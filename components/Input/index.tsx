@@ -230,9 +230,9 @@ const Input = () => {
                                             {(((message.chartType === "pie" || message.chartType === "bar") && message.chartData !== null)
                                                 || ((message.chartType === "line" || message.chartType === "line chart") && message.chartData !== null)) && message.graph &&
                                                 <div className={message.component ? styles.typing : styles.bot} style={{ marginTop: "5px" }}>
-                                                    <GraphCom type={message.chartType}
+                                                    <GraphCom type={(message.chartType === "pie" || message.chartType === "bar") ? "pie" : "line"}
                                                         data={message.chartData}
-                                                        dataType={(message.chartType === "pie" || message.chartType === "bar") ? "pie" : "line"}
+                                                        dataType={message.dataType}
                                                         title={message.title} />
                                                 </div>}
                                         </div>
