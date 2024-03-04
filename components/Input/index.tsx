@@ -237,7 +237,7 @@ const Input = () => {
                                                 </div>}
                                         </div>
                                     </div>
-                                    {apiData.data?.suggestions.length > 0 && message.input?.length === 0
+                                    {apiData.data?.suggestions?.length > 0 && message.input?.length === 0
                                         && graphCom && (index === messages.length - 1) &&
                                         <div className={styles.suggestionsContainer}>
                                             {apiData.data?.suggestions.map((item) =>
