@@ -286,7 +286,7 @@ const Input = () => {
                             />}
                             {!typingText && <input
                                 type="text"
-                                placeholder={isListening ? "Speak Now" : "How may I help you"}
+                                placeholder={isListening ? "Speak Now" : "How may I help you?"}
                                 value={inputValue}
                                 onChange={handleInputChange}
                                 className={styles.input}
