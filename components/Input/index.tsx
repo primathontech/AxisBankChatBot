@@ -17,7 +17,8 @@ import styles from "./styles.module.scss";
 
 const Input = () => {
     const router = useRouter();
-    const profileValue = router.query.id;
+    const profileValue = router.query.profit;
+    const demo = router.query.demo;
     const [messages, setMessages] = useState([
         {
             text: "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?",
@@ -93,7 +94,7 @@ const Input = () => {
 
         const value = inputValue.includes(" ") ? encodeURIComponent(inputValue) : inputValue;
         try {
-            const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=${profileValue}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
+            const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=${profileValue}&demo=${demo}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
             if (apiResponse.data !== null || apiResponse.Data !== null) {
                 setData(apiResponse);
                 setMessages((prevMessages) => {
@@ -147,7 +148,7 @@ const Input = () => {
         setgraphCom(false);
         value = value.includes(" ") ? encodeURIComponent(value) : value;
         try {
-            const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=${profileValue}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
+            const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=${profileValue}&demo=${demo}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
             if (apiResponse.data !== null || apiResponse.Data !== null) {
                 setData(apiResponse);
                 setMessages((prevMessages) => {
@@ -236,12 +237,12 @@ const Input = () => {
                                                 </div>}
                                         </div>
                                     </div>
-                                    {apiData.data?.suggestions.length > 0
+                                    {apiData.data?.suggestions.length > 0 && message.input?.length === 0
                                         && graphCom && (index === messages.length - 1) &&
                                         <div className={styles.suggestionsContainer}>
                                             {apiData.data?.suggestions.map((item) =>
                                                 <p className={styles.suggestion}
-                                                    onClick={(e) => handleSuggestion(e)} aria-hidden><Typing wrapper="span" speed={30}>{item}</Typing></p>)}
+                                                    onClick={(e) => handleSuggestion(e)} aria-hidden>{item}</p>)}
                                         </div>
                                     }
                                     {message.input?.length > 0
@@ -249,7 +250,7 @@ const Input = () => {
                                         <div className={cx(styles.suggestionsContainer, styles.inputsDataContainer)}>
                                             {message.input.map((item) =>
                                                 <p className={cx(styles.suggestion, styles.inputs)}
-                                                    onClick={(e) => handleSuggestion(e)} aria-hidden><Typing wrapper="span" speed={30}>{item}</Typing></p>)}
+                                                    onClick={(e) => handleSuggestion(e)} aria-hidden>{item}</p>)}
                                         </div>
                                     }
                                 </div>}
