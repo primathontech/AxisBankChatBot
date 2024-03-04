@@ -286,7 +286,7 @@ const Input = () => {
                             />}
                             {!typingText && <input
                                 type="text"
-                                placeholder="How may I help you"
+                                placeholder={isListening ? "Speak Now" : "How may I help you"}
                                 value={inputValue}
                                 onChange={handleInputChange}
                                 className={styles.input}
@@ -294,11 +294,11 @@ const Input = () => {
                                 ref={inputRef}
                             />}
                             {!isListening && <Mic width={24} height={24} style={{ cursor: "pointer" }} onClick={toggleSpeechRecognition} />}
-                            {isListening && <MicOn width={24} height={24} style={{ cursor: "pointer" }} onClick={toggleSpeechRecognition} />}
+                            {isListening && <MicOn width={24} height={24} style={{ cursor: "pointer", paddingTop: "4px" }} onClick={toggleSpeechRecognition} />}
                         </div>
-                        <button type="button" onClick={handleSendMessage} className={styles.button}>
+                        {!isListening &&<button type="button" onClick={handleSendMessage} className={styles.button}>
                             <RightArrow width={24} height={24} />
-                        </button>
+                        </button>}
                     </>}
             </div>
         </div>
