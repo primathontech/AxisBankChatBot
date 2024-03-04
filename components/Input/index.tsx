@@ -21,7 +21,7 @@ const Input = () => {
     const demo = router.query.demo;
     const [messages, setMessages] = useState([
         {
-            text: "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?",
+            text: "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How may I help you?",
             sender: "bot",
             chartType: "",
             chartData: "",
@@ -192,7 +192,7 @@ const Input = () => {
                 <div>
                     {messages.map((message: any, index: any) => (
                         <div key={index}>
-                            {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How can I help you?" &&
+                            {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How may I help you?" &&
                                 <div className={message.sender === "user" && message.text ? styles.user : styles.displayNone}>
                                     {message.text}
                                 </div>}
