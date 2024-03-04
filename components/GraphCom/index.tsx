@@ -49,7 +49,6 @@ const GraphCom = (props: DataType) => {
             data: dataofLineChart,
             labels,
             borderColor: "#978FED",
-            // pointStyle: false,
             borderWidth: 2,
             cubicInterpolationMode: 'monotone',
         });
@@ -76,7 +75,7 @@ const GraphCom = (props: DataType) => {
                         <p className={styles.heading} style={{ color: `#${item.color}` }}><span style={{ color: "#4B5563" }}>{item.label}</span></p>
                     </div>)}
                 </div>
-                <div style={{ height: "96px", width: "96px" }}>
+                <div className={styles.graphCon}>
                     <Graph
                         graphData={dougnut.graphData}
                         graphType={dougnut.type}

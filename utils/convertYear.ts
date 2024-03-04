@@ -1,0 +1,1 @@
+export const convertYear = (data: any) => `Yr. ${data+1}`

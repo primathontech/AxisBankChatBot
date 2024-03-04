@@ -3,6 +3,7 @@
 /* eslint-disable no-unneeded-ternary */
 import { GraphType } from '@components/Graph';
 import { convertToIndianNumberFormatAbs } from './convertToIndianNumberrAbb';
+import { convertYear } from './convertYear';
 
 export const createGraphValues = (
     graphType: GraphType,
@@ -45,7 +46,14 @@ export const createGraphValues = (
             ...options,
             scales: {
                 x: {
-                    display: false,
+                    grid: {
+                        display: false,
+                    },
+                    ticks: {
+                        callback (value:any) {
+                            return convertYear(value);
+                        },
+                    },
                 },
                 y: {
                     beginAtZero: false,

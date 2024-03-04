@@ -9,6 +9,7 @@ import { httpPost } from '@utils/httpClient';
 import { TypeAnimation } from 'react-type-animation';
 import { useRouter } from 'next/router';
 import RightArrow from "../../public/images/svgs/right-arrow.svg";
+import UserImage from "../../public/images/svgs/user.svg";
 import Mic from "../../public/images/svgs/microphone.svg";
 import MicOn from "../../public/images/svgs/micOn.svg";
 import BotIcon from "../../public/images/svgs/purple-icon.svg";
@@ -19,6 +20,9 @@ const Input = () => {
     const router = useRouter();
     const profileValue = router.query.profile;
     const demo = router.query.demo;
+    let time = new Date();
+    time = `${time.getHours()}:${time.getMinutes() < 9 ? `0${time.getMinutes()}` : time.getMinutes()}`;
+
     const [messages, setMessages] = useState([
         {
             text: "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How may I help you?",
@@ -29,6 +33,7 @@ const Input = () => {
             title: "",
             graph: false,
             input: "",
+            time,
         }]);
     const [inputValue, setInputValue] = useState('');
     const [isListening, setIsListening] = useState(false);
@@ -71,11 +76,13 @@ const Input = () => {
 
     const handleSendMessage = async () => {
         if (inputValue.trim() === '') return;
-
+        let userTime = new Date();
+        userTime = `${userTime.getHours()}:${userTime.getMinutes() < 9 ? `0${userTime.getMinutes()}` : userTime.getMinutes()}`
         setMessages((prevMessages) => {
             const newMessage = {
                 text: inputValue,
                 sender: 'user',
+                time: userTime,
             };
             return [...prevMessages, newMessage];
         });
@@ -97,6 +104,8 @@ const Input = () => {
             const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=${profileValue}&demo=${demo}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
             if (apiResponse.data !== null || apiResponse.Data !== null) {
                 setData(apiResponse);
+                let currentime = new Date();
+                currentime = `${currentime.getHours()}:${currentime.getMinutes() < 9 ? `0${currentime.getMinutes()}` : currentime.getMinutes()}`
                 setMessages((prevMessages) => {
                     const botResponse = {
                         text: apiResponse.data.response,
@@ -105,7 +114,8 @@ const Input = () => {
                         chartData: apiResponse.data.chart?.chartData,
                         dataType: apiResponse.data.chart?.dataType,
                         title: apiResponse.data.chart?.title,
-                        input: apiResponse.data.inputs
+                        input: apiResponse.data.inputs,
+                        time: currentime,
                     };
                     return [...prevMessages.slice(0, -1), botResponse];
                 });
@@ -127,10 +137,13 @@ const Input = () => {
         }
         let value = event.target.textContent;
         setSuggestionClick(true)
+        let userTime = new Date();
+        userTime = `${userTime.getHours()}:${userTime.getMinutes() < 9 ? `0${userTime.getMinutes()}` : userTime.getMinutes()}`
         setMessages((prevMessages) => {
             const newMessage = {
                 text: decodeURIComponent(value),
                 sender: 'user',
+                time: userTime,
             };
             return [...prevMessages, newMessage];
         });
@@ -151,6 +164,8 @@ const Input = () => {
             const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=${profileValue}&demo=${demo}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
             if (apiResponse.data !== null || apiResponse.Data !== null) {
                 setData(apiResponse);
+                let currentime = new Date();
+                currentime = `${currentime.getHours()}:${currentime.getMinutes() < 9 ? `0${currentime.getMinutes()}` : currentime.getMinutes()}`
                 setMessages((prevMessages) => {
                     const botResponse = {
                         text: apiResponse.data.response,
@@ -159,7 +174,8 @@ const Input = () => {
                         chartData: apiResponse.data.chart?.chartData,
                         dataType: apiResponse.data.chart?.dataType,
                         title: apiResponse.data.chart?.title,
-                        input: apiResponse.data.inputs
+                        input: apiResponse.data.inputs,
+                        time: currentime,
                     };
                     return [...prevMessages.slice(0, -1), botResponse];
                 });
@@ -192,17 +208,34 @@ const Input = () => {
                 <div>
                     {messages.map((message: any, index: any) => (
                         <div key={index}>
-                            {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How may I help you?" &&
-                                <div className={message.sender === "user" && message.text ? styles.user : styles.displayNone}>
-                                    {message.text}
-                                </div>}
+                            {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How may I help you?" && <>
+                                <p className={styles.timeUser}>{message.sender === "user" && message.time}</p>
+                                <div style={{display:"flex",flexDirection:"row-reverse", marginRight:'24px'}}>
+                                    {message.sender === "user" && <div className={message.component ? styles.displayNone : styles.userIcon}>
+                                        <UserImage width={24} height={24}/>
+                                    </div>}
+                                    <div className={message.sender === "user" && message.text ? styles.user : styles.displayNone}>
+                                        {message.text}
+                                    </div>
+                                </div>
+                            </>}
                             {message.sender === "bot" &&
                                 <div className={styles.botReply}>
+                                    <p className={styles.time}>AI Assistant {message.time}</p>
                                     <div className={styles.messageContainer}>
                                         <div className={message.component ? styles.displayNone : styles.botIcon}>
                                             <BotIcon />
                                         </div>
                                         <div style={{ alignSelf: "center" }}>
+                                            {(((message.chartType === "pie" || message.chartType === "bar") && message.chartData !== null)
+                                                || ((message.chartType === "line" || message.chartType === "line chart")
+                                                    && message.chartData !== null)) &&
+                                                <div className={message.component ? styles.typing : styles.bot} style={{ marginBottom: "10px", maxWidth: "max-content" }}>
+                                                    <GraphCom type={(message.chartType === "pie" || message.chartType === "bar") ? "pie" : "line"}
+                                                        data={message.chartData}
+                                                        dataType={message.dataType}
+                                                        title={message.title} />
+                                                </div>}
                                             <div className={message.component ? styles.typing : styles.bot}>
                                                 {message.component ? message.component : <>
                                                     <Typing wrapper="span" speed={20} onFinishedTyping={() => {
@@ -227,14 +260,6 @@ const Input = () => {
                                                     </Typing>
                                                 </>}
                                             </div>
-                                            {(((message.chartType === "pie" || message.chartType === "bar") && message.chartData !== null)
-                                                || ((message.chartType === "line" || message.chartType === "line chart") && message.chartData !== null)) && message.graph &&
-                                                <div className={message.component ? styles.typing : styles.bot} style={{ marginTop: "5px" }}>
-                                                    <GraphCom type={(message.chartType === "pie" || message.chartType === "bar") ? "pie" : "line"}
-                                                        data={message.chartData}
-                                                        dataType={message.dataType}
-                                                        title={message.title} />
-                                                </div>}
                                         </div>
                                     </div>
                                     {apiData.data?.suggestions?.length > 0 && (message.input?.length === 0 || (typeof message.input === "string"))
@@ -282,7 +307,7 @@ const Input = () => {
                                 wrapper="span"
                                 speed={20}
                                 repeat={Infinity}
-                                style={{ color: "#757575" }}
+                                style={{ color: "#757575", flex: "auto" }}
                             />}
                             {!typingText && <input
                                 type="text"
@@ -293,12 +318,13 @@ const Input = () => {
                                 onKeyPress={handleKeyPress}
                                 ref={inputRef}
                             />}
-                            {!isListening && <Mic width={24} height={24} style={{ cursor: "pointer" }} onClick={toggleSpeechRecognition} />}
+                            {!isListening && <div><Mic width={24} height={24} style={{ cursor: "pointer", paddingTop: "2px" }} onClick={toggleSpeechRecognition} /></div>}
                             {isListening && <MicOn width={24} height={24} style={{ cursor: "pointer", paddingTop: "4px" }} onClick={toggleSpeechRecognition} />}
+                            {!isListening && <button type="button" onClick={handleSendMessage} className={styles.button}>
+                                <RightArrow />
+                            </button>}
                         </div>
-                        {!isListening && <button type="button" onClick={handleSendMessage} className={styles.button}>
-                            <RightArrow width={24} height={24} />
-                        </button>}
+
                     </>}
             </div>
         </div>

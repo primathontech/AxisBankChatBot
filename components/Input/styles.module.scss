@@ -2,7 +2,7 @@
     display: flex;
     gap: 16px;
     justify-content: space-between;
-    padding: 16px 24px 24px;
+    padding: 16px 16px 24px;
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -10,12 +10,12 @@
 
     .inputMicContainer {
         border: 1.5px solid rgba(151, 156, 158, 1);
-        border-radius: 2px;
+        border-radius: 35px;
         width: 100%;
         display: flex;
-        justify-content: space-between;
+        justify-content: end;
         align-items: center;
-        padding: 9px 16px;
+        padding: 5px 3px 5px 20px;
         gap: 16px;
 
         &:hover {
@@ -31,25 +31,41 @@
     }
 
     .button {
-        background-color: #6B254B;
-        padding: 8.5px 10px 8.5px 8px;
         cursor: pointer;
+        padding-top: 2px;
     }
 }
 
+.time,
+.timeUser {
+    margin-left: 30px;
+    margin-bottom: 10px;
+    font-size: 10px;
+    color: #8A8A8A;
+    font-family: "Lato";
+    font-weight: 400;
+}
+
+.timeUser{
+    margin-right: 24px;
+    text-align: right;
+}
+
 .user {
-    background-color: rgba(242, 244, 245, 1);
+    background-color: #97144D;
     color: rgba(48, 52, 55, 1);
     padding: 16px;
     border-radius: 2px;
     margin-left: auto;
-    margin-right: 24px;
+    margin-right: 8px;
     margin-bottom: 24px;
-    max-width: 70%;
-    width: 100%;
+    max-width: 60%;
+    width: max-content;
     overflow-wrap: break-word;
     font-family: "Lato", sans-serif;
     font-weight: 400;
+    border-radius: 8px 8px 0px 8px;
+    color: white
 }
 
 .bot {
@@ -63,12 +79,14 @@
     font-style: normal;
     line-height: 22px;
     letter-spacing: 0.5px;
+    background-color: white;
+    border-radius: 0px 12px 12px;
 }
 
 .messageContainer {
     display: flex;
     margin-left: 24px;
-    margin-bottom: 24px;
+    margin-bottom: 20px;
     gap: 8px;
     margin-right: 24px;
 }
@@ -80,6 +98,7 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
     padding-bottom: 74px;
+    background-color: #f8f8f8;
 
     &::-webkit-scrollbar {
         display: none;
@@ -89,6 +108,7 @@
 .botIcon {
     width: 32px !important;
     height: 32px !important;
+    border-radius: 50% !important;
 }
 
 .displayNone {
@@ -115,13 +135,14 @@
 }
 
 .suggestion {
-    border: 1px solid #DDDDDD;
-    border-radius: 15px;
-    padding: 8.5px 18px;
+    border: 1px solid #952E66;
+    border-radius: 35px;
+    padding: 10px 20px;
     font-size: 14px;
     font-weight: 400;
     font-family: "DM Sans";
     color: #303437;
+    background-color: white;
     cursor: pointer;
 
     &:hover {
@@ -137,4 +158,9 @@
     text-align: center;
     font-size: 18px;
     font-family: "Lato";
+}
+
+.userIcon{
+    margin-bottom: 20px;
+    align-self: flex-end;
 }
