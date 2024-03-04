@@ -267,7 +267,7 @@ const Input = () => {
                             {typingText && <TypeAnimation
                                 sequence={[
                                     "I have 10L, what should I do with it",
-                                    2000,
+                                    1000,
                                     "I want to make wealth",
                                     1000,
                                     "can I buy a Mercedes",
@@ -277,7 +277,7 @@ const Input = () => {
                                     "I want to travel the world , how much would I need",
                                     3000,
                                     "I have my child’s post graduation in 5 years and he wants to study in US",
-                                    5000,
+                                    3000,
                                 ]}
                                 wrapper="span"
                                 speed={20}
