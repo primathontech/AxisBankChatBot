@@ -17,7 +17,7 @@ import styles from "./styles.module.scss";
 
 const Input = () => {
     const router = useRouter();
-    const profileValue = router.query.profit;
+    const profileValue = router.query.profile;
     const demo = router.query.demo;
     const [messages, setMessages] = useState([
         {
