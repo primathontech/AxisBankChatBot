@@ -101,10 +101,10 @@ const Input = () => {
                     const botResponse = {
                         text: apiResponse.data.response,
                         sender: 'bot',
-                        chartType: apiResponse.data.chart.chartType,
-                        chartData: apiResponse.data.chart.chartData,
-                        dataType: apiResponse.data.chart.dataType,
-                        title: apiResponse.data.chart.title,
+                        chartType: apiResponse.data.chart?.chartType,
+                        chartData: apiResponse.data.chart?.chartData,
+                        dataType: apiResponse.data.chart?.dataType,
+                        title: apiResponse.data.chart?.title,
                         input: apiResponse.data.inputs
                     };
                     return [...prevMessages.slice(0, -1), botResponse];
@@ -155,10 +155,10 @@ const Input = () => {
                     const botResponse = {
                         text: apiResponse.data.response,
                         sender: 'bot',
-                        chartType: apiResponse.data.chart.chartType,
-                        chartData: apiResponse.data.chart.chartData,
-                        dataType: apiResponse.data.chart.dataType,
-                        title: apiResponse.data.chart.title,
+                        chartType: apiResponse.data.chart?.chartType,
+                        chartData: apiResponse.data.chart?.chartData,
+                        dataType: apiResponse.data.chart?.dataType,
+                        title: apiResponse.data.chart?.title,
                         input: apiResponse.data.inputs
                     };
                     return [...prevMessages.slice(0, -1), botResponse];
@@ -227,17 +227,17 @@ const Input = () => {
                                                     </Typing>
                                                 </>}
                                             </div>
-                                            {((message.chartType === "pie" && message.chartData !== null)
-                                                || (message.chartType === "line" && message.chartData !== null)) && message.graph &&
+                                            {(((message.chartType === "pie" || message.chartType === "bar") && message.chartData !== null)
+                                                || ((message.chartType === "line" || message.chartType === "line chart") && message.chartData !== null)) && message.graph &&
                                                 <div className={message.component ? styles.typing : styles.bot} style={{ marginTop: "5px" }}>
                                                     <GraphCom type={message.chartType}
                                                         data={message.chartData}
-                                                        dataType={message.dataType}
+                                                        dataType={(message.chartType === "pie" || message.chartType === "bar") ? "pie" : "line"}
                                                         title={message.title} />
                                                 </div>}
                                         </div>
                                     </div>
-                                    {apiData.data?.suggestions?.length > 0 && message.input?.length === 0
+                                    {apiData.data?.suggestions?.length > 0 && (message.input?.length === 0 || (typeof message.input === "string"))
                                         && graphCom && (index === messages.length - 1) &&
                                         <div className={styles.suggestionsContainer}>
                                             {apiData.data?.suggestions.map((item) =>
@@ -246,9 +246,9 @@ const Input = () => {
                                         </div>
                                     }
                                     {message.input?.length > 0
-                                        && graphCom && (index === messages.length - 1) &&
+                                        && graphCom && (index === messages.length - 1) && (typeof message.input !== "string") &&
                                         <div className={cx(styles.suggestionsContainer)}>
-                                            {message.input.map((item) =>
+                                            {message.input?.map((item) =>
                                                 <p className={cx(styles.suggestion)}
                                                     onClick={(e) => handleSuggestion(e)} aria-hidden>{item}</p>)}
                                         </div>
@@ -296,7 +296,7 @@ const Input = () => {
                             {!isListening && <Mic width={24} height={24} style={{ cursor: "pointer" }} onClick={toggleSpeechRecognition} />}
                             {isListening && <MicOn width={24} height={24} style={{ cursor: "pointer", paddingTop: "4px" }} onClick={toggleSpeechRecognition} />}
                         </div>
-                        {!isListening &&<button type="button" onClick={handleSendMessage} className={styles.button}>
+                        {!isListening && <button type="button" onClick={handleSendMessage} className={styles.button}>
                             <RightArrow width={24} height={24} />
                         </button>}
                     </>}
