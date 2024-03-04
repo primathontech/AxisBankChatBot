@@ -247,9 +247,9 @@ const Input = () => {
                                     }
                                     {message.input?.length > 0
                                         && graphCom && (index === messages.length - 1) &&
-                                        <div className={cx(styles.suggestionsContainer, styles.inputsDataContainer)}>
+                                        <div className={cx(styles.suggestionsContainer)}>
                                             {message.input.map((item) =>
-                                                <p className={cx(styles.suggestion, styles.inputs)}
+                                                <p className={cx(styles.suggestion)}
                                                     onClick={(e) => handleSuggestion(e)} aria-hidden>{item}</p>)}
                                         </div>
                                     }
