@@ -48,9 +48,28 @@ const GraphCom = (props: DataType) => {
         lineChart = createGraphValues(GraphType.LineGrid, {
             data: dataofLineChart,
             labels,
-            borderColor: "#978FED",
+            borderColor: "#97144D",
             borderWidth: 2,
             cubicInterpolationMode: 'monotone',
+            fill:true,
+            pointBackgroundColor:"#97144D",
+            backgroundColor: (context: any) => {
+                const bgColor = ['rgba(244,211,231)',
+                    'rgba(247,225,239)',
+                    'rgba(251,240,247)',
+                ];
+                if (!context.chart.chartArea) {
+                    return;
+                }
+                const { ctx, chartArea: { top, bottom } } = context.chart;
+                const grad = ctx.createLinearGradient(0, top, 0, bottom);
+                grad.addColorStop(0, bgColor[0]);
+                grad.addColorStop(0.5, bgColor[1]);
+                grad.addColorStop(1, bgColor[2]);
+                
+                // eslint-disable-next-line consistent-return
+                return grad; 
+            }
         });
     }
 
@@ -60,7 +79,7 @@ const GraphCom = (props: DataType) => {
     }
 
     return (
-        <div className={type==="line"?styles.container:""}>
+        <div className={type === "line" ? styles.container : ""}>
             {title && type !== "line" && <div className={styles.headingWrapper}>
                 <div className={styles.heading}>
                     <p>{title}</p>

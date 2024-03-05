@@ -210,9 +210,9 @@ const Input = () => {
                         <div key={index}>
                             {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How may I help you?" && <>
                                 <p className={styles.timeUser}>{message.sender === "user" && message.time}</p>
-                                <div style={{display:"flex",flexDirection:"row-reverse", marginRight:'24px'}}>
+                                <div style={{ display: "flex", flexDirection: "row-reverse", marginRight: '24px' }}>
                                     {message.sender === "user" && <div className={message.component ? styles.displayNone : styles.userIcon}>
-                                        <UserImage width={32} height={32}/>
+                                        <UserImage width={32} height={32} />
                                     </div>}
                                     <div className={message.sender === "user" && message.text ? styles.user : styles.displayNone}>
                                         {message.text}
@@ -230,7 +230,12 @@ const Input = () => {
                                             {(((message.chartType === "pie" || message.chartType === "bar") && message.chartData !== null)
                                                 || ((message.chartType === "line" || message.chartType === "line chart")
                                                     && message.chartData !== null)) &&
-                                                <div className={message.component ? styles.typing : styles.bot} style={{ marginBottom: "10px", maxWidth: "max-content" }}>
+                                                <div className={message.component ? styles.typing : styles.bot} style={{
+                                                    marginBottom: "10px",
+                                                    maxWidth: `${message.chartType === "pie" || message.chartType === "bar" ? "80%" : "max-content"}`,
+                                                    backgroundColor:`${message.chartType === "pie" || message.chartType === "bar" ? "" : "#FFF7FB"}`,
+                                                    paddingBottom:`${message.chartType === "pie" || message.chartType === "bar" ? "16px" : "30px"}`
+                                                }}>
                                                     <GraphCom type={(message.chartType === "pie" || message.chartType === "bar") ? "pie" : "line"}
                                                         data={message.chartData}
                                                         dataType={message.dataType}

@@ -52,6 +52,11 @@
     gap: 30px;
     justify-content: space-between;
     margin-top: 12px;
+    flex-direction: column-reverse;
+
+    @media screen and (min-width:500px) {
+        flex-direction: row;
+    }
 
     .heading {
         color: rgba(75, 85, 99, 1);
@@ -141,7 +146,7 @@
     padding: 0px 24px;
     margin: -16px 0px;
     height: 190px;
-    background: linear-gradient(0deg, rgba(255, 255, 255, 1) 0%, rgba(228, 228, 255, 0.48783263305322133) 44%);
+    background: #FFF7FB;
 
     @media screen and (max-width:390px) {
         width: 260px;
@@ -162,9 +167,14 @@
 .graphCon {
     height: 100px;
     width: 100px;
+    align-self: center;
 
     @media screen and (min-width:350px) {
         height: 150px;
         width: 156px;
+    }
+
+    @media screen and (min-width:500px) {
+        align-self: start;
     }
 }

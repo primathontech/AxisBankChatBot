@@ -50,18 +50,20 @@ export const createGraphValues = (
                         display: false,
                     },
                     ticks: {
-                        callback (value:any) {
+                        color: "rgba(175, 136, 154, 1)",
+                        callback(value: any) {
                             return convertYear(value);
                         },
                     },
                 },
                 y: {
                     beginAtZero: false,
-                    grid: {
-                        display: false,
+                    border: {
+                        display: false
                     },
                     ticks: {
-                        callback (value:any) {
+                        color: "rgba(175, 136, 154, 1)",
+                        callback(value: any) {
                             return convertToIndianNumberFormatAbs(value);
                         },
                     },

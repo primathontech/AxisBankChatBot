@@ -53,7 +53,8 @@
 }
 
 .user {
-    background-color: #97144D;
+    background: rgb(149, 46, 102);
+    background: linear-gradient(90deg, rgba(149, 46, 102, 1) 0%, rgba(93, 33, 65, 1) 90%);
     color: rgba(48, 52, 55, 1);
     padding: 16px;
     border-radius: 2px;
