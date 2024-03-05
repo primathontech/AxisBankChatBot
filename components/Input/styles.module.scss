@@ -101,6 +101,7 @@
     -ms-overflow-style: none;
     padding-bottom: 74px;
     background-color: #f8f8f8;
+    scroll-behavior: smooth;
 
     &::-webkit-scrollbar {
         display: none;
