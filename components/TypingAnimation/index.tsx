@@ -9,8 +9,8 @@ const ReactPlayer = dynamic(() => import('react-player'), {
 const Typinganimation = () => (
     <div>
         <ReactPlayer
-            url='videos/typing.mp4'
-            width="200px"
+            url='videos/video.mp4'
+            width="300px"
             height="100px"
             loop
             playing

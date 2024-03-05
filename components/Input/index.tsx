@@ -212,7 +212,7 @@ const Input = () => {
                                 <p className={styles.timeUser}>{message.sender === "user" && message.time}</p>
                                 <div style={{display:"flex",flexDirection:"row-reverse", marginRight:'24px'}}>
                                     {message.sender === "user" && <div className={message.component ? styles.displayNone : styles.userIcon}>
-                                        <UserImage width={24} height={24}/>
+                                        <UserImage width={32} height={32}/>
                                     </div>}
                                     <div className={message.sender === "user" && message.text ? styles.user : styles.displayNone}>
                                         {message.text}
