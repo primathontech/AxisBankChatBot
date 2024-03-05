@@ -202,9 +202,17 @@ const Input = () => {
         setIsListening(!isListening);
     };
 
+    const chatWindowRef = useRef(null);
+
+    useEffect(() => {
+        if (chatWindowRef.current) {
+            chatWindowRef.current.scrollTop = chatWindowRef.current.scrollHeight;
+        }
+    }, [messages]);
+
     return (
         <div style={{ paddingTop: "10px", position: "fixed", bottom: 20, width: "100%" }}>
-            <div className={styles.chat}>
+            <div className={styles.chat}  ref={chatWindowRef}>
                 <div>
                     {messages.map((message: any, index: any) => (
                         <div key={index}>
