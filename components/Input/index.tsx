@@ -102,7 +102,8 @@ const Input = () => {
 
         const value = inputValue.includes(" ") ? encodeURIComponent(inputValue) : inputValue;
         try {
-            const apiResponse = await httpPost(`${URLS.API_URL}/execute?query=${value}&profile=${profileValue}&demo=${demo}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
+            const apiResponse = await
+                httpPost(`${URLS.API_URL}/execute?query=${value}&profile=${profileValue ? profileValue : "1"}&demo=${demo ? demo : "1"}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
             if (apiResponse.data !== null || apiResponse.Data !== null) {
                 setData(apiResponse);
                 let currentime = new Date();
@@ -162,7 +163,8 @@ const Input = () => {
         setgraphCom(false);
         value = value.includes(" ") ? encodeURIComponent(value) : value;
         try {
-            const apiResponse = await httpPost(`${URLS.API_URL}/execute?query=${value}&profile=${profileValue}&demo=${demo}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
+            const apiResponse = await
+                httpPost(`${URLS.API_URL}/execute?query=${value}&profile=${profileValue ? profileValue : "1"}&demo=${demo ? demo : "1"}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
             if (apiResponse.data !== null || apiResponse.Data !== null) {
                 setData(apiResponse);
                 let currentime = new Date();
