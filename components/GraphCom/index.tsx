@@ -18,6 +18,7 @@ type DataType = {
 
 const GraphCom = (props: DataType) => {
     const { type, data, title, dataType } = props;
+    let delayed: boolean;
     // const [buttonClick, setButtonClick] = useState(false)
     // const ScholarshipAmountWiseGraphValues = createGraphValues(GraphType.Line, {
     //     data: [482, 765, 134, 589, 257, 701, 318, 923],
@@ -51,8 +52,20 @@ const GraphCom = (props: DataType) => {
             borderColor: "#97144D",
             borderWidth: 2,
             cubicInterpolationMode: 'monotone',
-            fill:true,
-            pointBackgroundColor:"#97144D",
+            fill: true,
+            pointBackgroundColor: "#97144D",
+            animation: {
+                onComplete: () => {
+                    delayed = true;
+                },
+                delay: (context: any) => {
+                    let delay = 0;
+                    if (context.type === "data" && context.mode === "default" && !delayed) {
+                        delay = context.dataIndex * 300 + context.datasetIndex * 100;
+                    }
+                    return delay;
+                },
+            },
             backgroundColor: (context: any) => {
                 const bgColor = ['rgba(244,211,231)',
                     'rgba(247,225,239)',
@@ -66,9 +79,9 @@ const GraphCom = (props: DataType) => {
                 grad.addColorStop(0, bgColor[0]);
                 grad.addColorStop(0.5, bgColor[1]);
                 grad.addColorStop(1, bgColor[2]);
-                
+
                 // eslint-disable-next-line consistent-return
-                return grad; 
+                return grad;
             }
         });
     }
