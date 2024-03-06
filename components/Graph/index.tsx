@@ -13,7 +13,7 @@ import {
 } from 'chart.js';
 
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { Doughnut, Line } from 'react-chartjs-2';
+import { Bar, Doughnut, Line } from 'react-chartjs-2';
 
 ChartJS.register(
     CategoryScale,
@@ -31,6 +31,7 @@ export enum GraphType {
     Line = 'line',
     Doughnut = 'doughnut',
     LineGrid = 'lineGrid',
+    Bar = 'bar'
     // Add more graph types here
 }
 
@@ -44,6 +45,7 @@ export const graphComponentsType: GraphComponentType = {
     [GraphType.Line]: Line,
     [GraphType.Doughnut]: Doughnut,
     [GraphType.LineGrid]: Line,
+    [GraphType.Bar]: Bar,
 };
 
 type GraphProps = {

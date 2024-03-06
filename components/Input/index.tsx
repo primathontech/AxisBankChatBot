@@ -212,7 +212,7 @@ const Input = () => {
 
     return (
         <div style={{ paddingTop: "10px", position: "fixed", bottom: 20, width: "100%" }}>
-            <div className={styles.chat}  ref={chatWindowRef}>
+            <div className={styles.chat} ref={chatWindowRef}>
                 <div>
                     {messages.map((message: any, index: any) => (
                         <div key={index}>
@@ -240,14 +240,14 @@ const Input = () => {
                                                     && message.chartData !== null)) &&
                                                 <div className={message.component ? styles.typing : styles.bot} style={{
                                                     marginBottom: "10px",
-                                                    maxWidth: `${message.chartType === "pie" || message.chartType === "bar" ? "80%" : "max-content"}`,
-                                                    backgroundColor:`${message.chartType === "pie" || message.chartType === "bar" ? "" : "#FFF7FB"}`,
-                                                    paddingBottom:`${message.chartType === "pie" || message.chartType === "bar" ? "16px" : "30px"}`
+                                                    maxWidth: `${message?.chartType === "pie" ? "80%" : "max-content"}`,
+                                                    backgroundColor: `${message?.chartType === "pie" ? "" : "#FFF7FB"}`,
+                                                    paddingBottom: `${message?.chartType === "pie" ? "16px" : "26px"}`
                                                 }}>
-                                                    <GraphCom type={(message.chartType === "pie" || message.chartType === "bar") ? "pie" : "line"}
-                                                        data={message.chartData}
-                                                        dataType={message.dataType}
-                                                        title={message.title} />
+                                                    <GraphCom type={message?.chartType === "pie" ? "pie" : message?.chartType === "bar" ? "bar" : "line"}
+                                                        data={message?.chartData}
+                                                        dataType={message?.dataType}
+                                                        title={message?.title} />
                                                 </div>}
                                             <div className={message.component ? styles.typing : styles.bot}>
                                                 {message.component ? message.component : <>

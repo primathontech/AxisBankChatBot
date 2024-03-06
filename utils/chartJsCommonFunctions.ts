@@ -61,6 +61,9 @@ export const createGraphValues = (
                     border: {
                         display: false
                     },
+                    grid: {
+                        color:"#DADADA",
+                    },
                     ticks: {
                         color: "rgba(175, 136, 154, 1)",
                         callback(value: any) {
@@ -72,6 +75,39 @@ export const createGraphValues = (
         }
     }
 
+    if (graphType === GraphType.Bar) {
+        options = {
+            ...options,
+            scales: {
+                x: {
+                    grid: {
+                        display: false,
+                    },
+                    ticks: {
+                        color: "rgba(175, 136, 154, 1)",
+                        callback(value: any) {
+                            return convertYear(value);
+                        },
+                    },
+                },
+                y: {
+                    beginAtZero: false,
+                    border: {
+                        display: false
+                    },
+                    grid: {
+                        color: "#DADADA",
+                    },
+                    ticks: {
+                        color: "rgba(175, 136, 154, 1)",
+                        callback(value: any) {
+                            return convertToIndianNumberFormatAbs(value);
+                        },
+                    },
+                },
+            }
+        }
+    }
 
     return {
         type: graphType,

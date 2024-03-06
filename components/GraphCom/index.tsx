@@ -18,6 +18,7 @@ type DataType = {
 
 const GraphCom = (props: DataType) => {
     const { type, data, title, dataType } = props;
+    const ColorPalette = ["#97144D", "#BD6474", "#FF9595", "#CA5E8D", "#CA925E", "#DD5E5E", "#581633", "#DD0060", "#C1582B", "#7A371A"];
     let delayed: boolean;
     // const [buttonClick, setButtonClick] = useState(false)
     // const ScholarshipAmountWiseGraphValues = createGraphValues(GraphType.Line, {
@@ -30,19 +31,21 @@ const GraphCom = (props: DataType) => {
     // });
     let dougnut;
     let lineChart;
+    let barChart;
     let dataoOfDougnut;
     let dataofLineChart;
     if (type === "pie") {
+        const { length } = data;
         dataoOfDougnut = data?.map((item: any) => item.count);
         const labels = data?.map((item: any) => item.label);
-        const colors = data?.map((item: any) => `#${item.color}`)
+        const colors = ColorPalette.slice(0, length)
 
         dougnut = createGraphValues(GraphType.Doughnut, {
             data: dataoOfDougnut,
             labels,
             backgroundColor: colors,
         });
-    } else {
+    } else if (type === "line") {
         dataofLineChart = data?.map((item: any) => Math.round(item.count));
         const labels = data?.map((item: any) => item.label);
 
@@ -85,6 +88,19 @@ const GraphCom = (props: DataType) => {
             }
         });
     }
+    else if (type === "bar") {
+        const { length } = data;
+        const dataOfBar = data?.map((item: any) => item.count);
+        const labels = data?.map((item: any) => item.label);
+        const colors = ColorPalette.slice(0, length)
+
+        barChart = createGraphValues(GraphType.Bar, {
+            data: dataOfBar,
+            labels,
+            backgroundColor: colors,
+            // barThickness:20,
+        });
+    }
 
     let sum = 0;
     if (type === "pie") {
@@ -93,7 +109,7 @@ const GraphCom = (props: DataType) => {
 
     return (
         <div className={type === "line" ? styles.container : ""}>
-            {title && type !== "line" && <div className={styles.headingWrapper}>
+            {title && type !== "line" && type !== "bar" && <div className={styles.headingWrapper}>
                 <div className={styles.heading}>
                     <p>{title}</p>
                 </div>
@@ -101,10 +117,10 @@ const GraphCom = (props: DataType) => {
             </div>}
             {type === "pie" && < div className={styles.doughnutGraphContainer}>
                 <div className={styles.detailsContainer}>
-                    {data.map((item: any) => <div>
-                        <p className={styles.percentage}>{dataType === "percentage" ? `${Math.round(item.count)} %`
+                    {data.map((item: any, index: any) => <div>
+                        <p className={styles.percentage}>{dataType === "percentage" ? `${Math.round(item.count)}%`
                             : `₹ ${Math.round(item.count).toLocaleString('en-IN')}`}</p>
-                        <p className={styles.heading} style={{ color: `#${item.color}` }}><span style={{ color: "#4B5563" }}>{item.label}</span></p>
+                        <p className={styles.heading} style={{ color: `${ColorPalette[index]}` }}><span style={{ color: "#4B5563" }}>{item.label}</span></p>
                     </div>)}
                 </div>
                 <div className={styles.graphCon}>
@@ -122,6 +138,14 @@ const GraphCom = (props: DataType) => {
                     graphData={lineChart.graphData}
                     graphType={lineChart.type}
                     graphOptions={lineChart.options}
+                />
+            </div>}
+            {type === "bar" && <div className={styles.barGraph}
+            >
+                <Graph
+                    graphData={barChart.graphData}
+                    graphType={barChart.type}
+                    graphOptions={barChart.options}
                 />
             </div>}
 

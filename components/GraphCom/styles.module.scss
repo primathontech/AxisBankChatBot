@@ -151,16 +151,22 @@
     @media screen and (max-width:390px) {
         width: 260px;
         height: 190px;
+        padding: 0px 0px;
+
     }
 
     @media screen and (max-width:340px) {
         height: 150px;
         width: 190px;
+        padding: 0px;
+
     }
 
     @media screen and (min-width:500px) {
         height: 200px;
         width: 350px;
+        padding: 0px 24px;
+
     }
 }
 
@@ -176,5 +182,41 @@
 
     @media screen and (min-width:500px) {
         align-self: start;
+    }
+}
+
+.barGraph {
+    width: 270px;
+    padding: 12px 24px 0px;
+    margin: -16px 0px;
+    height: 190px;
+    background: #FFF7FB;
+
+    @media screen and (max-width:508px) {
+        width: 302px;
+        height: 144px;
+        padding: 12px 0px 0px 20px;
+
+    }
+
+    @media screen and (max-width:400px) {
+        height: 100px;
+        width: 200px;
+        padding: 12px 0px 0px 12px;
+
+    }
+
+    @media screen and (min-width:510px) {
+        height: 200px;
+        width: 400px;
+        padding: 12px 0px 0px 12px;
+
+    }
+
+    @media screen and (max-width:300px) {
+        width: 170px;
+        height: 80px;
+        padding: 12px 0px 0px 12px;
+
     }
 }
