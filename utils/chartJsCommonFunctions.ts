@@ -54,6 +54,10 @@ export const createGraphValues = (
                         callback(value: any) {
                             return convertYear(value);
                         },
+                        font: {
+                            size: 8,
+                            family: "Inter",
+                        }
                     },
                 },
                 y: {
@@ -62,13 +66,17 @@ export const createGraphValues = (
                         display: false
                     },
                     grid: {
-                        color:"#DADADA",
+                        color: "#DADADA",
                     },
                     ticks: {
                         color: "rgba(175, 136, 154, 1)",
                         callback(value: any) {
                             return convertToIndianNumberFormatAbs(value);
                         },
+                        font: {
+                            size: 8,
+                            family: "Inter",
+                        }
                     },
                 },
             }
@@ -88,6 +96,10 @@ export const createGraphValues = (
                         callback(value: any) {
                             return convertYear(value);
                         },
+                        font: {
+                            size: 8,
+                            family: "Inter",
+                        }
                     },
                 },
                 y: {
@@ -103,6 +115,10 @@ export const createGraphValues = (
                         callback(value: any) {
                             return convertToIndianNumberFormatAbs(value);
                         },
+                        font: {
+                            size: 8,
+                            family: "Inter",
+                        }
                     },
                 },
             }
