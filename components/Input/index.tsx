@@ -16,6 +16,7 @@ import BotIcon from "../../public/images/svgs/purple-icon.svg";
 import { URLS } from 'constants/appUrls';
 
 import styles from "./styles.module.scss";
+import ReactPlayer from 'react-player';
 
 const Input = () => {
     const router = useRouter();
@@ -335,7 +336,16 @@ const Input = () => {
                                 ref={inputRef}
                             />}
                             {!isListening && <div><Mic width={24} height={24} style={{ cursor: "pointer", paddingTop: "2px" }} onClick={toggleSpeechRecognition} /></div>}
-                            {isListening && <MicOn width={24} height={24} style={{ cursor: "pointer", paddingTop: "4px" }} onClick={toggleSpeechRecognition} />}
+                            {isListening && <div style={{ borderRadius: "50%", position: "absolute", right: "32px" }} onClick={toggleSpeechRecognition}>
+                                <ReactPlayer
+                                    url='videos/mic.mp4'
+                                    width="45px"
+                                    height="45px"
+                                    loop
+                                    playing
+                                    muted
+                                    playsinline />
+                            </div>}
                             {!isListening && <button type="button" onClick={handleSendMessage} className={styles.button}>
                                 <RightArrow />
                             </button>}
