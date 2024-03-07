@@ -18,8 +18,8 @@ import styles from "./styles.module.scss";
 
 const Input = () => {
     const router = useRouter();
-    const profileValue = router.query.profile;
-    const demo = router.query.demo;
+    const profileValue = router.query.profile || 1;
+    const demo = router.query.demo || 1;
     let time = new Date();
     time = `${time.getHours()}:${time.getMinutes() < 9 ? `0${time.getMinutes()}` : time.getMinutes()}`;
 
@@ -101,7 +101,7 @@ const Input = () => {
 
         const value = inputValue.includes(" ") ? encodeURIComponent(inputValue) : inputValue;
         try {
-            const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=${profileValue}&demo=${demo}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
+            const apiResponse = await httpPost(`/api/v1/agent/execute?query=${value}&profile=${profileValue}&demo=${demo}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
             if (apiResponse.data !== null || apiResponse.Data !== null) {
                 setData(apiResponse);
                 let currentime = new Date();
@@ -161,7 +161,7 @@ const Input = () => {
         setgraphCom(false);
         value = value.includes(" ") ? encodeURIComponent(value) : value;
         try {
-            const apiResponse = await httpPost(`https://robo-advisory.primathontech.co.in/api/v1/agent/execute?query=${value}&profile=${profileValue}&demo=${demo}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
+            const apiResponse = await httpPost(`/api/v1/agent/execute?query=${value}&profile=${profileValue}&demo=${demo}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
             if (apiResponse.data !== null || apiResponse.Data !== null) {
                 setData(apiResponse);
                 let currentime = new Date();

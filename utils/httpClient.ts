@@ -20,7 +20,7 @@ export const httpGet = async (url: string, params?: Record<string, any>): Promis
     let message;
 
     try {
-        res = await client.get(url, { params });
+        res = await client.get(client.defaults.baseURL+url, { params });
         data = res.data.data;
         isSuccessful = true;
         message = res.data.message;
@@ -48,7 +48,7 @@ export const httpPost = async (
     let message;
 
     try {
-        res = await client.post(url, body, { params });
+        res = await client.post(client.defaults.baseURL+url, body, { params });
         data = res.data.data;
         isSuccessful = true;
         message = res.data.message;
