@@ -239,9 +239,10 @@ const Input = () => {
                                             <BotIcon />
                                         </div>
                                         <div style={{ alignSelf: "center" }}>
-                                            {(((message.chartType === "pie" || message.chartType === "bar") && message.chartData !== null)
+                                            {(((message.chartType === "pie" || message.chartType === "bar") &&
+                                                (message.chartData !== null || message.chartData.length !== 0))
                                                 || ((message.chartType === "line" || message.chartType === "line chart")
-                                                    && message.chartData !== null)) &&
+                                                    && (message.chartData !== null || message.chartData.length !== 0))) &&
                                                 <div className={message.component ? styles.typing : styles.bot} style={{
                                                     marginBottom: "10px",
                                                     maxWidth: `${message?.chartType === "pie" ? "80%" : "max-content"}`,
