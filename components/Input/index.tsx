@@ -11,7 +11,7 @@ import { useRouter } from 'next/router';
 import RightArrow from "../../public/images/svgs/right-arrow.svg";
 import UserImage from "../../public/images/svgs/user.svg";
 import Mic from "../../public/images/svgs/microphone.svg";
-import MicOn from "../../public/images/svgs/micOn.svg";
+import Suggestion from "../../public/images/svgs/suggestion-arrow.svg";
 import BotIcon from "../../public/images/svgs/purple-icon.svg";
 import { URLS } from 'constants/appUrls';
 
@@ -284,7 +284,7 @@ const Input = () => {
                                         <div className={styles.suggestionsContainer}>
                                             {apiData.data?.suggestions.map((item) =>
                                                 <p className={styles.suggestion}
-                                                    onClick={(e) => handleSuggestion(e)} aria-hidden>{item}</p>)}
+                                                    onClick={(e) => handleSuggestion(e)} aria-hidden><div><Suggestion /></div>{item}</p>)}
                                         </div>
                                     }
                                     {message.input?.length > 0

@@ -138,7 +138,8 @@
 }
 
 .suggestion {
-    border: 1px solid #952E66;
+    border: 1px solid #D4D4D4;
+    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
     border-radius: 35px;
     padding: 10px 20px;
     font-size: 14px;
@@ -147,6 +148,9 @@
     color: #303437;
     background-color: white;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 
     &:hover {
         background-color: #6B254B;
