@@ -1,52 +1,3 @@
-.allLineGraphs {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-
-    .lineGraphContainer {
-        display: flex;
-        justify-content: space-between;
-        gap: 30px;
-
-        .heading {
-            font-size: 12px;
-            font-family: "Lato", sans-serif;
-            font-weight: 400;
-            font-style: normal;
-            color: rgba(122, 122, 122, 1)
-        }
-
-        .valueContainer {
-            display: flex;
-            gap: 4px;
-
-            .value {
-                color: rgba(71, 71, 71, 1);
-                font-size: 16px;
-                font-family: "Lato", sans-serif;
-                font-weight: 700;
-                font-style: normal;
-            }
-
-            .image {
-                vertical-align: middle;
-            }
-
-            .percentageIncrease {
-                font-size: 10px;
-                font-weight: 500;
-                color: rgba(22, 163, 74, 1);
-                font-family: "Inter", sans-serif;
-
-            }
-
-        }
-
-    }
-
-
-}
-
 .doughnutGraphContainer {
     display: flex;
     gap: 30px;
@@ -143,10 +94,8 @@
 
 .lineGraph {
     width: 270px;
-    padding: 0px 24px;
     margin: -16px 0px;
     height: 190px;
-    background: #FFF7FB;
 
     @media screen and (max-width:390px) {
         width: 260px;

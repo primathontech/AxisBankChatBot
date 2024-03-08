@@ -14,16 +14,16 @@ import Mic from "../../public/images/svgs/microphone.svg";
 import Suggestion from "../../public/images/svgs/suggestion-arrow.svg";
 import BotIcon from "../../public/images/svgs/purple-icon.svg";
 import { URLS } from 'constants/appUrls';
+import ReactPlayer from 'react-player';
 
 import styles from "./styles.module.scss";
-import ReactPlayer from 'react-player';
 
 const Input = () => {
     const router = useRouter();
     const profileValue = router.query.profile;
     const demo = router.query.demo;
     let time = new Date();
-    time = `${time.getHours()}:${time.getMinutes() < 9 ? `0${time.getMinutes()}` : time.getMinutes()}`;
+    time = `${time.getHours()}:${time.getMinutes() <= 9 ? `0${time.getMinutes()}` : time.getMinutes()}`;
 
     const [messages, setMessages] = useState([
         {
@@ -79,7 +79,7 @@ const Input = () => {
     const handleSendMessage = async () => {
         if (inputValue.trim() === '') return;
         let userTime = new Date();
-        userTime = `${userTime.getHours()}:${userTime.getMinutes() < 9 ? `0${userTime.getMinutes()}` : userTime.getMinutes()}`
+        userTime = `${userTime.getHours()}:${userTime.getMinutes() <= 9 ? `0${userTime.getMinutes()}` : userTime.getMinutes()}`
         setMessages((prevMessages) => {
             const newMessage = {
                 text: inputValue,
@@ -108,10 +108,10 @@ const Input = () => {
             if (apiResponse.data !== null || apiResponse.Data !== null) {
                 setData(apiResponse);
                 let currentime = new Date();
-                currentime = `${currentime.getHours()}:${currentime.getMinutes() < 9 ? `0${currentime.getMinutes()}` : currentime.getMinutes()}`
+                currentime = `${currentime.getHours()}:${currentime.getMinutes() <= 9 ? `0${currentime.getMinutes()}` : currentime.getMinutes()}`
                 setMessages((prevMessages) => {
                     const botResponse = {
-                        text: apiResponse.data.response,
+                        text: apiResponse.data?.response,
                         sender: 'bot',
                         chartType: apiResponse.data.chart?.chartType,
                         chartData: apiResponse.data.chart?.chartData,
@@ -141,7 +141,7 @@ const Input = () => {
         let value = event.target.textContent;
         setSuggestionClick(true)
         let userTime = new Date();
-        userTime = `${userTime.getHours()}:${userTime.getMinutes() < 9 ? `0${userTime.getMinutes()}` : userTime.getMinutes()}`
+        userTime = `${userTime.getHours()}:${userTime.getMinutes() <= 9 ? `0${userTime.getMinutes()}` : userTime.getMinutes()}`
         setMessages((prevMessages) => {
             const newMessage = {
                 text: decodeURIComponent(value),
@@ -169,10 +169,10 @@ const Input = () => {
             if (apiResponse.data !== null || apiResponse.Data !== null) {
                 setData(apiResponse);
                 let currentime = new Date();
-                currentime = `${currentime.getHours()}:${currentime.getMinutes() < 9 ? `0${currentime.getMinutes()}` : currentime.getMinutes()}`
+                currentime = `${currentime.getHours()}:${currentime.getMinutes() <= 9 ? `0${currentime.getMinutes()}` : currentime.getMinutes()}`
                 setMessages((prevMessages) => {
                     const botResponse = {
-                        text: apiResponse.data.response,
+                        text: apiResponse.data?.response,
                         sender: 'bot',
                         chartType: apiResponse.data.chart?.chartType,
                         chartData: apiResponse.data.chart?.chartData,
@@ -243,17 +243,18 @@ const Input = () => {
                                                 (message.chartData !== null || message.chartData.length !== 0))
                                                 || ((message.chartType === "line" || message.chartType === "line chart")
                                                     && (message.chartData !== null || message.chartData.length !== 0))) &&
-                                                <div className={message.component ? styles.typing : styles.bot} style={{
-                                                    marginBottom: "5px",
-                                                    maxWidth: `${message?.chartType === "pie" ? "80%" : "max-content"}`,
-                                                    backgroundColor: `${message?.chartType === "pie" ? "" : "#FFF7FB"}`,
-                                                    paddingBottom: `${message?.chartType === "pie" ? "16px" : "26px"}`
-                                                }}>
-                                                    <GraphCom type={message?.chartType === "pie" ? "pie" : message?.chartType === "bar" ? "bar" : "line"}
-                                                        data={message?.chartData}
-                                                        dataType={message?.dataType}
-                                                        title={message?.title} />
-                                                </div>}
+                                                <>
+                                                    <div className={message.component ? styles.typing : styles.bot} style={{
+                                                        marginBottom: "5px",
+                                                        maxWidth: `${message?.chartType === "pie" ? "80%" : "max-content"}`,
+                                                        backgroundColor: `${message?.chartType === "pie" ? "" : "#FFF7FB"}`,
+                                                        paddingBottom: `${message?.chartType === "pie" ? "16px" : "26px"}`
+                                                    }}>
+                                                        <GraphCom type={message?.chartType === "pie" ? "pie" : message?.chartType === "bar" ? "bar" : "line"}
+                                                            data={message?.chartData}
+                                                            dataType={message?.dataType}
+                                                            title={message?.title} />
+                                                    </div></>}
                                             <div className={message.component ? styles.typing : styles.bot}>
                                                 {message.component ? message.component : <>
                                                     <Typing wrapper="span" speed={20} onFinishedTyping={() => {

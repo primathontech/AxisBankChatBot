@@ -3,9 +3,6 @@ import React from 'react'
 
 import Graph, { GraphType } from '@components/Graph'
 import { createGraphValues } from '@utils/chartJsCommonFunctions';
-// import RightArrow from "../../public/images/svgs/right-up-arrow.svg";
-// import DownArrow from "../../public/images/svgs/down-arrow.svg";
-// import InfoIcon from "../../public/images/svgs/info.svg";
 import { convertToIndianNumberFormat } from '@utils/convertToIndianNumber';
 import styles from "./styles.module.scss";
 
@@ -20,20 +17,12 @@ const GraphCom = (props: DataType) => {
     const { type, data, title, dataType } = props;
     const ColorPalette = ["#97144D", "#BD6474", "#FF9595", "#CA5E8D", "#CA925E", "#DD5E5E", "#581633", "#DD0060", "#C1582B", "#7A371A"];
     let delayed: boolean;
-    // const [buttonClick, setButtonClick] = useState(false)
-    // const ScholarshipAmountWiseGraphValues = createGraphValues(GraphType.Line, {
-    //     data: [482, 765, 134, 589, 257, 701, 318, 923],
-    //     labels: ["abc", "efg", "rgtn", "brje", "db", "dvs", "bfjl", "abc"],
-    //     borderColor: "#a23",
-    //     pointStyle: false,
-    //     borderWidth: 1,
-    //     cubicInterpolationMode: 'monotone',
-    // });
     let dougnut;
     let lineChart;
     let barChart;
     let dataoOfDougnut;
     let dataofLineChart;
+
     if (type === "pie") {
         const { length } = data;
         dataoOfDougnut = data?.map((item: any) => item.count);
@@ -89,16 +78,14 @@ const GraphCom = (props: DataType) => {
         });
     }
     else if (type === "bar") {
-        const { length } = data;
         const dataOfBar = data?.map((item: any) => item.count);
         const labels = data?.map((item: any) => item.label);
-        const colors = ColorPalette.slice(0, length)
+        const colors = data?.map(() => "#FFDADA")
 
         barChart = createGraphValues(GraphType.Bar, {
             data: dataOfBar,
             labels,
             backgroundColor: colors,
-            // barThickness:20,
         });
     }
 
@@ -154,79 +141,3 @@ const GraphCom = (props: DataType) => {
 }
 
 export default GraphCom;
-
-/* {type === "line" && <button type='button' className={styles.button} onClick={() => 
-            setButtonClick(!buttonClick)}>
-                <span>
-                    View current capital Status
-                </span>
-                <DownArrow />
-            </button>}
-
-            {
-                buttonClick && type === "line" && <div className={styles.allLineGraphs}>
-                    <div className={styles.lineGraphContainer}>
-                        <div>
-                            <p className={styles.heading}>Mutual Fund</p>
-                            <div className={styles.valueContainer}>
-                                <span className={styles.value}>12,00,000</span>
-                                <span>
-                                    <span className={styles.image}>
-                                        <RightArrow />
-                                    </span>
-                                    <span className={styles.percentageIncrease}>3.4%</span>
-                                </span>
-                            </div>
-                        </div>
-                        <div style={{ width: "65px" }}>
-                            <Graph
-                                graphData={ScholarshipAmountWiseGraphValues.graphData}
-                                graphType={ScholarshipAmountWiseGraphValues.type}
-                                graphOptions={ScholarshipAmountWiseGraphValues.options}
-                            />
-                        </div>
-                    </div>
-                    <div className={styles.lineGraphContainer}>
-                        <div>
-                            <p className={styles.heading}>Stocks</p>
-                            <div className={styles.valueContainer}>
-                                <span className={styles.value}>5,00,000</span>
-                                <span>
-                                    <span className={styles.image}>
-                                        <RightArrow />
-                                    </span>
-                                    <span className={styles.percentageIncrease}>5.4%</span>
-                                </span>
-                            </div>
-                        </div>
-                        <div style={{ width: "65px" }}>
-                            <Graph
-                                graphData={ScholarshipAmountWiseGraphValues.graphData}
-                                graphType={ScholarshipAmountWiseGraphValues.type}
-                                graphOptions={ScholarshipAmountWiseGraphValues.options}
-                            />
-                        </div>
-                    </div>
-                    <div className={styles.lineGraphContainer}>
-                        <div>
-                            <p className={styles.heading}>Fixed Income</p>
-                            <div className={styles.valueContainer}>
-                                <span className={styles.value}>12,00,000</span>
-                                <span>
-                                    <span className={styles.image}>
-                                        <RightArrow />
-                                    </span>
-                                    <span className={styles.percentageIncrease}>1.1%</span>
-                                </span>
-                            </div>
-                        </div>
-                        <div style={{ width: "65px" }}>
-                            <Graph
-                                graphData={ScholarshipAmountWiseGraphValues.graphData}
-                                graphType={ScholarshipAmountWiseGraphValues.type}
-                                graphOptions={ScholarshipAmountWiseGraphValues.options}
-                            />
-                        </div>
-                    </div>
-                </div>
-            } */
