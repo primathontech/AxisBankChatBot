@@ -10,7 +10,7 @@
 
         .imageContainer {
             display: flex;
-            column-gap: 83px;
+            column-gap: 70px;
             row-gap: 16px;
             justify-content: space-between;
             align-items: center;
@@ -87,7 +87,7 @@
                 line-height: 18px;
             }
 
-            .stockDetailsValue{
+            .stockDetailsValue {
                 font-family: "DM Sans";
                 font-weight: 500;
                 font-size: 12px;
@@ -95,4 +95,43 @@
             }
         }
     }
+
+    .lineGraph {
+        background-color: #FFF7FB;
+        border-top: 1px solid #E0C2CF;
+        padding: 12px;
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+
+        @media screen and (max-width:390px) {
+            width: 260px;
+            height: 190px;
+        }
+
+        @media screen and (max-width:340px) {
+            height: 100px;
+            width: 198px;
+        }
+
+        @media screen and (min-width:500px) {
+            height: 200px;
+            width: 350px;
+        }
+    }
+}
+
+.description {
+    color: rgba(48, 52, 55, 1);
+    border: 1px solid rgba(212, 212, 212, 1);
+    padding: 16px;
+    border-radius: 2px;
+    overflow-wrap: anywhere;
+    font-family: "Lato", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    line-height: 22px;
+    letter-spacing: 0.5px;
+    background-color: white;
+    border-radius: 0px 12px 12px;
+    margin-top: 3px;
 }

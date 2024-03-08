@@ -8,20 +8,22 @@ import GraphCom from '@components/GraphCom';
 import { httpPost } from '@utils/httpClient';
 import { TypeAnimation } from 'react-type-animation';
 import { useRouter } from 'next/router';
+import { URLS } from 'constants/appUrls';
+import ReactPlayer from 'react-player';
+import AboutCompany from '@components/AboutCompany';
+import TopChemicalCompanies from '@components/TopChemicalCompanies';
 import RightArrow from "../../public/images/svgs/right-arrow.svg";
 import UserImage from "../../public/images/svgs/user.svg";
 import Mic from "../../public/images/svgs/microphone.svg";
 import Suggestion from "../../public/images/svgs/suggestion-arrow.svg";
 import BotIcon from "../../public/images/svgs/purple-icon.svg";
-import { URLS } from 'constants/appUrls';
-import ReactPlayer from 'react-player';
 
 import styles from "./styles.module.scss";
 
 const Input = () => {
     const router = useRouter();
     const profileValue = router.query.profile;
-    const demo = router.query.demo;
+    const { demo } = router.query;
     let time = new Date();
     time = `${time.getHours()}:${time.getMinutes() <= 9 ? `0${time.getMinutes()}` : time.getMinutes()}`;
 
@@ -36,6 +38,8 @@ const Input = () => {
             graph: false,
             input: "",
             time,
+            companyInfo: null,
+            companies: null,
         }]);
     const [inputValue, setInputValue] = useState('');
     const [isListening, setIsListening] = useState(false);
@@ -104,7 +108,7 @@ const Input = () => {
         const value = inputValue.includes(" ") ? encodeURIComponent(inputValue) : inputValue;
         try {
             const apiResponse = await
-                httpPost(`${URLS.API_URL}/execute?query=${value}&profile=${profileValue ? profileValue : "1"}&demo=${demo ? demo : "1"}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
+                httpPost(`${URLS.API_URL}/execute?query=${value}&profile=${profileValue || "1"}&demo=${demo || "1"}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
             if (apiResponse.data !== null || apiResponse.Data !== null) {
                 setData(apiResponse);
                 let currentime = new Date();
@@ -119,6 +123,8 @@ const Input = () => {
                         title: apiResponse.data.chart?.title,
                         input: apiResponse.data.inputs,
                         time: currentime,
+                        companyInfo: apiResponse.data.companyInfo,
+                        companies: apiResponse.data.companies,
                     };
                     return [...prevMessages.slice(0, -1), botResponse];
                 });
@@ -165,7 +171,7 @@ const Input = () => {
         value = value.includes(" ") ? encodeURIComponent(value) : value;
         try {
             const apiResponse = await
-                httpPost(`${URLS.API_URL}/execute?query=${value}&profile=${profileValue ? profileValue : "1"}&demo=${demo ? demo : "1"}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
+                httpPost(`${URLS.API_URL}/execute?query=${value}&profile=${profileValue || "1"}&demo=${demo || "1"}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
             if (apiResponse.data !== null || apiResponse.Data !== null) {
                 setData(apiResponse);
                 let currentime = new Date();
@@ -180,6 +186,8 @@ const Input = () => {
                         title: apiResponse.data.chart?.title,
                         input: apiResponse.data.inputs,
                         time: currentime,
+                        companyInfo: apiResponse.data.companyInfo,
+                        companies: apiResponse.data.companies,
                     };
                     return [...prevMessages.slice(0, -1), botResponse];
                 });
@@ -242,19 +250,20 @@ const Input = () => {
                                             {(((message.chartType === "pie" || message.chartType === "bar") &&
                                                 (message.chartData !== null || message.chartData.length !== 0))
                                                 || ((message.chartType === "line" || message.chartType === "line chart")
-                                                    && (message.chartData !== null || message.chartData.length !== 0))) &&
-                                                <>
-                                                    <div className={message.component ? styles.typing : styles.bot} style={{
+                                                    && (message.chartData !== null
+                                                        || message.chartData.length !== 0))) &&
+                                                        <div className={message.component
+                                                    ? styles.typing : styles.bot} style={{
                                                         marginBottom: "5px",
                                                         maxWidth: `${message?.chartType === "pie" ? "80%" : "max-content"}`,
                                                         backgroundColor: `${message?.chartType === "pie" ? "" : "#FFF7FB"}`,
                                                         paddingBottom: `${message?.chartType === "pie" ? "16px" : "26px"}`
                                                     }}>
-                                                        <GraphCom type={message?.chartType === "pie" ? "pie" : message?.chartType === "bar" ? "bar" : "line"}
-                                                            data={message?.chartData}
-                                                            dataType={message?.dataType}
-                                                            title={message?.title} />
-                                                    </div></>}
+                                                            <GraphCom type={message?.chartType === "pie" ? "pie" : message?.chartType === "bar" ? "bar" : "line"}
+                                                                data={message?.chartData}
+                                                                dataType={message?.dataType}
+                                                                title={message?.title} />
+                                                        </div>}
                                             <div className={message.component ? styles.typing : styles.bot}>
                                                 {message.component ? message.component : <>
                                                     <Typing wrapper="span" speed={20} onFinishedTyping={() => {
@@ -269,30 +278,32 @@ const Input = () => {
                                                                     graph: true, // or any other value you want to set
                                                                 };
                                                             }
-
                                                             return updatedMessages;
                                                         });
-
 
                                                     }}>
                                                         {message.text}
                                                     </Typing>
+                                                    {(message.companies !== null || message.companies?.length > 0)
+                                                        && <TopChemicalCompanies data={message?.companies} />}
                                                 </>}
                                             </div>
                                         </div>
                                     </div>
+                                    {message?.companyInfo !== null && <AboutCompany data={message?.companyInfo} />}
                                     {apiData.data?.suggestions?.length > 0 && (message.input?.length === 0 || (typeof message.input === "string"))
                                         && graphCom && (index === messages.length - 1) &&
                                         <div className={styles.suggestionsContainer}>
-                                            {apiData.data?.suggestions.map((item) =>
+                                            {apiData.data?.suggestions.map((item: any) =>
                                                 <p className={styles.suggestion}
-                                                    onClick={(e) => handleSuggestion(e)} aria-hidden><div><Suggestion /></div>{item}</p>)}
+                                                    onClick={(e) => handleSuggestion(e)}
+                                                    aria-hidden><div><Suggestion /></div>{item}</p>)}
                                         </div>
                                     }
                                     {message.input?.length > 0
                                         && graphCom && (index === messages.length - 1) && (typeof message.input !== "string") &&
                                         <div className={cx(styles.suggestionsContainer)}>
-                                            {message.input?.map((item) =>
+                                            {message.input?.map((item: any) =>
                                                 <p className={cx(styles.suggestion)}
                                                     onClick={(e) => handleSuggestion(e)} aria-hidden>{item}</p>)}
                                         </div>
@@ -338,7 +349,7 @@ const Input = () => {
                                 ref={inputRef}
                             />}
                             {!isListening && <div><Mic width={24} height={24} style={{ cursor: "pointer", paddingTop: "2px" }} onClick={toggleSpeechRecognition} /></div>}
-                            {isListening && <div style={{ borderRadius: "50%", position: "absolute", right: "32px" }} onClick={toggleSpeechRecognition}>
+                            {isListening && <div style={{ borderRadius: "50%", position: "absolute", right: "32px" }} onClick={toggleSpeechRecognition} aria-hidden>
                                 <ReactPlayer
                                     url='videos/mic.mp4'
                                     width="45px"
