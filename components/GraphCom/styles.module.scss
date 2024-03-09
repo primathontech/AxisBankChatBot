@@ -3,11 +3,6 @@
     gap: 30px;
     justify-content: space-between;
     margin-top: 12px;
-    flex-direction: column-reverse;
-
-    @media screen and (min-width:500px) {
-        flex-direction: row;
-    }
 
     .heading {
         color: rgba(75, 85, 99, 1);
@@ -120,13 +115,13 @@
 }
 
 .graphCon {
-    height: 100px;
-    width: 100px;
+    height: 110px;
+    width: 110px;
     align-self: center;
 
-    @media screen and (min-width:350px) {
+    @media screen and (min-width:380px) {
         height: 150px;
-        width: 156px;
+        width: 150px;
     }
 
     @media screen and (min-width:500px) {
