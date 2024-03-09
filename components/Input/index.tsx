@@ -266,7 +266,7 @@ const Input = () => {
                                                         dataType={message?.dataType}
                                                         title={message?.title} />
                                                 </div>}
-                                            {message?.companyInfo === null && <div className={message.component ? styles.typing : styles.bot}>
+                                            <div className={message.component ? styles.typing : styles.bot}>
                                                 {message.component ? message.component : <>
                                                     <Typing wrapper="span" speed={20} onFinishedTyping={() => {
                                                         setgraphCom(true); setMessages((prevMessages) => {
@@ -289,11 +289,11 @@ const Input = () => {
                                                     {(message.companies !== null || message.companies?.length > 0) && message.graph
                                                         && <TopChemicalCompanies data={message?.companies} />}
                                                 </>}
-                                            </div>}
+                                            </div>
                                         </div>
                                         {message?.companyInfo !== null && <AboutCompany data={message?.companyInfo} />}
                                     </div>
-                                    
+
                                     {apiData.data?.suggestions?.length > 0 && (message.input?.length === 0 || (typeof message.input === "string"))
                                         && graphCom && (index === messages.length - 1) &&
                                         <div className={styles.suggestionsContainer}>
