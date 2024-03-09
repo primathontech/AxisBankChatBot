@@ -109,7 +109,7 @@ const Input = () => {
         try {
             const apiResponse = await
                 httpPost(`${URLS.API_URL}/execute?query=${value}&profile=${profileValue || "1"}&demo=${demo || "1"}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
-                console.log(apiResponse)
+            console.log(apiResponse)
             if (apiResponse.data !== null || apiResponse.data !== undefined) {
                 setData(apiResponse);
                 let currentime = new Date();
@@ -142,7 +142,8 @@ const Input = () => {
     };
 
     const handleSuggestion = async (event) => {
-        if (suggestionClick) {null
+        if (suggestionClick) {
+            null
             return
         }
         let value = event.target.textContent;
@@ -253,19 +254,19 @@ const Input = () => {
                                                 || ((message.chartType === "line" || message.chartType === "line chart")
                                                     && (message.chartData !== null
                                                         || message.chartData.length !== 0))) &&
-                                                        <div className={message.component
+                                                <div className={message.component
                                                     ? styles.typing : styles.bot} style={{
                                                         marginBottom: "5px",
                                                         maxWidth: `${message?.chartType === "pie" ? "100%" : "max-content"}`,
                                                         backgroundColor: `${message?.chartType === "pie" ? "" : "#FFF7FB"}`,
                                                         paddingBottom: `${message?.chartType === "pie" ? "16px" : "26px"}`
                                                     }}>
-                                                            <GraphCom type={message?.chartType === "pie" ? "pie" : message?.chartType === "bar" ? "bar" : "line"}
-                                                                data={message?.chartData}
-                                                                dataType={message?.dataType}
-                                                                title={message?.title} />
-                                                        </div>}
-                                            <div className={message.component ? styles.typing : styles.bot}>
+                                                    <GraphCom type={message?.chartType === "pie" ? "pie" : message?.chartType === "bar" ? "bar" : "line"}
+                                                        data={message?.chartData}
+                                                        dataType={message?.dataType}
+                                                        title={message?.title} />
+                                                </div>}
+                                            {message?.companyInfo === null && <div className={message.component ? styles.typing : styles.bot}>
                                                 {message.component ? message.component : <>
                                                     <Typing wrapper="span" speed={20} onFinishedTyping={() => {
                                                         setgraphCom(true); setMessages((prevMessages) => {
@@ -285,13 +286,14 @@ const Input = () => {
                                                     }}>
                                                         {message.text}
                                                     </Typing>
-                                                    {(message.companies !== null || message.companies?.length > 0)
+                                                    {(message.companies !== null || message.companies?.length > 0) && message.graph
                                                         && <TopChemicalCompanies data={message?.companies} />}
                                                 </>}
-                                            </div>
+                                            </div>}
                                         </div>
+                                        {message?.companyInfo !== null && <AboutCompany data={message?.companyInfo} />}
                                     </div>
-                                    {message?.companyInfo !== null && <AboutCompany data={message?.companyInfo} />}
+                                    
                                     {apiData.data?.suggestions?.length > 0 && (message.input?.length === 0 || (typeof message.input === "string"))
                                         && graphCom && (index === messages.length - 1) &&
                                         <div className={styles.suggestionsContainer}>
@@ -315,7 +317,7 @@ const Input = () => {
                 </div>
             </div>
             <div className={styles.inputContainer}>
-                {error && <p className={styles.error}>{errorMessage|| "Try Again!!! "}
+                {error && <p className={styles.error}>{errorMessage || "Try Again!!! "}
                     <span onClick={() => window.location.reload()} style={{ cursor: "pointer" }} aria-hidden>↺</span></p>}
                 {!error &&
                     <>
