@@ -21,7 +21,7 @@ const TopChemicalCompanies = (props: TopComapnies) => {
                                 <Image src={item?.logo} alt="" width={32} height={16} style={{ marginTop: "4px" }} />
                                 <p className={styles.heading}>{item?.name}</p>
                             </div>
-                            <p className={styles.headingValue}>{item.currentValue}</p>
+                            <p className={styles.headingValue}>₹ {item.currentValue}</p>
                         </div>
                         <div className={styles.textContainer}>
                             <div style={{ display: "flex", alignContent: "center", gap: "4px" }}>
