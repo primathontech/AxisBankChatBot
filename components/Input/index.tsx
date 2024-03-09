@@ -109,7 +109,8 @@ const Input = () => {
         try {
             const apiResponse = await
                 httpPost(`${URLS.API_URL}/execute?query=${value}&profile=${profileValue || "1"}&demo=${demo || "1"}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
-            if (apiResponse.data !== null || apiResponse.Data !== null) {
+                console.log(apiResponse)
+            if (apiResponse.data !== null || apiResponse.data !== undefined) {
                 setData(apiResponse);
                 let currentime = new Date();
                 currentime = `${currentime.getHours()}:${currentime.getMinutes() <= 9 ? `0${currentime.getMinutes()}` : currentime.getMinutes()}`
@@ -117,19 +118,19 @@ const Input = () => {
                     const botResponse = {
                         text: apiResponse.data?.response,
                         sender: 'bot',
-                        chartType: apiResponse.data.chart?.chartType,
-                        chartData: apiResponse.data.chart?.chartData,
-                        dataType: apiResponse.data.chart?.dataType,
-                        title: apiResponse.data.chart?.title,
-                        input: apiResponse.data.inputs,
+                        chartType: apiResponse.data?.chart?.chartType,
+                        chartData: apiResponse.data?.chart?.chartData,
+                        dataType: apiResponse.data?.chart?.dataType,
+                        title: apiResponse.data?.chart?.title,
+                        input: apiResponse.data?.inputs,
                         time: currentime,
-                        companyInfo: apiResponse.data.companyInfo,
-                        companies: apiResponse.data.companies,
+                        companyInfo: apiResponse.data?.companyInfo,
+                        companies: apiResponse.data?.companies,
                     };
                     return [...prevMessages.slice(0, -1), botResponse];
                 });
             }
-            if (apiResponse.data === null || apiResponse.Data === null) {
+            if (apiResponse.data === null || apiResponse.data === undefined) {
                 setErrorMessage(apiResponse.message || apiResponse.Message);
                 setError(true)
             }
@@ -141,7 +142,7 @@ const Input = () => {
     };
 
     const handleSuggestion = async (event) => {
-        if (suggestionClick) {
+        if (suggestionClick) {null
             return
         }
         let value = event.target.textContent;
@@ -180,14 +181,14 @@ const Input = () => {
                     const botResponse = {
                         text: apiResponse.data?.response,
                         sender: 'bot',
-                        chartType: apiResponse.data.chart?.chartType,
-                        chartData: apiResponse.data.chart?.chartData,
-                        dataType: apiResponse.data.chart?.dataType,
-                        title: apiResponse.data.chart?.title,
-                        input: apiResponse.data.inputs,
+                        chartType: apiResponse.data?.chart?.chartType,
+                        chartData: apiResponse.data?.chart?.chartData,
+                        dataType: apiResponse.data?.chart?.dataType,
+                        title: apiResponse.data?.chart?.title,
+                        input: apiResponse.data?.inputs,
                         time: currentime,
-                        companyInfo: apiResponse.data.companyInfo,
-                        companies: apiResponse.data.companies,
+                        companyInfo: apiResponse.data?.companyInfo,
+                        companies: apiResponse.data?.companies,
                     };
                     return [...prevMessages.slice(0, -1), botResponse];
                 });
@@ -314,7 +315,7 @@ const Input = () => {
                 </div>
             </div>
             <div className={styles.inputContainer}>
-                {error && <p className={styles.error}>{errorMessage}
+                {error && <p className={styles.error}>{errorMessage|| "Try Again!!! "}
                     <span onClick={() => window.location.reload()} style={{ cursor: "pointer" }} aria-hidden>↺</span></p>}
                 {!error &&
                     <>
