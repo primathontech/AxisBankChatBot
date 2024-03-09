@@ -80,9 +80,9 @@ const AboutCompany = (props: AboutComapnyProps) => {
                         </div>
                     </div>}
                 </div>
-                {data?.stockValue && <hr style={{ borderTop: "1px solid #EEEFF1" }} />}
+                {data?.value && <hr style={{ borderTop: "1px solid #EEEFF1" }} />}
                 <div className={styles.downContainer}>
-                    {data?.stockValue && <div className={styles.stockValueContainer}>
+                    {data?.value && <div className={styles.stockValueContainer}>
                         <span className={styles.stockValue}>₹ {data?.value}</span>
                         <span className={styles.returns} style={{ color: data?.returnValue > 0 ? "#16A34A" : "#FF0000" }}>
                             {data?.returnValue > 0 ?
@@ -92,9 +92,9 @@ const AboutCompany = (props: AboutComapnyProps) => {
                         </span>
                     </div>}
                     <div className={styles.stockDetails}>
-                        {data?.peratio && <div>
+                        {data?.peRatio && <div>
                             <p className={styles.stockDetailsHeading}>PE Ratio</p>
-                            <p className={styles.stockDetailsValue}>₹ {parseInt(data?.peratio, 10).toLocaleString("en-IN")}</p>
+                            <p className={styles.stockDetailsValue}>₹ {parseInt(data?.peRatio, 10).toLocaleString("en-IN")}</p>
                         </div>}
                         {data?.marketCap && <div>
                             <p className={styles.stockDetailsHeading}>Market Cap</p>

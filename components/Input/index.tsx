@@ -266,6 +266,7 @@ const Input = () => {
                                                         dataType={message?.dataType}
                                                         title={message?.title} />
                                                 </div>}
+                                            {message?.companyInfo !== null && <AboutCompany data={message?.companyInfo} />}
                                             <div className={message.component ? styles.typing : styles.bot}>
                                                 {message.component ? message.component : <>
                                                     <Typing wrapper="span" speed={20} onFinishedTyping={() => {
@@ -291,7 +292,7 @@ const Input = () => {
                                                 </>}
                                             </div>
                                         </div>
-                                        {message?.companyInfo !== null && <AboutCompany data={message?.companyInfo} />}
+
                                     </div>
 
                                     {apiData.data?.suggestions?.length > 0 && (message.input?.length === 0 || (typeof message.input === "string"))
