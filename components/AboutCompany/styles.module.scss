@@ -10,7 +10,7 @@
 
         .imageContainer {
             display: flex;
-            column-gap: 70px;
+            column-gap: 10px;
             row-gap: 16px;
             justify-content: space-between;
             align-items: center;
@@ -103,9 +103,15 @@
         border-bottom-left-radius: 12px;
         border-bottom-right-radius: 12px;
 
+        @media screen and (max-width:320px) {
+            width: 240px;
+            height: 130px;
+        }
+
         @media screen and (max-width:390px) {
-            width: 260px;
-            height: 190px;
+            padding: 12px 12px 12px 40px;
+            width: 280px;
+            height: 130px;
         }
 
         @media screen and (max-width:340px) {
