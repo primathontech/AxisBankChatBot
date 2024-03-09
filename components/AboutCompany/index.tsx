@@ -2,7 +2,6 @@
 import Image from 'next/image'
 import React from 'react'
 import Typing from "react-typing-animation";
-import blueStar from "@public/images/pngs/blueStar.png";
 import LargeScale from "@public/images/svgs/large-scale.svg"
 import Risk from "@public/images/svgs/risk.svg"
 import UpArrow from "@public/images/svgs/right-up-arrow.svg"
@@ -66,7 +65,7 @@ const AboutCompany = (props: AboutComapnyProps) => {
             {data?.imageURL && <div className={styles.container} >
                 <div className={styles.uppercontainer}>
                     {data?.imageURL && <div className={styles.imageContainer}>
-                        <Image src={blueStar} alt='' width={124} height={25} />
+                        <Image src={data?.imageURL} alt='' width={124} height={25} />
                         <p className={styles.stockType}>{data?.action}</p>
                     </div>}
                     {data?.tags && <div className={styles.riskContainer}>
