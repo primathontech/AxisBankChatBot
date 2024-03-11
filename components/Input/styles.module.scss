@@ -7,7 +7,7 @@
     bottom: 0;
     width: 100%;
     background-color: white;
-   
+
 
     .inputMicContainer {
         border: 1.5px solid rgba(151, 156, 158, 1);
@@ -52,9 +52,8 @@
 }
 
 .timeUser {
-    margin-right: 24px;
-    text-align: right;
-    margin-top: 12px
+    margin-left: 0px;
+    margin-top: 12px;
 }
 
 .user {
@@ -66,13 +65,18 @@
     margin-left: auto;
     margin-right: 8px;
     margin-bottom: 24px;
-    max-width: 60%;
-    width: max-content;
-    overflow-wrap: break-word;
     font-family: "Lato", sans-serif;
     font-weight: 400;
     border-radius: 8px 8px 0px 8px;
     color: white
+}
+
+.userDetail {
+    max-width: 60%;
+    width: max-content;
+    overflow-wrap: break-word;
+    display: flex;
+    flex-direction: column;
 }
 
 .bot {
@@ -183,9 +187,9 @@
     margin-left: 64px;
     margin-right: 24px;
     margin-bottom: 12px;
-    margin-top:-4px
+    margin-top: -4px
 }
 
-.micOn{
+.micOn {
     height: 52px;
 }

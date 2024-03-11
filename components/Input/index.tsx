@@ -239,13 +239,15 @@ const Input = () => {
                     {messages.map((message: any, index: any) => (
                         <div key={index}>
                             {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How may I help you?" && <>
-                                <p className={styles.timeUser}>{message.sender === "user" && message.time}</p>
                                 <div style={{ display: "flex", flexDirection: "row-reverse", marginRight: '24px' }}>
                                     {message.sender === "user" && <div className={message.component ? styles.displayNone : styles.userIcon}>
                                         <UserImage width={32} height={32} />
                                     </div>}
-                                    <div className={message.sender === "user" && message.text ? styles.user : styles.displayNone}>
-                                        {message.text}
+                                    <div className={styles.userDetail}>
+                                        <p className={styles.timeUser}>{message.sender === "user" && message.time}</p>
+                                        <div className={message.sender === "user" && message.text ? styles.user : styles.displayNone}>
+                                            {message.text}
+                                        </div>
                                     </div>
                                 </div>
                             </>}
@@ -370,7 +372,7 @@ const Input = () => {
                                     placeholder={isListening ? "Speak Now" : "How may I help you?"}
                                     value={inputValue}
                                     onChange={handleInputChange}
-                                    className={isListening ? cx(styles.input,styles.micOn) : styles.input}
+                                    className={isListening ? cx(styles.input, styles.micOn) : styles.input}
                                     onKeyPress={handleKeyPress}
                                     ref={inputRef}
                                 />}
