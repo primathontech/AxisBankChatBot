@@ -267,7 +267,7 @@ const Input = () => {
                                                 <div className={message.component
                                                     ? styles.typing : styles.bot} style={{
                                                         marginBottom: "5px",
-                                                        maxWidth: `${message?.chartType === "pie" ? "100%" : "max-content"}`,
+                                                        maxWidth: `${message?.chartType === "pie" ? "max-content" : "max-content"}`,
                                                         backgroundColor: `${message?.chartType === "pie" ? "" : "#FFF7FB"}`,
                                                         paddingBottom: `${message?.chartType === "pie" ? "16px" : "26px"}`
                                                     }}>
