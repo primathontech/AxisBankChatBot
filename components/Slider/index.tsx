@@ -21,7 +21,7 @@ const Slider = (props: SiderProps) => {
             <div className={styles.headingWrapper}>
                 <p className={styles.heading}>Select {type.charAt(0).toUpperCase() + type.slice(1)}</p>
                 {type === "amount" && <p className={styles.value}>₹ {value.toLocaleString("en-IN")}</p>}
-                {type === "time" && <p className={styles.value}>{value} years</p>}
+                {(type === "time" || type === "age") && <p className={styles.value}>{value} years</p>}
             </div>
             <div className={styles.sliderContainer}>
                 <input type="range" max={max} min={min} value={value} step={type === "amount" ? 500 : 1}

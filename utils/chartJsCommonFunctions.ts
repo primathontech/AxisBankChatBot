@@ -24,6 +24,14 @@ export const createGraphValues = (
     // Styling for doughnut chart
     if (graphType === GraphType.Doughnut) {
         options.responsive = true;
+        options = {
+            ...options,
+            plugins: {
+                tooltip: {
+                    boxPadding: 8,
+                }
+            }
+        }
     }
 
     // Styling for line Chart
@@ -36,6 +44,11 @@ export const createGraphValues = (
                 },
                 y: {
                     display: false,
+                }
+            },
+            plugins: {
+                tooltip: {
+                    boxPadding: 8,
                 }
             }
         }
@@ -79,6 +92,11 @@ export const createGraphValues = (
                         }
                     },
                 },
+            },
+            plugins: {
+                tooltip: {
+                    boxPadding: 8,
+                }
             }
         }
     }
@@ -121,6 +139,11 @@ export const createGraphValues = (
                         }
                     },
                 },
+            },
+            plugins: {
+                tooltip: {
+                    boxPadding: 8,
+                }
             }
         }
     }

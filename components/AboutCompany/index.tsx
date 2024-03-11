@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 // @ts-nocheck
 import Image from 'next/image'
 import React from 'react'
@@ -66,7 +67,11 @@ const AboutCompany = (props: AboutComapnyProps) => {
                 <div className={styles.uppercontainer}>
                     {data?.imageURL && <div className={styles.imageContainer}>
                         <Image src={data?.imageURL} alt='' width={124} height={25} />
-                        <p className={styles.stockType}>{data?.action}</p>
+                        <p className={styles.stockType} style={{
+                            backgroundColor:
+                                data?.action.toLowerCase() === "buy" ? "#93E792" :
+                                    data?.action.toLowerCase() === "sell" ? "#FFC0C0" : "#F1F1F1"
+                        }}>{data?.action.slice(0, 1) + data?.action.slice(1).toLowerCase()}</p>
                     </div>}
                     {data?.tags && <div className={styles.riskContainer}>
                         <div className={styles.risk}>
@@ -87,17 +92,17 @@ const AboutCompany = (props: AboutComapnyProps) => {
                             {data?.returnValue > 0 ?
                                 <UpArrow style={{ paddingTop: "3px" }} /> :
                                 <DownArrow style={{ paddingTop: "3px" }} />}
-                            &nbsp;{data?.returnValue} ({data?.returnPercentage})
+                            &nbsp;{data?.returnValue} ({data?.returnPercentage}%)
                         </span>
                     </div>}
                     <div className={styles.stockDetails}>
                         {data?.peRatio && <div>
                             <p className={styles.stockDetailsHeading}>PE Ratio</p>
-                            <p className={styles.stockDetailsValue}>₹ {parseInt(data?.peRatio, 10).toLocaleString("en-IN")}</p>
+                            <p className={styles.stockDetailsValue}>{(data?.peRatio)}</p>
                         </div>}
                         {data?.marketCap && <div>
                             <p className={styles.stockDetailsHeading}>Market Cap</p>
-                            <p className={styles.stockDetailsValue}>₹ {data?.marketCap.toLocaleString("en-IN")}</p>
+                            <p className={styles.stockDetailsValue}>₹ {data?.marketCap.toLocaleString("en-IN")} Cr</p>
                         </div>}
                         {data?.yearReturns && <div>
                             <p className={styles.stockDetailsHeading}>1 Y Returns</p>
