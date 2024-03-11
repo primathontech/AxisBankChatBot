@@ -18,18 +18,19 @@ const Slider = (props: SiderProps) => {
     };
 
     const handleClick = () => {
-        onClick("",value)
+        const val=type==="amount"?`${value}L`:`${value} years`
+        onClick("",val)
     }
 
     return (
         <div>
             <div className={styles.headingWrapper}>
                 <p className={styles.heading}>Select {type.charAt(0).toUpperCase() + type.slice(1)}</p>
-                {type === "amount" && <p className={styles.value}>₹ {value.toLocaleString("en-IN")}</p>}
+                {type === "amount" && <p className={styles.value}>₹ {value.toLocaleString("en-IN")}L</p>}
                 {type !== "amount" && <p className={styles.value}>{value} years</p>}
             </div>
             <div className={styles.sliderContainer}>
-                <input type="range" max={max} min={min} value={value} step={type === "amount" ? 1 : 1}
+                <input type="range" max={max} min={min} value={value} step={1}
                     onChange={(e) => changeValue(e.target.value)} className={styles.slider} />
                 <div className={styles.minMax}>
                     <p>Minimum</p>

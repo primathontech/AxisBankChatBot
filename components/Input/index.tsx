@@ -370,7 +370,7 @@ const Input = () => {
                                     placeholder={isListening ? "Speak Now" : "How may I help you?"}
                                     value={inputValue}
                                     onChange={handleInputChange}
-                                    className={styles.input}
+                                    className={isListening ? cx(styles.input,styles.micOn) : styles.input}
                                     onKeyPress={handleKeyPress}
                                     ref={inputRef}
                                 />}
@@ -378,8 +378,8 @@ const Input = () => {
                             {isListening && <div style={{ borderRadius: "50%", position: "absolute", right: "32px" }} onClick={toggleSpeechRecognition} aria-hidden>
                                 <ReactPlayer
                                     url='videos/mic.mp4'
-                                    width="45px"
-                                    height="45px"
+                                    width="40px"
+                                    height="40px"
                                     loop
                                     playing
                                     muted
