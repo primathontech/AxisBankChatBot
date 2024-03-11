@@ -352,19 +352,24 @@ const Input = () => {
                                     1000,
                                     "I want to make wealth",
                                     1000,
-                                    "Can I buy a Mercedes",
+                                    "Can I buy a Mercedes?",
                                     1000,
                                     "Should I save for emergency fund?",
                                     2000,
-                                    "I want to travel the world, how much would I need",
-                                    3000,
+                                    "I want to travel the world, how much would I need?",
+                                    2000,
                                     "I have my child’s post graduation in 5 years and he wants to study in US",
-                                    3000,
+                                    2000,
                                 ]}
                                 wrapper="span"
                                 speed={20}
                                 repeat={Infinity}
-                                style={{ color: "#757575", flex: "auto" }}
+                                style={{
+                                    color: "#757575", flex: "auto", fontSize: "14px",
+                                    color: '#72777A',
+                                    fontFamily: "Lato",
+                                    fontWeight: 400
+                                }}
                             />}
                             {!typingText &&
                                 <input
