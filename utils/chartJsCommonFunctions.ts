@@ -96,6 +96,7 @@ export const createGraphValues = (
             plugins: {
                 tooltip: {
                     boxPadding: 8,
+                    displayColors: false,
                 }
             }
         }
