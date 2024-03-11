@@ -19,6 +19,7 @@ import Suggestion from "../../public/images/svgs/suggestion-arrow.svg";
 import BotIcon from "../../public/images/svgs/purple-icon.svg";
 
 import styles from "./styles.module.scss";
+import Slider from '@components/Slider';
 
 const Input = () => {
     const router = useRouter();
@@ -109,7 +110,6 @@ const Input = () => {
         try {
             const apiResponse = await
                 httpPost(`${URLS.API_URL}/execute?query=${value}&profile=${profileValue || "1"}&demo=${demo || "1"}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
-            console.log(apiResponse)
             if (apiResponse.data !== null || apiResponse.data !== undefined) {
                 setData(apiResponse);
                 let currentime = new Date();
@@ -141,12 +141,19 @@ const Input = () => {
         }
     };
 
-    const handleSuggestion = async (event) => {
+    const handleSuggestion = async (event, valueOfSlider?: any) => {
         if (suggestionClick) {
             null
             return
         }
-        let value = event.target.textContent;
+        let value;
+        if (event?.target?.textContent === undefined || event === "") {
+            value = valueOfSlider;
+        }
+        else {
+            value = event?.target?.textContent;
+        }
+
         setSuggestionClick(true)
         let userTime = new Date();
         userTime = `${userTime.getHours()}:${userTime.getMinutes() <= 9 ? `0${userTime.getMinutes()}` : userTime.getMinutes()}`
@@ -170,7 +177,8 @@ const Input = () => {
         });
 
         setgraphCom(false);
-        value = value.includes(" ") ? encodeURIComponent(value) : value;
+        console.log(typeof value)
+        value = typeof value === "number" ? value : value?.includes(" ") ? encodeURIComponent(value) : value;
         try {
             const apiResponse = await
                 httpPost(`${URLS.API_URL}/execute?query=${value}&profile=${profileValue || "1"}&demo=${demo || "1"}${apiData.data ? `&request_id=${apiData.data.request_id}` : ""}`);
@@ -292,8 +300,21 @@ const Input = () => {
                                                 </>}
                                             </div>
                                         </div>
-
                                     </div>
+
+                                    {(apiData.data?.slider !== null && apiData.data?.slider !== undefined && apiData.data?.slider !== "null")
+                                        && (message.input?.length === 0 || (typeof message.input === "string"))
+                                        && graphCom && (index === messages.length - 1) &&
+                                        <div className={styles.sliderContainer}>
+                                            <Slider
+                                                current={apiData?.data?.slider?.current}
+                                                max={apiData?.data?.slider?.max}
+                                                min={apiData?.data?.slider?.min}
+                                                type={apiData?.data?.slider?.type}
+                                                onClick={handleSuggestion}
+                                            />
+                                        </div>
+                                    }
 
                                     {apiData.data?.suggestions?.length > 0 && (message.input?.length === 0 || (typeof message.input === "string"))
                                         && graphCom && (index === messages.length - 1) &&
@@ -343,15 +364,16 @@ const Input = () => {
                                 repeat={Infinity}
                                 style={{ color: "#757575", flex: "auto" }}
                             />}
-                            {!typingText && <input
-                                type="text"
-                                placeholder={isListening ? "Speak Now" : "How may I help you?"}
-                                value={inputValue}
-                                onChange={handleInputChange}
-                                className={styles.input}
-                                onKeyPress={handleKeyPress}
-                                ref={inputRef}
-                            />}
+                            {!typingText &&
+                                <input
+                                    type="text"
+                                    placeholder={isListening ? "Speak Now" : "How may I help you?"}
+                                    value={inputValue}
+                                    onChange={handleInputChange}
+                                    className={styles.input}
+                                    onKeyPress={handleKeyPress}
+                                    ref={inputRef}
+                                />}
                             {!isListening && <div><Mic width={24} height={24} style={{ cursor: "pointer", paddingTop: "2px" }} onClick={toggleSpeechRecognition} /></div>}
                             {isListening && <div style={{ borderRadius: "50%", position: "absolute", right: "32px" }} onClick={toggleSpeechRecognition} aria-hidden>
                                 <ReactPlayer

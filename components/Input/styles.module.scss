@@ -76,7 +76,6 @@
     color: rgba(48, 52, 55, 1);
     border: 1px solid rgba(212, 212, 212, 1);
     padding: 16px;
-    border-radius: 2px;
     overflow-wrap: anywhere;
     font-family: "Lato", sans-serif;
     font-weight: 400;
@@ -171,4 +170,14 @@
 .userIcon {
     margin-bottom: 20px;
     align-self: flex-end;
+}
+
+.sliderContainer {
+    border: 1px solid rgba(212, 212, 212, 1);
+    padding: 16px;
+    background-color: white;
+    border-radius: 0px 12px 12px;
+    margin-left: 64px;
+    margin-right: 24px;
+    margin-bottom: 12px;
 }
