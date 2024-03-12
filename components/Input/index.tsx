@@ -26,7 +26,14 @@ const Input = () => {
     const profileValue = router.query.profile;
     const { demo } = router.query;
     let time = new Date();
-    time = `${time.getHours()}:${time.getMinutes() <= 9 ? `0${time.getMinutes()}` : time.getMinutes()}`;
+    let hours = time.getHours();
+    let minutes = time.getMinutes();
+    let ampm = hours >= 12 ? 'PM' : 'AM';
+
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+
+    time = `${hours}:${minutes <= 9 ? `0${minutes}` : minutes} ${ampm}`;
 
     const [messages, setMessages] = useState([
         {
@@ -84,7 +91,14 @@ const Input = () => {
     const handleSendMessage = async () => {
         if (inputValue.trim() === '') return;
         let userTime = new Date();
-        userTime = `${userTime.getHours()}:${userTime.getMinutes() <= 9 ? `0${userTime.getMinutes()}` : userTime.getMinutes()}`
+        let hours = userTime.getHours();
+        let minutes = userTime.getMinutes();
+        let ampm = hours >= 12 ? 'PM' : 'AM';
+
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+
+        userTime = `${hours}:${minutes <= 9 ? `0${minutes}` : minutes} ${ampm}`;
         setMessages((prevMessages) => {
             const newMessage = {
                 text: inputValue,
@@ -113,7 +127,15 @@ const Input = () => {
             if (apiResponse.data !== null || apiResponse.data !== undefined) {
                 setData(apiResponse);
                 let currentime = new Date();
-                currentime = `${currentime.getHours()}:${currentime.getMinutes() <= 9 ? `0${currentime.getMinutes()}` : currentime.getMinutes()}`
+
+                let hours = currentime.getHours();
+                let minutes = currentime.getMinutes();
+                let ampm = hours >= 12 ? 'PM' : 'AM';
+
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+
+                currentime = `${hours}:${minutes <= 9 ? `0${minutes}` : minutes} ${ampm}`;
                 setMessages((prevMessages) => {
                     const botResponse = {
                         text: apiResponse.data?.response,
@@ -156,7 +178,14 @@ const Input = () => {
 
         setSuggestionClick(true)
         let userTime = new Date();
-        userTime = `${userTime.getHours()}:${userTime.getMinutes() <= 9 ? `0${userTime.getMinutes()}` : userTime.getMinutes()}`
+        let hours = userTime.getHours();
+        let minutes = userTime.getMinutes();
+        let ampm = hours >= 12 ? 'PM' : 'AM';
+
+        hours = hours % 12;
+        hours = hours ? hours : 12;
+
+        userTime = `${hours}:${minutes <= 9 ? `0${minutes}` : minutes} ${ampm}`;
         setMessages((prevMessages) => {
             const newMessage = {
                 text: decodeURIComponent(value),
@@ -184,7 +213,14 @@ const Input = () => {
             if (apiResponse.data !== null || apiResponse.Data !== null) {
                 setData(apiResponse);
                 let currentime = new Date();
-                currentime = `${currentime.getHours()}:${currentime.getMinutes() <= 9 ? `0${currentime.getMinutes()}` : currentime.getMinutes()}`
+                let hours = currentime.getHours();
+                let minutes = currentime.getMinutes();
+                let ampm = hours >= 12 ? 'PM' : 'AM';
+
+                hours = hours % 12;
+                hours = hours ? hours : 12;
+
+                currentime = `${hours}:${minutes <= 9 ? `0${minutes}` : minutes} ${ampm}`;
                 setMessages((prevMessages) => {
                     const botResponse = {
                         text: apiResponse.data?.response,
@@ -238,15 +274,13 @@ const Input = () => {
                     {messages.map((message: any, index: any) => (
                         <div key={index}>
                             {message.text !== "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How may I help you?" && <>
+                                <p className={styles.timeUser}>{message.sender === "user" && message.time}</p>
                                 <div style={{ display: "flex", flexDirection: "row-reverse", marginRight: '24px' }}>
                                     {message.sender === "user" && <div className={message.component ? styles.displayNone : styles.userIcon}>
                                         <UserImage width={32} height={32} />
                                     </div>}
-                                    <div className={styles.userDetail}>
-                                        <p className={styles.timeUser}>{message.sender === "user" && message.time}</p>
-                                        <div className={message.sender === "user" && message.text ? styles.user : styles.displayNone}>
-                                            {message.text}
-                                        </div>
+                                    <div className={message.sender === "user" && message.text ? styles.user : styles.displayNone}>
+                                        {message.text}
                                     </div>
                                 </div>
                             </>}

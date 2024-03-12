@@ -40,15 +40,43 @@ export const createGraphValues = (
             ...options,
             scales: {
                 x: {
-                    display: false,
+                    grid: {
+                        display: false,
+                    },
+                    ticks: {
+                        color: "rgba(175, 136, 154, 1)",
+                        font: {
+                            size: 8,
+                            family: "Inter",
+                        },
+                        autoSkip: true,
+                        maxTicksLimit: 5
+                    },
                 },
                 y: {
-                    display: false,
-                }
+                    beginAtZero: false,
+                    border: {
+                        display: false
+                    },
+                    grid: {
+                        color: "#DADADA",
+                    },
+                    ticks: {
+                        color: "rgba(175, 136, 154, 1)",
+                        callback(value: any) {
+                            return convertToIndianNumberFormatAbs(value);
+                        },
+                        font: {
+                            size: 8,
+                            family: "Inter",
+                        }
+                    },
+                },
             },
             plugins: {
                 tooltip: {
                     boxPadding: 8,
+                    displayColors: false,
                 }
             }
         }

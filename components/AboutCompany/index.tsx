@@ -10,6 +10,7 @@ import DownArrow from "@public/images/svgs/right-down-arrow.svg"
 import { createGraphValues } from '@utils/chartJsCommonFunctions';
 import Graph, { GraphType } from '@components/Graph';
 
+import { convertDate } from '@utils/convertDate';
 import styles from "./styles.module.scss";
 
 type AboutComapnyProps = {
@@ -18,30 +19,48 @@ type AboutComapnyProps = {
 
 const AboutCompany = (props: AboutComapnyProps) => {
     const { data } = props;
-
-    let delayed: boolean;
-    const dataofLineChart = data?.growthData?.map((item) => item.value)
-    const labels = data?.growthData?.map((item) => item.label)
-    const lineChart = createGraphValues(GraphType.LineGrid, {
+    const totalDuration = 1500;
+    const delayBetweenPoints = totalDuration / data?.growthData?.length;
+    const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
+    const animation = {
+        x: {
+            type: 'number',
+            easing: 'linear',
+            duration: delayBetweenPoints,
+            from: NaN,
+            delay(ctx) {
+                if (ctx.type !== 'data' || ctx.xStarted) {
+                    return 0;
+                }
+                ctx.xStarted = true;
+                return ctx.index * delayBetweenPoints;
+            }
+        },
+        y: {
+            type: 'number',
+            easing: 'linear',
+            duration: delayBetweenPoints,
+            from: previousY,
+            delay(ctx) {
+                if (ctx.type !== 'data' || ctx.yStarted) {
+                    return 0;
+                }
+                ctx.yStarted = true;
+                return ctx.index * delayBetweenPoints;
+            }
+        }
+    }
+    const dataofLineChart = data?.growthData?.map((item) => item.count)
+    const labels = data?.growthData?.map((item) => convertDate(item.label))
+    const lineChart = createGraphValues(GraphType.Line, {
         data: dataofLineChart,
         labels,
         borderColor: "#97144D",
         borderWidth: 2,
-        cubicInterpolationMode: 'monotone',
         fill: true,
         pointBackgroundColor: "#97144D",
-        animation: {
-            onComplete: () => {
-                delayed = true;
-            },
-            delay: (context: any) => {
-                let delay = 0;
-                if (context.type === "data" && context.mode === "default" && !delayed) {
-                    delay = context.dataIndex * 300 + context.datasetIndex * 100;
-                }
-                return delay;
-            },
-        },
+        pointRadius: 0,
+        animation,
         backgroundColor: (context: any) => {
             const bgColor = ['rgba(244,211,231)',
                 'rgba(247,225,239)',
