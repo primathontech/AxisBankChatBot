@@ -33,8 +33,8 @@ const Slider = (props: SiderProps) => {
                 <input type="range" max={max} min={min} value={value} step={1}
                     onChange={(e) => changeValue(e.target.value)} className={styles.slider} />
                 <div className={styles.minMax}>
-                    <p>Minimum</p>
-                    <p>Maximum</p>
+                    <p>{type !== "amount"?`${min} years`:`₹ ${min}L`}</p>
+                    <p>{type !== "amount"?`${max} years`:`₹ ${max}L`}</p>
                 </div>
             </div>
             <button type='button' className={styles.button} onClick={handleClick}>Submit</button>

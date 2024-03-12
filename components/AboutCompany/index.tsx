@@ -69,8 +69,14 @@ const AboutCompany = (props: AboutComapnyProps) => {
                         <Image src={data?.imageURL} alt='' width={124} height={25} />
                         <p className={styles.stockType} style={{
                             backgroundColor:
-                                data?.action.toLowerCase() === "buy" ? "#93E792" :
-                                    data?.action.toLowerCase() === "sell" ? "#FFC0C0" : "#F1F1F1"
+                                data?.action.toLowerCase() === "buy" ? "#F5FFF5" :
+                                    data?.action.toLowerCase() === "sell" ? "#FFF7F7" : "#FDFDFD",
+                            color:
+                                data?.action.toLowerCase() === "buy" ? "#45A244" :
+                                    data?.action.toLowerCase() === "sell" ? "#EA8686" : "#838181",
+                            border:
+                                data?.action.toLowerCase() === "buy" ? "0.3px solid #45A244" :
+                                    data?.action.toLowerCase() === "sell" ? "0.3px solid #FFC0C0" : "0.3px solid #F1F1F1"
                         }}>{data?.action.slice(0, 1) + data?.action.slice(1).toLowerCase()}</p>
                     </div>}
                     {data?.tags && <div className={styles.riskContainer}>
@@ -92,7 +98,7 @@ const AboutCompany = (props: AboutComapnyProps) => {
                             {data?.returnValue > 0 ?
                                 <UpArrow style={{ paddingTop: "3px" }} /> :
                                 <DownArrow style={{ paddingTop: "3px" }} />}
-                            &nbsp;{data?.returnValue} ({data?.returnPercentage}%)
+                            &nbsp;{data?.returnValue} ({data?.returnPercentage} %)
                         </span>
                     </div>}
                     <div className={styles.stockDetails}>

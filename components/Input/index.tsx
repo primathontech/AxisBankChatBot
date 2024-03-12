@@ -177,7 +177,6 @@ const Input = () => {
         });
 
         setgraphCom(false);
-        console.log(typeof value)
         value = typeof value === "number" ? value : value?.includes(" ") ? encodeURIComponent(value) : value;
         try {
             const apiResponse = await
@@ -277,7 +276,7 @@ const Input = () => {
                                                         title={message?.title} />
                                                 </div>}
                                             {message?.companyInfo !== null && <AboutCompany data={message?.companyInfo} />}
-                                            <div className={message.component ? styles.typing : styles.bot}>
+                                            <div className={message.component ? styles.typing : message?.companyInfo !== null ? styles.displayNone : styles.bot}>
                                                 {message.component ? message.component : <>
                                                     <Typing wrapper="span" speed={20} onFinishedTyping={() => {
                                                         setgraphCom(true); setMessages((prevMessages) => {
@@ -321,7 +320,7 @@ const Input = () => {
                                     {apiData.data?.suggestions?.length > 0 && (message.input?.length === 0 || (typeof message.input === "string"))
                                         && graphCom && (index === messages.length - 1) &&
                                         <div className={styles.suggestionsContainer}>
-                                            {apiData.data?.suggestions.map((item: any) =>
+                                            {apiData.data?.suggestions?.map((item: any) =>
                                                 <p className={styles.suggestion}
                                                     onClick={(e) => handleSuggestion(e)}
                                                     aria-hidden><div><Suggestion /></div>{item}</p>)}
