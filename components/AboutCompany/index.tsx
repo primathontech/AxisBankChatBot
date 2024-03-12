@@ -102,7 +102,7 @@ const AboutCompany = (props: AboutComapnyProps) => {
                         </div>}
                         {data?.marketCap && <div>
                             <p className={styles.stockDetailsHeading}>Market Cap</p>
-                            <p className={styles.stockDetailsValue}>₹ {data?.marketCap.toLocaleString("en-IN")} Cr</p>
+                            <p className={styles.stockDetailsValue}>₹ {data?.marketCap.toLocaleString("en-IN")}</p>
                         </div>}
                         {data?.yearReturns && <div>
                             <p className={styles.stockDetailsHeading}>1 Y Returns</p>
@@ -111,7 +111,7 @@ const AboutCompany = (props: AboutComapnyProps) => {
                                 <span style={{ width: "14px", height: "14px", paddingTop: "2px" }}>
                                     {data?.yearReturns > 0 ? <UpArrow /> : <DownArrow />}
                                 </span>
-                                {data?.yearReturns}%
+                                {data?.yearReturns} %
                             </p>
                         </div>}
                     </div>
