@@ -39,15 +39,15 @@ const Slider = (props: SiderProps) => {
         <div>
             <div className={styles.headingWrapper}>
                 <p className={styles.heading}>Select {type.charAt(0).toUpperCase() + type.slice(1)}</p>
-                {type === "amount" && <p className={styles.value}>₹ {value.toLocaleString("en-IN")}L</p>}
+                {type === "amount" && <p className={styles.value}>₹ {value.toLocaleString("en-IN")} Lakhs</p>}
                 {type !== "amount" && <p className={styles.value}>{value} years</p>}
             </div>
             <div className={styles.sliderContainer}>
                 <input type="range" max={max} min={0} value={value} step={1}
                     onChange={changeValue} className={styles.slider} />
                 <div className={styles.minMax}>
-                    <p>{type !== "amount" ? `${min} years` : `₹ ${min}L`}</p>
-                    <p>{type !== "amount" ? `${max} years` : `₹ ${max}L`}</p>
+                    <p>{type !== "amount" ? `${min} years` : `₹ ${min} Lakhs`}</p>
+                    <p>{type !== "amount" ? `${max} years` : `₹ ${max} Lakhs`}</p>
                 </div>
             </div>
             <button type='button' className={styles.button} onClick={handleClick}>Submit</button>
