@@ -127,7 +127,6 @@ const Input = () => {
             if (apiResponse.data !== null || apiResponse.data !== undefined) {
                 setData(apiResponse);
                 let currentime = new Date();
-
                 let hours = currentime.getHours();
                 let minutes = currentime.getMinutes();
                 let ampm = hours >= 12 ? 'PM' : 'AM';
@@ -310,7 +309,7 @@ const Input = () => {
                                                         title={message?.title} />
                                                 </div>}
                                             {message?.companyInfo !== null && <AboutCompany data={message?.companyInfo} />}
-                                            <div className={message.component ? styles.typing : message?.companyInfo !== null ? styles.displayNone : styles.bot}>
+                                            <div className={message.component ? styles.typing : (message?.companyInfo !== null && message?.companyInfo !== "null" )? styles.displayNone : styles.bot}>
                                                 {message.component ? message.component : <>
                                                     <Typing wrapper="span" speed={20} onFinishedTyping={() => {
                                                         setgraphCom(true); setMessages((prevMessages) => {
