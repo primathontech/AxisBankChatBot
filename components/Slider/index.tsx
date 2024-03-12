@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from "./styles.module.scss"
 
 type SiderProps = {
@@ -13,13 +13,26 @@ const Slider = (props: SiderProps) => {
     const { min, current, max, type, onClick } = props;
     const [value, setValue] = useState(current);
 
-    const changeValue = (newVal: any) => {
+    const changeValue = (e: any) => {
+        const newVal = e.target.value;
         setValue(newVal);
+        const progress = (newVal / e.target.max) * 100;
+
+        e.target.style.background = `linear-gradient(to right, #761E47 ${progress}%, #F0EDEF ${progress}%)`;
     };
 
+    useEffect(() => {
+        const sliderInput = document.querySelector(`.${styles.slider}`) as HTMLInputElement;
+        if (sliderInput) {
+            const progress = (value / max) * 100;
+            sliderInput.style.background = `linear-gradient(to right, #761E47 ${progress}%, #F0EDEF ${progress}%)`;
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
+
     const handleClick = () => {
-        const val=type==="amount"?`${value}L`:`${value} years`
-        onClick("",val)
+        const val = type === "amount" ? `${value}L` : `${value} years`
+        onClick("", val)
     }
 
     return (
@@ -30,11 +43,11 @@ const Slider = (props: SiderProps) => {
                 {type !== "amount" && <p className={styles.value}>{value} years</p>}
             </div>
             <div className={styles.sliderContainer}>
-                <input type="range" max={max} min={min} value={value} step={1}
-                    onChange={(e) => changeValue(e.target.value)} className={styles.slider} />
+                <input type="range" max={max} min={0} value={value} step={1}
+                    onChange={changeValue} className={styles.slider} />
                 <div className={styles.minMax}>
-                    <p>{type !== "amount"?`${min} years`:`₹ ${min}L`}</p>
-                    <p>{type !== "amount"?`${max} years`:`₹ ${max}L`}</p>
+                    <p>{type !== "amount" ? `${min} years` : `₹ ${min}L`}</p>
+                    <p>{type !== "amount" ? `${max} years` : `₹ ${max}L`}</p>
                 </div>
             </div>
             <button type='button' className={styles.button} onClick={handleClick}>Submit</button>
