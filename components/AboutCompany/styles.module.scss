@@ -1,5 +1,7 @@
+@use '@styles/theme'as *;
+
 .container {
-    border: 1px solid rgb(212, 212, 212);
+    border: 1px solid $light_gray;
     max-width: max-content;
     border-radius: 0px 12px 12px;
     margin-right: 24px;
@@ -18,7 +20,7 @@
             flex-wrap: wrap;
 
             .stockType {
-                color: #7C7C7C;
+                color: $gray;
                 border-radius: 25px;
                 padding: 6px 20px;
                 font-size: 14px;
@@ -33,7 +35,7 @@
             flex-wrap: wrap;
 
             .risk {
-                border: 0.5px solid #d2d2d2;
+                border: 0.5px solid $light_grey;
                 border-radius: 28px;
                 padding: 4px 13px 4px 14px;
                 display: flex;
@@ -44,7 +46,7 @@
                     font-family: "DM Sans";
                     font-weight: 500;
                     font-size: 10px;
-                    color: #303437
+                    color: $jet
                 }
             }
         }
@@ -81,7 +83,7 @@
             flex-wrap: wrap;
 
             .stockDetailsHeading {
-                color: #9e9e9e;
+                color: $spanish_grey;
                 font-family: "Inter";
                 font-weight: 500;
                 font-size: 12px;
@@ -98,8 +100,8 @@
     }
 
     .lineGraph {
-        background-color: #FFF7FB;
-        border-top: 1px solid #E0C2CF;
+        background-color: $snow;
+        border-top: 1px solid $thistle;
         padding: 12px;
         border-bottom-left-radius: 12px;
         border-bottom-right-radius: 12px;
@@ -128,8 +130,8 @@
 }
 
 .description {
-    color: rgba(48, 52, 55, 1);
-    border: 1px solid rgba(212, 212, 212, 1);
+    color: $jet;
+    border: 1px solid $light_gray;
     padding: 16px;
     margin-right: 24px;
     border-radius: 2px;
@@ -139,7 +141,7 @@
     font-style: normal;
     line-height: 22px;
     letter-spacing: 0.5px;
-    background-color: white;
+    background-color: $white;
     border-radius: 0px 12px 12px;
     margin-top: 5px;
     margin-bottom: 5px;

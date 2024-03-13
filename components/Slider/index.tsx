@@ -1,3 +1,4 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react'
 import styles from "./styles.module.scss"
 
@@ -27,11 +28,11 @@ const Slider = (props: SiderProps) => {
             const progress = (value / max) * 100;
             sliderInput.style.background = `linear-gradient(to right, #761E47 ${progress}%, #F0EDEF ${progress}%)`;
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     const handleClick = () => {
-        const val = type === "amount" ? `${value}L` : `${value} years`
+        const val = type === "amount" ? `${value} Lakhs` : `${value} years`
         onClick("", val)
     }
 
@@ -46,7 +47,7 @@ const Slider = (props: SiderProps) => {
                 <input type="range" max={max} min={0} value={value} step={1}
                     onChange={changeValue} className={styles.slider} />
                 <div className={styles.minMax}>
-                    <p>{type !== "amount" ? `${min} years` : `₹ ${min} Lakhs`}</p>
+                    <p>{type !== "amount" ? min === 1 ? `${min} year` : `${min} years` : `₹ ${min} Lakhs`}</p>
                     <p>{type !== "amount" ? `${max} years` : `₹ ${max} Lakhs`}</p>
                 </div>
             </div>

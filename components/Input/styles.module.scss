@@ -1,3 +1,5 @@
+@use '@styles/theme'as *;
+
 .inputContainer {
     display: flex;
     gap: 16px;
@@ -6,11 +8,11 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    background-color: white;
+    background-color: $white;
 
 
     .inputMicContainer {
-        border: 1.5px solid rgba(151, 156, 158, 1);
+        border: 1.5px solid $spanish_gray;
         border-radius: 35px;
         width: 100%;
         display: flex;
@@ -28,7 +30,7 @@
             border: none;
             width: 100%;
             font-size: 14px;
-            color: #72777A;
+            color: $sonic_silver;
             font-family: "Lato";
             font-weight: 400;
         }
@@ -45,7 +47,7 @@
     margin-left: 30px;
     margin-bottom: 10px;
     font-size: 10px;
-    color: #8A8A8A;
+    color: $philippine_gray;
     font-family: "Lato";
     font-weight: 400;
 }
@@ -57,9 +59,9 @@
 }
 
 .user {
-    background: rgb(149, 46, 102);
-    background: linear-gradient(90deg, rgba(149, 46, 102, 1) 0%, rgba(93, 33, 65, 1) 90%);
-    color: rgba(48, 52, 55, 1);
+    background: $amaranth_deep_purple;
+    background: linear-gradient(90deg, $amaranth_deep_purple 0%, $brown_chocolate 90%);
+    color: $jet;
     padding: 16px;
     border-radius: 2px;
     margin-left: auto;
@@ -69,7 +71,7 @@
     font-family: "Lato", sans-serif;
     font-weight: 400;
     border-radius: 8px 8px 0px 8px;
-    color: white
+    color: $white
 }
 
 .userDetail {
@@ -81,8 +83,8 @@
 }
 
 .bot {
-    color: rgba(48, 52, 55, 1);
-    border: 1px solid rgba(212, 212, 212, 1);
+    color: $jet;
+    border: 1px solid $light_gray;
     padding: 16px;
     overflow-wrap: anywhere;
     font-family: "Lato", sans-serif;
@@ -90,7 +92,7 @@
     font-style: normal;
     line-height: 22px;
     letter-spacing: 0.5px;
-    background-color: white;
+    background-color: $white;
     border-radius: 0px 12px 12px;
 }
 
@@ -109,7 +111,7 @@
     scrollbar-width: none;
     -ms-overflow-style: none;
     padding-bottom: 74px;
-    background-color: #f8f8f8;
+    background-color: $cultured;
     scroll-behavior: smooth;
 
     &::-webkit-scrollbar {
@@ -128,7 +130,6 @@
 }
 
 .typing {
-    // padding-left: 20px;
     align-self: center;
 }
 
@@ -147,28 +148,28 @@
 }
 
 .suggestion {
-    border: 1px solid #D4D4D4;
+    border: 1px solid $light_gray;
     box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.1);
     border-radius: 35px;
     padding: 10px 20px;
     font-size: 14px;
     font-weight: 400;
     font-family: "DM Sans";
-    color: #303437;
-    background-color: white;
+    color: $jet;
+    background-color: $white;
     cursor: pointer;
     display: flex;
     align-items: center;
     gap: 10px;
 
     &:hover {
-        background-color: #6B254B;
-        color: white
+        background-color: $old_mauve;
+        color: $white
     }
 }
 
 .error {
-    color: red;
+    color: $red;
     width: 100%;
     text-align: center;
     font-size: 18px;
@@ -181,9 +182,9 @@
 }
 
 .sliderContainer {
-    border: 1px solid rgba(212, 212, 212, 1);
+    border: 1px solid $light_gray;
     padding: 16px;
-    background-color: white;
+    background-color: $white;
     border-radius: 0px 12px 12px;
     margin-left: 64px;
     margin-right: 24px;

@@ -117,7 +117,7 @@ const AboutCompany = (props: AboutComapnyProps) => {
                             {data?.returnValue > 0 ?
                                 <UpArrow style={{ paddingTop: "3px" }} /> :
                                 <DownArrow style={{ paddingTop: "3px" }} />}
-                            &nbsp;{data?.returnValue} ({data?.returnPercentage} %)
+                            &nbsp;{data?.returnValue} ({data?.returnPercentage}%)
                         </span>
                     </div>}
                     <div className={styles.stockDetails}>
@@ -136,7 +136,7 @@ const AboutCompany = (props: AboutComapnyProps) => {
                                 <span style={{ width: "14px", height: "14px", paddingTop: "2px" }}>
                                     {data?.yearReturns > 0 ? <UpArrow /> : <DownArrow />}
                                 </span>
-                                {data?.yearReturns} %
+                                {data?.yearReturns}%
                             </p>
                         </div>}
                     </div>

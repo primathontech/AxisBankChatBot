@@ -1,10 +1,12 @@
+@use '@styles/theme'as *;
+
 .container {
     margin-right: -16px;
     margin-left: -16px;
     margin-top: 16px;
 
     .wrapper {
-        border-top: 1px solid #D2D5DA;
+        border-top: 1px solid $light_silver;
 
         .details {
             padding: 16px 16px;
@@ -27,14 +29,14 @@
                     font-family: "Lato";
                     font-weight: 500;
                     font-size: 15px;
-                    color: #303437
+                    color: $jet
                 }
 
                 .headingValue {
                     font-family: "Lato";
                     font-weight: 500;
                     font-size: 14px;
-                    color: #47494C;
+                    color: $outer_spaces;
                     align-self: flex-end;
                 }
             }
@@ -51,7 +53,7 @@
                     font-family: "Lato";
                     font-weight: 500;
                     font-size: 12px;
-                    color: "#9c9c9c"
+                    color: $spanish_grey;
                 }
 
                 .stock {
@@ -59,9 +61,9 @@
                     font-weight: 500;
                     font-size: 8px;
                     padding: 4px 8px;
-                    background-color: #FFEBF6;
+                    background-color: $snow;
                     margin-left: 8px;
-                    color: #97144D;
+                    color: $violet_red;
                     border-radius: 3px;
                 }
 

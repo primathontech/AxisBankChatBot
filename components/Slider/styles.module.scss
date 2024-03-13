@@ -1,10 +1,12 @@
+@use '@styles/theme'as *;
+
 .headingWrapper {
     padding-bottom: 13px;
-    border-bottom: 1px solid #EDEDED;
+    border-bottom: 1px solid $bright_gray;
     margin-bottom: 26px;
 
     .heading {
-        color: #979B9F;
+        color: $spanish_grey;
         font-family: "Lato";
         font-weight: 500;
         font-size: 12px;
@@ -22,7 +24,7 @@
 .minMax {
     display: flex;
     justify-content: space-between;
-    color: #959393;
+    color: $grey;
     font-family: "Lato";
     font-weight: 500;
     font-size: 9px;
@@ -35,13 +37,13 @@
 
 .slider {
     -webkit-appearance: none;
-    appearance: none; 
+    appearance: none;
     width: 100%;
     cursor: pointer;
     outline: none;
     border-radius: 15px;
     height: 6px;
-    background: #F0EDEF;
+    background: $bright_grey;
     margin-bottom: 9px;
 }
 
@@ -50,25 +52,25 @@
     appearance: none;
     width: 18px;
     height: 18px;
-    background: #CA89A5;
-    border: 5px solid #761E47;
+    background: $puce;
+    border: 5px solid $pansy_purple;
     border-radius: 100%;
 }
 
-.button{
+.button {
     margin: 16px 0px 0px;
     width: 100%;
-    border: 0.5px solid #771C47;
+    border: 0.5px solid $pansy_purple;
     border-radius: 32px;
-    color:#7C7C7C;
+    color: $gray;
     font-size: 14px;
     font-family: "Lato";
     font-weight: 500;
     line-height: 30px;
 
-    &:hover{
-        background-color: #771C47;
-        color: white;
+    &:hover {
+        background-color: $pansy_purple;
+        color: $white;
         cursor: pointer;
     }
 }
