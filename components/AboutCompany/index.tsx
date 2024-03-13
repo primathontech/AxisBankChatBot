@@ -114,7 +114,7 @@ const AboutCompany = (props: AboutComapnyProps) => {
                 {data?.value && <hr style={{ borderTop: `1px solid ${COLORS.BRIGHT_GREY}` }} />}
                 <div className={styles.downContainer}>
                     {data?.value && <div className={styles.stockValueContainer}>
-                        <span className={styles.stockValue}>₹ {data?.value}</span>
+                        <span className={styles.stockValue}>₹ {parseFloat(data?.value, 10).toLocaleString("en-IN")}</span>
                         <span className={styles.returns} style={{
                             color: data?.returnValue > 0 ?
                                 COLORS.GREEN : COLORS.RED
