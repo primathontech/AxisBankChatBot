@@ -11,6 +11,7 @@ import { createGraphValues } from '@utils/chartJsCommonFunctions';
 import Graph, { GraphType } from '@components/Graph';
 
 import { convertDate } from '@utils/convertDate';
+import { COLORS } from 'constants/appColors';
 import styles from "./styles.module.scss";
 
 type AboutComapnyProps = {
@@ -55,16 +56,16 @@ const AboutCompany = (props: AboutComapnyProps) => {
     const lineChart = createGraphValues(GraphType.Line, {
         data: dataofLineChart,
         labels,
-        borderColor: "#97144D",
+        borderColor: COLORS.PURPLE,
         borderWidth: 2,
         fill: true,
-        pointBackgroundColor: "#97144D",
+        pointBackgroundColor: COLORS.PURPLE,
         pointRadius: 0,
         animation,
         backgroundColor: (context: any) => {
-            const bgColor = ['rgba(244,211,231)',
-                'rgba(247,225,239)',
-                'rgba(251,240,247)',
+            const bgColor = [COLORS.CLASSIC_ROSE,
+            COLORS.PINK_LACE,
+            COLORS.LAVENDER_BLUSH,
             ];
             if (!context.chart.chartArea) {
                 return;
@@ -88,14 +89,15 @@ const AboutCompany = (props: AboutComapnyProps) => {
                         <Image src={data?.imageURL} alt='' width={124} height={25} />
                         <p className={styles.stockType} style={{
                             backgroundColor:
-                                data?.action.toLowerCase() === "buy" ? "#F5FFF5" :
-                                    data?.action.toLowerCase() === "sell" ? "#FFF7F7" : "#FDFDFD",
+                                data?.action.toLowerCase() === "buy" ? COLORS.MINT_CREAM :
+                                    data?.action.toLowerCase() === "sell" ? COLORS.SNOW : COLORS.LOTION,
                             color:
-                                data?.action.toLowerCase() === "buy" ? "#45A244" :
-                                    data?.action.toLowerCase() === "sell" ? "#EA8686" : "#838181",
+                                data?.action.toLowerCase() === "buy" ? COLORS.GREEN :
+                                    data?.action.toLowerCase() === "sell" ? COLORS.PINK : COLORS.GREY,
                             border:
-                                data?.action.toLowerCase() === "buy" ? "0.3px solid #45A244" :
-                                    data?.action.toLowerCase() === "sell" ? "0.3px solid #FFC0C0" : "0.3px solid #F1F1F1"
+                                data?.action.toLowerCase() === "buy" ? `0.3px solid ${COLORS.GREEN}` :
+                                    data?.action.toLowerCase() === "sell" ? `0.3px solid ${COLORS.LIGHT_PINK}`
+                                        : `0.3px solid ${COLORS.LIGHT_WHITE}`
                         }}>{data?.action.slice(0, 1) + data?.action.slice(1).toLowerCase()}</p>
                     </div>}
                     {data?.tags && <div className={styles.riskContainer}>
@@ -109,11 +111,14 @@ const AboutCompany = (props: AboutComapnyProps) => {
                         </div>
                     </div>}
                 </div>
-                {data?.value && <hr style={{ borderTop: "1px solid #EEEFF1" }} />}
+                {data?.value && <hr style={{ borderTop: `1px solid ${COLORS.BRIGHT_GREY}` }} />}
                 <div className={styles.downContainer}>
                     {data?.value && <div className={styles.stockValueContainer}>
                         <span className={styles.stockValue}>₹ {data?.value}</span>
-                        <span className={styles.returns} style={{ color: data?.returnValue > 0 ? "#16A34A" : "#FF0000" }}>
+                        <span className={styles.returns} style={{
+                            color: data?.returnValue > 0 ?
+                                COLORS.GREEN : COLORS.RED
+                        }}>
                             {data?.returnValue > 0 ?
                                 <UpArrow style={{ paddingTop: "3px" }} /> :
                                 <DownArrow style={{ paddingTop: "3px" }} />}
@@ -131,7 +136,7 @@ const AboutCompany = (props: AboutComapnyProps) => {
                         </div>}
                         {data?.yearReturns && <div>
                             <p className={styles.stockDetailsHeading}>1 Y Returns</p>
-                            <p style={{ color: data?.yearReturns > 0 ? "#16A34A" : "#FF0000", display: "flex" }}
+                            <p style={{ color: data?.yearReturns > 0 ? COLORS.GREEN : COLORS.RED, display: "flex" }}
                                 className={styles.stockDetailsValue}>
                                 <span style={{ width: "14px", height: "14px", paddingTop: "2px" }}>
                                     {data?.yearReturns > 0 ? <UpArrow /> : <DownArrow />}

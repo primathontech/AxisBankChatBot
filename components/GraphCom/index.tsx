@@ -4,6 +4,7 @@ import React from 'react'
 import Graph, { GraphType } from '@components/Graph'
 import { createGraphValues } from '@utils/chartJsCommonFunctions';
 import { convertToIndianNumberFormat } from '@utils/convertToIndianNumber';
+import { COLORS } from 'constants/appColors';
 import styles from "./styles.module.scss";
 
 type DataType = {
@@ -15,7 +16,17 @@ type DataType = {
 
 const GraphCom = (props: DataType) => {
     const { type, data, title, dataType } = props;
-    const ColorPalette = ["#97144D", "#BD6474", "#FF9595", "#CA5E8D", "#CA925E", "#DD5E5E", "#581633", "#DD0060", "#C1582B", "#7A371A"];
+    const ColorPalette = [COLORS.PURPLE,
+    COLORS.ROSE_GOLD,
+    COLORS.AMERICAN_PINK,
+    COLORS.CINAMON_SATIN,
+    COLORS.BROWN_YELLOW,
+    COLORS.INDIAN_RED,
+    COLORS.BROWN_CHOCOLATE,
+    COLORS.DARK_RED,
+    COLORS.RUDDY_BROWN,
+    COLORS.DARK_ORANGE];
+    
     let delayed: boolean;
     let dougnut;
     let lineChart;
@@ -41,11 +52,11 @@ const GraphCom = (props: DataType) => {
         lineChart = createGraphValues(GraphType.LineGrid, {
             data: dataofLineChart,
             labels,
-            borderColor: "#97144D",
+            borderColor: COLORS.PURPLE,
             borderWidth: 2,
             cubicInterpolationMode: 'monotone',
             fill: true,
-            pointBackgroundColor: "#97144D",
+            pointBackgroundColor: COLORS.PURPLE,
             animation: {
                 onComplete: () => {
                     delayed = true;
@@ -59,9 +70,9 @@ const GraphCom = (props: DataType) => {
                 },
             },
             backgroundColor: (context: any) => {
-                const bgColor = ['rgba(244,211,231)',
-                    'rgba(247,225,239)',
-                    'rgba(251,240,247)',
+                const bgColor = [COLORS.CLASSIC_ROSE,
+                COLORS.PINK_LACE,
+                COLORS.LAVENDER_BLUSH,
                 ];
                 if (!context.chart.chartArea) {
                     return;
@@ -80,7 +91,7 @@ const GraphCom = (props: DataType) => {
     else if (type === "bar") {
         const dataOfBar = data?.map((item: any) => item.count);
         const labels = data?.map((item: any) => item.label);
-        const colors = data?.map(() => "#FFDADA")
+        const colors = data?.map(() => COLORS.PALE_PINK)
 
         barChart = createGraphValues(GraphType.Bar, {
             data: dataOfBar,

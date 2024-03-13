@@ -1,5 +1,7 @@
+/* eslint-disable max-len */
 /* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react'
+import { COLORS } from 'constants/appColors';
 import styles from "./styles.module.scss"
 
 type SiderProps = {
@@ -19,14 +21,14 @@ const Slider = (props: SiderProps) => {
         setValue(newVal);
         const progress = (newVal / e.target.max) * 100;
 
-        e.target.style.background = `linear-gradient(to right, #761E47 ${progress}%, #F0EDEF ${progress}%)`;
+        e.target.style.background = `linear-gradient(to right, ${COLORS.LIGHT_PURPLE} ${progress}%, ${COLORS.BRIGHT_GRAY} ${progress}%)`;
     };
 
     useEffect(() => {
         const sliderInput = document.querySelector(`.${styles.slider}`) as HTMLInputElement;
         if (sliderInput) {
             const progress = (value / max) * 100;
-            sliderInput.style.background = `linear-gradient(to right, #761E47 ${progress}%, #F0EDEF ${progress}%)`;
+            sliderInput.style.background = `linear-gradient(to right, ${COLORS.LIGHT_PURPLE} ${progress}%, ${COLORS.BRIGHT_GRAY} ${progress}%)`;
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])

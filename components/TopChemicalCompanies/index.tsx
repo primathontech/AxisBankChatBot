@@ -2,6 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import UpArrow from "@public/images/svgs/right-up-arrow.svg";
 import DownArrow from "@public/images/svgs/right-down-arrow.svg";
+import { COLORS } from 'constants/appColors';
 import styles from "./styles.module.scss"
 
 type TopComapnies = {
@@ -30,7 +31,10 @@ const TopChemicalCompanies = (props: TopComapnies) => {
                                     <span className={styles.stock}>{item?.type}</span>
                                 </div>
                             </div>
-                            <p className={styles.stockOverallValue} style={{ color: item?.returnValue > 0 ? "#16A34A" : "#FF0000" }}>
+                            <p className={styles.stockOverallValue} style={{
+                                color: item?.returnValue > 0 ?
+                                    COLORS.GREEN : COLORS.RED
+                            }}>
                                 {item?.returnValue > 0 ? <UpArrow style={{ paddingTop: "3px" }} /> : <DownArrow style={{ paddingTop: "3px" }} />}&nbsp;
                                 {item?.returnValue} ({item?.returnPercentage}%)
                             </p>

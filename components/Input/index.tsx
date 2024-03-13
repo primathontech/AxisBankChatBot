@@ -17,9 +17,10 @@ import UserImage from "../../public/images/svgs/user.svg";
 import Mic from "../../public/images/svgs/microphone.svg";
 import Suggestion from "../../public/images/svgs/suggestion-arrow.svg";
 import BotIcon from "../../public/images/svgs/purple-icon.svg";
-
-import styles from "./styles.module.scss";
 import Slider from '@components/Slider';
+import { COLORS } from 'constants/appColors';
+import styles from "./styles.module.scss";
+
 
 const Input = () => {
     const router = useRouter();
@@ -300,7 +301,7 @@ const Input = () => {
                                                     ? styles.typing : styles.bot} style={{
                                                         marginBottom: "5px",
                                                         maxWidth: `${message?.chartType === "pie" ? "max-content" : "max-content"}`,
-                                                        backgroundColor: `${message?.chartType === "pie" ? "" : "#FFF7FB"}`,
+                                                        backgroundColor: `${message?.chartType === "pie" ? "" : COLORS.SNOW1}`,
                                                         paddingBottom: `${message?.chartType === "pie" ? "16px" : "26px"}`
                                                     }}>
                                                     <GraphCom type={message?.chartType === "pie" ? "pie" : message?.chartType === "bar" ? "bar" : "line"}
@@ -309,7 +310,7 @@ const Input = () => {
                                                         title={message?.title} />
                                                 </div>}
                                             {message?.companyInfo !== null && <AboutCompany data={message?.companyInfo} />}
-                                            <div className={message.component ? styles.typing : (message?.companyInfo !== null && message?.companyInfo !== "null" )? styles.displayNone : styles.bot}>
+                                            <div className={message.component ? styles.typing : (message?.companyInfo !== null && message?.companyInfo !== "null") ? styles.displayNone : styles.bot}>
                                                 {message.component ? message.component : <>
                                                     <Typing wrapper="span" speed={20} onFinishedTyping={() => {
                                                         setgraphCom(true); setMessages((prevMessages) => {
@@ -397,8 +398,8 @@ const Input = () => {
                                 speed={20}
                                 repeat={Infinity}
                                 style={{
-                                    color: "#757575", flex: "auto", fontSize: "14px",
-                                    color: '#72777A',
+                                    flex: "auto", fontSize: "14px",
+                                    color: COLORS.SONIC_SILVER,   
                                     fontFamily: "Lato",
                                     fontWeight: 400
                                 }}
