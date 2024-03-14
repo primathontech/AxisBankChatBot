@@ -46,6 +46,7 @@ const Input = () => {
             title: "",
             graph: false,
             input: "",
+            chart: "",
             time,
             companyInfo: null,
             companies: null,
@@ -148,6 +149,7 @@ const Input = () => {
                         time: currentime,
                         companyInfo: apiResponse.data?.companyInfo,
                         companies: apiResponse.data?.companies,
+                        chart: apiResponse.data?.chart
                     };
                     return [...prevMessages.slice(0, -1), botResponse];
                 });
@@ -233,6 +235,7 @@ const Input = () => {
                         time: currentime,
                         companyInfo: apiResponse.data?.companyInfo,
                         companies: apiResponse.data?.companies,
+                        chart: apiResponse.data?.chart
                     };
                     return [...prevMessages.slice(0, -1), botResponse];
                 });
@@ -296,7 +299,7 @@ const Input = () => {
                                                 (message.chartData !== null || message.chartData.length !== 0))
                                                 || ((message.chartType === "line" || message.chartType === "line chart")
                                                     && (message.chartData !== null
-                                                        || message.chartData.length !== 0))) &&
+                                                        || message.chartData.length !== 0))) && (message?.chart !== "null" || message?.chart !== null) &&
                                                 <div className={message.component
                                                     ? styles.typing : styles.bot} style={{
                                                         marginBottom: "5px",
@@ -399,7 +402,7 @@ const Input = () => {
                                 repeat={Infinity}
                                 style={{
                                     flex: "auto", fontSize: "14px",
-                                    color: COLORS.SONIC_SILVER,   
+                                    color: COLORS.SONIC_SILVER,
                                     fontFamily: "Lato",
                                     fontWeight: 400
                                 }}
