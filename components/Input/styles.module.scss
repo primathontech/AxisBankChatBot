@@ -196,3 +196,25 @@
     height: 52px;
     border-radius: 27%;
 }
+
+.container {
+    padding-top: 10px;
+    position: fixed;
+    bottom: 20px;
+    width: 100%;
+}
+
+.userContainer {
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: 24px;
+}
+
+.typeAnimation {
+    flex: auto;
+    font-size: 14px;
+    color: $sonic_silver;
+    font-family: "Lato";
+    font-weight: 400;
+}
+
