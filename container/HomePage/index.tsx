@@ -1,11 +1,13 @@
+import React from 'react'
 
 import Header from '@components/Header'
 import Input from '@components/Input'
-import React from 'react'
+
+import styles from "./styles.module.scss";
 
 const HomePage = () =>
 (
-    <div style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", height: "100vh", backgroundColor: "#f8f8f8" }}>
+    <div className={styles.container}>
         <Header />
         <Input />
     </div>

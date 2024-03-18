@@ -14,4 +14,5 @@ export const APPCONSTANTS = {
         2000,
     ],
     INITIAL_TEXT: "Hello, I’m AxisBot! 👋 I’m your personal AI assistant. How may I help you?",
+    HEADING: "Axis Securities",
 }

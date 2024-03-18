@@ -7,15 +7,13 @@ const ReactPlayer = dynamic(() => import('react-player'), {
     ssr: false,
 });
 const Typinganimation = () => (
-    <div>
-        <ReactPlayer
-            url='videos/video.mp4'
-            width="300px"
-            height="100px"
-            loop
-            playing
-            muted
-            playsinline />
-    </div>
+    <ReactPlayer
+        url='videos/video.mp4'
+        width="300px"
+        height="100px"
+        loop
+        playing
+        muted
+        playsinline />
 )
 export default Typinganimation

@@ -1,8 +1,10 @@
 import React from 'react';
 import Image from 'next/image';
+
 import UpArrow from "@public/images/svgs/right-up-arrow.svg";
 import DownArrow from "@public/images/svgs/right-down-arrow.svg";
 import { COLORS } from 'constants/appColors';
+
 import styles from "./styles.module.scss"
 
 type TopComapnies = {

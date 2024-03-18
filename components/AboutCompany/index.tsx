@@ -23,6 +23,7 @@ const AboutCompany = (props: AboutComapnyProps) => {
     const totalDuration = 1500;
     const delayBetweenPoints = totalDuration / data?.growthData?.length;
     const previousY = (ctx) => ctx.index === 0 ? ctx.chart.scales.y.getPixelForValue(100) : ctx.chart.getDatasetMeta(ctx.datasetIndex).data[ctx.index - 1].getProps(['y'], true).y;
+
     const animation = {
         x: {
             type: 'number',
@@ -51,8 +52,10 @@ const AboutCompany = (props: AboutComapnyProps) => {
             }
         }
     }
+
     const dataofLineChart = data?.growthData?.map((item) => item.count)
     const labels = data?.growthData?.map((item) => convertDate(item.label))
+    
     const lineChart = createGraphValues(GraphType.Line, {
         data: dataofLineChart,
         labels,
